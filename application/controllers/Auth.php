@@ -229,6 +229,8 @@ class Auth extends CI_Controller
 			$this->data['identity'] = [
 				'name' => 'identity',
 				'id' => 'identity',
+				'class' => 'form-control',
+				'placeholder' => 'Email'
 			];
 
 			if ($this->config->item('identity', 'ion_auth') != 'email')
@@ -242,7 +244,9 @@ class Auth extends CI_Controller
 
 			// set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			$this->load->view('template/header_auth');
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
+			$this->load->view('template/footer_auth');
 		}
 		else
 		{
