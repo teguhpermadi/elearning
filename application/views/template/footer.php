@@ -6,7 +6,7 @@
     </div>
   </footer>
 
-  </div>
+  <!-- </div> -->
 <!-- ./wrapper -->
 
 <!-- jQuery -->
