@@ -18,6 +18,22 @@
 				</p>
 			</a>
 		</li>
+		<li class="nav-item">
+			<a href="#" class="nav-link">
+				<i class="nav-icon fas fa-chalkboard-teacher"></i>
+				<p>
+					Profil User
+				</p>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a href="<?= base_url('auth/logout') ?>" class="nav-link">
+				<i class="nav-icon fas fa-sign-out-alt"></i>
+				<p>
+					Keluar
+				</p>
+			</a>
+		</li>
 		<li class="nav-header">Menu Guru</li>
 		<li class="nav-item">
 			<a href="#" class="nav-link">

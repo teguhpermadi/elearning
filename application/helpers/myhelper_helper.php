@@ -1,5 +1,16 @@
 <?php
 
+function check_login()
+{
+    // pengganti $this
+    $ci = &get_instance();
+
+    if (!$ci->ion_auth->logged_in())
+		{
+			redirect('auth/login');
+		}
+}
+
 function user_info()
 {
     // pengganti $this
