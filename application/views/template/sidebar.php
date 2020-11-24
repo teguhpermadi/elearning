@@ -143,7 +143,7 @@
       </div>
 
       <!-- Sidebar Menu -->
-      <?php $this->load->view('template/menu_siswa') ?>
+      <?php user_menu() ?>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
