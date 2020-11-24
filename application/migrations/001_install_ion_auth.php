@@ -42,8 +42,12 @@ class Migration_Install_ion_auth extends CI_Migration {
 				'description' => 'Administrator'
 			],
 			[
-				'name'        => 'members',
-				'description' => 'General User'
+				'name'        => 'guru',
+				'description' => 'Guru'
+			],
+			[
+				'name'        => 'siswa',
+				'description' => 'Siswa'
 			]
 		];
 		$this->db->insert_batch($this->tables['groups'], $data);
