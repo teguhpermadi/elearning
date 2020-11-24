@@ -1,0 +1,86 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Profil Sekolah</h1>
+          </div>
+          
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-primary">Nama Sekolah</h2>
+        </div>
+        <div class="card-body">
+        <img src="https://assets.justinmind.com/wp-content/uploads/2018/11/Lorem-Ipsum-alternatives.png" alt="..." class="img-thumbnail mb-3" style="height: 200px;">
+         <table class="table table-striped">
+             <tr>
+                 <td>Jalan</td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td>Kelurahan</td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td>Kecamatan</td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td>Kota</td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td>Provinsi</td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td>Kode Pos</td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td>Telp</td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td>Email</td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td>Website</td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td>NPSN</td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td></td>
+                 <td></td>
+             </tr>
+             <tr>
+                 <td></td>
+                 <td></td>
+             </tr>
+         </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+          <a href="#" class="btn btn-primary">Edit</a>
+        </div>
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
