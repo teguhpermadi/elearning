@@ -53,7 +53,27 @@ class Profil_sekolah extends CI_Controller
 			if (!$this->upload->do_upload('userfile')) {
 				// jika upload gagal
 				$error = array('error' => $this->upload->display_errors());
-				print_r($error);
+				// print_r($error);
+				$params = array(
+					'nama' => $this->input->post('nama'),
+					'jalan' => $this->input->post('jalan'),
+					'kelurahan' => $this->input->post('kelurahan'),
+					'kecamatan' => $this->input->post('kecamatan'),
+					'kota' => $this->input->post('kota'),
+					'provinsi' => $this->input->post('provinsi'),
+					'kodepos' => $this->input->post('kodepos'),
+					'telp' => $this->input->post('telp'),
+					'email' => $this->input->post('email'),
+					'website' => $this->input->post('website'),
+					'logo' => '',
+					'npsn' => $this->input->post('npsn'),
+				);
+
+				$profil_sekolah_id = $this->Profil_sekolah_model->add_profil_sekolah($params);
+				// flashdata
+				$this->session->set_flashdata('tambah', 'tambah');
+				$this->output->delete_cache('profil_sekolah/index');
+				redirect('profil_sekolah/index');
 			} else {
 				// jika upload sukses
 				$data = array('upload_data' => $this->upload->data());
@@ -116,7 +136,27 @@ class Profil_sekolah extends CI_Controller
 				if (!$this->upload->do_upload('userfile')) {
 					// jika upload gagal
 					$error = array('error' => $this->upload->display_errors());
-					print_r($error);
+					// print_r($error);
+					$params = array(
+						'nama' => $this->input->post('nama'),
+						'jalan' => $this->input->post('jalan'),
+						'kelurahan' => $this->input->post('kelurahan'),
+						'kecamatan' => $this->input->post('kecamatan'),
+						'kota' => $this->input->post('kota'),
+						'provinsi' => $this->input->post('provinsi'),
+						'kodepos' => $this->input->post('kodepos'),
+						'telp' => $this->input->post('telp'),
+						'email' => $this->input->post('email'),
+						'website' => $this->input->post('website'),
+						'logo' => 'logo.png',
+						'npsn' => $this->input->post('npsn'),
+					);
+
+					$this->Profil_sekolah_model->update_profil_sekolah($id, $params);
+					// flashdata
+					$this->session->set_flashdata('ubah', 'ubah');
+					$this->output->delete_cache('profil_sekolah/index');
+					redirect('profil_sekolah/index');
 				} else {
 					// jika upload sukses
 					$data = array('upload_data' => $this->upload->data());
