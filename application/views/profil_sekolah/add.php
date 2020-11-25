@@ -19,7 +19,7 @@
 			<div class="card-header">
 				<h3 class="card-title">Form Profil Sekolah</h3>
 			</div>
-			<?php echo form_open('profil_sekolah/add'); ?>
+			<?php echo form_open_multipart('profil_sekolah/add'); ?>
 			<div class="card-body">
 				<div class="row clearfix">
 					<div class="col-md-6">
@@ -84,10 +84,11 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="logo" class="control-label"><span class="text-danger">*</span>Logo</label>
+						<label for="logo" class="control-label">Logo</label>
 						<div class="form-group">
-							<input type="text" name="logo" value="<?php echo $this->input->post('logo'); ?>" class="form-control" id="logo" />
-							<span class="text-danger"><?php echo form_error('logo'); ?></span>
+							<input type="file" name="userfile" size="20" accept="image/x-png"/>
+							<br>
+							<span class="text-info">Hanya file <strong>PNG maksimal 1000kb</strong></span>
 						</div>
 					</div>
 					<div class="col-md-6">

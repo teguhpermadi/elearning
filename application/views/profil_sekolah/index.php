@@ -13,30 +13,30 @@
 
 	<section class="content">
 		<!-- jika belum ada profil sekolah tampilkan tombol tambah profil -->
-		<?php if(!$profil_sekolah){ ?>
-		<div class="alert alert-danger" role="alert">
-			Profil sekolah mu tidak lengkap. <a href="<?= base_url('profil_sekolah/add'); ?>" class="alert-link">Tambahkan</a> untuk melengkapi data profil sekolah mu.
-		</div>
+		<?php if (!$profil_sekolah) { ?>
+			<div class="alert alert-danger" role="alert">
+				Profil sekolah mu tidak lengkap. <a href="<?= base_url('profil_sekolah/add'); ?>" class="alert-link">Tambahkan</a> untuk melengkapi data profil sekolah mu.
+			</div>
 		<?php } ?>
 
 		<!-- jika ada data yang baru ditambahkan, tampilkan pesan ini -->
-		<?php if($this->session->flashdata('tambah')){ ?>
-		<div class="alert alert-warning alert-dismissible fade show" role="alert">
-			Profil sekolah berhasil <strong>ditambahkan.</strong>
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
+		<?php if ($this->session->flashdata('tambah')) { ?>
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				Profil sekolah berhasil <strong>ditambahkan.</strong>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
 		<?php } ?>
 
 		<!-- jika data profil sekolah baru saja di update, tampilkan pesan ini -->
-		<?php if($this->session->flashdata('ubah')){ ?>
-		<div class="alert alert-info alert-dismissible fade show" role="alert">
-			Profil sekolah berhasil <strong>diubah.</strong>
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
+		<?php if ($this->session->flashdata('ubah')) { ?>
+			<div class="alert alert-info alert-dismissible fade show" role="alert">
+				Profil sekolah berhasil <strong>diubah.</strong>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
 		<?php } ?>
 
 	</section>
@@ -89,7 +89,9 @@
 						</tr>
 						<tr>
 							<td>Logo</td>
-							<td><?= $p['logo'] ?></td>
+							<td>
+								<img src="<?= base_url('uploads/') . $p['logo'] ?>" class="img-thumbnail" style="height: 150px;">
+							</td>
 						</tr>
 						<tr>
 							<td>NPSN</td>

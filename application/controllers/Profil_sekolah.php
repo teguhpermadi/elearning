@@ -10,6 +10,8 @@ class Profil_sekolah extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Profil_sekolah_model');
+		$this->output->delete_cache('profil_sekolah/index');
+
 	}
 
 	/*
@@ -17,6 +19,7 @@ class Profil_sekolah extends CI_Controller
      */
 	function index()
 	{
+		$this->output->delete_cache('profil_sekolah/index');
 		$data['profil_sekolah'] = $this->Profil_sekolah_model->get_all_profil_sekolah();
 
 		$data['_view'] = 'profil_sekolah/index';
@@ -31,32 +34,51 @@ class Profil_sekolah extends CI_Controller
      */
 	function add()
 	{
+		$config['upload_path']          = './uploads/';
+		$config['allowed_types']        = 'png'; // izinkan hanya file png agar kualitasnya bagus
+		$config['overwrite']        	= TRUE; // hanya ada 1 file logo
+		$config['max_size']             = 1000; // batasi ukurannya
+		$config['file_name']             = 'logo'; // ubah namanya
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('npsn', 'Npsn', 'required');
-		$this->form_validation->set_rules('logo', 'Logo', 'required');
 
 		if ($this->form_validation->run()) {
-			$params = array(
-				'nama' => $this->input->post('nama'),
-				'jalan' => $this->input->post('jalan'),
-				'kelurahan' => $this->input->post('kelurahan'),
-				'kecamatan' => $this->input->post('kecamatan'),
-				'kota' => $this->input->post('kota'),
-				'provinsi' => $this->input->post('provinsi'),
-				'kodepos' => $this->input->post('kodepos'),
-				'telp' => $this->input->post('telp'),
-				'email' => $this->input->post('email'),
-				'website' => $this->input->post('website'),
-				'logo' => $this->input->post('logo'),
-				'npsn' => $this->input->post('npsn'),
-			);
+			if (!$this->upload->do_upload('userfile')) {
+				// jika upload gagal
+				$error = array('error' => $this->upload->display_errors());
+				print_r($error);
+			} else {
+				// jika upload sukses
+				$data = array('upload_data' => $this->upload->data());
+				$params = array(
+					'nama' => $this->input->post('nama'),
+					'jalan' => $this->input->post('jalan'),
+					'kelurahan' => $this->input->post('kelurahan'),
+					'kecamatan' => $this->input->post('kecamatan'),
+					'kota' => $this->input->post('kota'),
+					'provinsi' => $this->input->post('provinsi'),
+					'kodepos' => $this->input->post('kodepos'),
+					'telp' => $this->input->post('telp'),
+					'email' => $this->input->post('email'),
+					'website' => $this->input->post('website'),
+					'logo' => $data['upload_data']['file_name'],
+					'npsn' => $this->input->post('npsn'),
+				);
 
-			$profil_sekolah_id = $this->Profil_sekolah_model->add_profil_sekolah($params);
-			// flashdata
-			$this->session->set_flashdata('tambah', 'tambah');
-			redirect('profil_sekolah/index');
+
+				$profil_sekolah_id = $this->Profil_sekolah_model->add_profil_sekolah($params);
+				// flashdata
+				$this->session->set_flashdata('tambah', 'tambah');
+				$this->output->delete_cache('profil_sekolah/index');
+				redirect('profil_sekolah/index');
+			}
 		} else {
 			$data['_view'] = 'profil_sekolah/add';
 			$this->load->view('template/header');
@@ -71,6 +93,16 @@ class Profil_sekolah extends CI_Controller
      */
 	function edit($id)
 	{
+		$config['upload_path']          = './uploads/';
+		$config['allowed_types']        = 'png'; // izinkan hanya file png agar kualitasnya bagus
+		$config['overwrite']        	= TRUE; // hanya ada 1 file logo
+		$config['max_size']             = 1000; // batasi ukurannya
+		$config['file_name']             = 'logo'; // ubah namanya
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
 		// check if the profil_sekolah exists before trying to edit it
 		$data['profil_sekolah'] = $this->Profil_sekolah_model->get_profil_sekolah($id);
 
@@ -79,28 +111,36 @@ class Profil_sekolah extends CI_Controller
 
 			$this->form_validation->set_rules('nama', 'Nama', 'required');
 			$this->form_validation->set_rules('npsn', 'Npsn', 'required');
-			$this->form_validation->set_rules('logo', 'Logo', 'required');
 
 			if ($this->form_validation->run()) {
-				$params = array(
-					'nama' => $this->input->post('nama'),
-					'jalan' => $this->input->post('jalan'),
-					'kelurahan' => $this->input->post('kelurahan'),
-					'kecamatan' => $this->input->post('kecamatan'),
-					'kota' => $this->input->post('kota'),
-					'provinsi' => $this->input->post('provinsi'),
-					'kodepos' => $this->input->post('kodepos'),
-					'telp' => $this->input->post('telp'),
-					'email' => $this->input->post('email'),
-					'website' => $this->input->post('website'),
-					'logo' => $this->input->post('logo'),
-					'npsn' => $this->input->post('npsn'),
-				);
+				if (!$this->upload->do_upload('userfile')) {
+					// jika upload gagal
+					$error = array('error' => $this->upload->display_errors());
+					print_r($error);
+				} else {
+					// jika upload sukses
+					$data = array('upload_data' => $this->upload->data());
+					$params = array(
+						'nama' => $this->input->post('nama'),
+						'jalan' => $this->input->post('jalan'),
+						'kelurahan' => $this->input->post('kelurahan'),
+						'kecamatan' => $this->input->post('kecamatan'),
+						'kota' => $this->input->post('kota'),
+						'provinsi' => $this->input->post('provinsi'),
+						'kodepos' => $this->input->post('kodepos'),
+						'telp' => $this->input->post('telp'),
+						'email' => $this->input->post('email'),
+						'website' => $this->input->post('website'),
+						'logo' => $data['upload_data']['file_name'],
+						'npsn' => $this->input->post('npsn'),
+					);
 
-				$this->Profil_sekolah_model->update_profil_sekolah($id, $params);
-				// flashdata
-				$this->session->set_flashdata('ubah', 'ubah');
-				redirect('profil_sekolah/index');
+					$this->Profil_sekolah_model->update_profil_sekolah($id, $params);
+					// flashdata
+					$this->session->set_flashdata('ubah', 'ubah');
+					$this->output->delete_cache('profil_sekolah/index');
+					redirect('profil_sekolah/index');
+				}
 			} else {
 				$data['_view'] = 'profil_sekolah/edit';
 				$this->load->view('template/header');
