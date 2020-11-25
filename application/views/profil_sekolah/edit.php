@@ -107,6 +107,7 @@
 				<button type="submit" class="btn btn-primary">
 					Simpan
 				</button>
+				<a href="<?= base_url('profil_sekolah') ?>" class="btn btn-secondary">Batal</a>
 			</div>
 			<!-- /.card-footer-->
 			<?php echo form_close(); ?>
