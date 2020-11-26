@@ -83,8 +83,8 @@ class Pengajar extends CI_Controller
                 $this->load->model('Guru_model');
                 $data['all_guru'] = $this->Guru_model->get_all_guru();
 
-                $this->load->model('Kela_model');
-                $data['all_kelas'] = $this->Kela_model->get_all_kelas();
+                $this->load->model('Kelas_model');
+                $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
 
                 $data['_view'] = 'pengajar/edit';
                 $this->load->view('template/header');

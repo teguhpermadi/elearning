@@ -15,15 +15,15 @@ class Migration_pengajar extends CI_Migration
                 'auto_increment' => TRUE
             ),
             'id_mapel' => array(
-                'type' => 'VARCHAR',
+                'type' => 'INT',
                 'constraint' => '255',
             ),
             'id_guru' => array(
-                'type' => 'VARCHAR',
+                'type' => 'INT',
                 'constraint' => '255',
             ),
-            'id_rombel' => array(
-                'type' => 'VARCHAR',
+            'id_kelas' => array(
+                'type' => 'INT',
                 'constraint' => '255',
             ),
         ));

@@ -15,11 +15,11 @@ class Migration_rombel extends CI_Migration
                 'auto_increment' => TRUE
             ),
             'id_kelas' => array(
-                'type' => 'VARCHAR',
+                'type' => 'INT',
                 'constraint' => '255',
             ),
             'id_siswa' => array(
-                'type' => 'VARCHAR',
+                'type' => 'INT',
                 'constraint' => '255',
             ),
         ));
