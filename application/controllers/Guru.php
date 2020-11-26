@@ -31,21 +31,44 @@ class Guru extends CI_Controller
      */
     function add()
     {
+        $config['upload_path']          = './uploads/guru/';
+		$config['allowed_types']        = 'jpg|jpeg'; // izinkan hanya file png agar kualitasnya bagus
+        $config['max_size']             = 1000; // batasi ukurannya
+		$config['overwrite']        	= TRUE; // hanya ada 1 file foto guru
+		$config['file_name']             = $this->input->post('no_hp'); // ubah namanya
+        
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('email', 'Email', 'valid_email|required');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run()) {
+            if (!$this->upload->do_upload('userfile')) {
+				// jika upload gagal
+                $error = array('error' => $this->upload->display_errors());
+                $ext = '.jpg';
+                // print_r($error);
+            } else {
+                // jika upload sukses
+                $data = array('upload_data' => $this->upload->data());
+                $ext = $data['upload_data']['file_ext'];
+                // print_r($data);
+            };
+
             $params = array(
                 'password' => $this->input->post('password'),
                 'nomor_induk' => $this->input->post('nomor_induk'),
-                'foto' => $this->input->post('foto'),
+                'foto' => $this->input->post('no_hp').$ext, // ganti nama file foto dengan nomor hp masing2 guru
                 'first_name' => $this->input->post('first_name'),
-                'last_name' => $this->input->post('last_name'),
+                'no_hp' => $this->input->post('no_hp'),
                 'email' => $this->input->post('email'),
             );
 
+            // print_r($params);
             $guru_id = $this->Guru_model->add_guru($params);
             redirect('guru/index');
         } else {
@@ -77,7 +100,7 @@ class Guru extends CI_Controller
                     'nomor_induk' => $this->input->post('nomor_induk'),
                     'foto' => $this->input->post('foto'),
                     'first_name' => $this->input->post('first_name'),
-                    'last_name' => $this->input->post('last_name'),
+                    'no_hp' => $this->input->post('no_hp'),
                     'email' => $this->input->post('email'),
                 );
 

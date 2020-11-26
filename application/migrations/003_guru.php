@@ -18,7 +18,7 @@ class Migration_guru extends CI_Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ),
-            'last_name' => array(
+            'no_hp' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ),
@@ -30,7 +30,7 @@ class Migration_guru extends CI_Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ),
-            'nomor_induk' => array(
+            'nomor_induk' => array( // tidak semua guru memiliki nomor induk, guru GTT biasanya tidak memiliki nomor induk
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ),
