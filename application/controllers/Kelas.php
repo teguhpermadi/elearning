@@ -17,7 +17,7 @@ class kelas extends CI_Controller
      */
     function index()
     {
-        $data['kelas'] = $this->kelas_model->get_all_kelas();
+        $data['kelas'] = $this->Kelas_model->get_all_kelas();
 
         $data['_view'] = 'kelas/index';
         $this->load->view('template/header');
@@ -44,7 +44,7 @@ class kelas extends CI_Controller
                 'kode' => $this->input->post('kode'),
             );
 
-            $kelas_id = $this->kelas_model->add_kelas($params);
+            $kelas_id = $this->Kelas_model->add_kelas($params);
             redirect('kelas/index');
         } else {
             $data['_view'] = 'kelas/add';
@@ -61,7 +61,7 @@ class kelas extends CI_Controller
     function edit($id)
     {
         // check if the kelas exists before trying to edit it
-        $data['kelas'] = $this->kelas_model->get_kelas($id);
+        $data['kelas'] = $this->Kelas_model->get_kelas($id);
 
         if (isset($data['kelas']['id'])) {
             $this->load->library('form_validation');
@@ -77,7 +77,7 @@ class kelas extends CI_Controller
                     'kode' => $this->input->post('kode'),
                 );
 
-                $this->kelas_model->update_kelas($id, $params);
+                $this->Kelas_model->update_kelas($id, $params);
                 redirect('kelas/index');
             } else {
                 $data['_view'] = 'kelas/edit';
@@ -95,11 +95,11 @@ class kelas extends CI_Controller
      */
     function remove($id)
     {
-        $kelas = $this->kelas_model->get_kelas($id);
+        $kelas = $this->Kelas_model->get_kelas($id);
 
         // check if the kelas exists before trying to delete it
         if (isset($kelas['id'])) {
-            $this->kelas_model->delete_kelas($id);
+            $this->Kelas_model->delete_kelas($id);
             redirect('kelas/index');
         } else
             show_error('The kelas you are trying to delete does not exist.');
