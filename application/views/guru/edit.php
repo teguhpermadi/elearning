@@ -22,43 +22,97 @@
 			<?php echo form_open('guru/edit/' . $guru['id']); ?>
 
 			<div class="card-body">
-				
-				<div class="col-md-12">
-					<label for="nomor_induk" class="control-label">Nomor Induk</label>
+				<div class="col-md-6">
+					<label for="id_user" class="control-label">Id User</label>
 					<div class="form-group">
-						<input type="text" name="nomor_induk" value="<?php echo ($this->input->post('nomor_induk') ? $this->input->post('nomor_induk') : $guru['nomor_induk']); ?>" class="form-control" id="nomor_induk" />
+						<input type="text" name="id_user" value="<?php echo ($this->input->post('id_user') ? $this->input->post('id_user') : $guru['id_user']); ?>" class="form-control" id="id_user" />
 					</div>
 				</div>
-				<div class="col-md-12">
-					<label for="first_name" class="control-label">First Name</label>
+				<div class="col-md-6">
+					<label for="nama" class="control-label">Nama</label>
 					<div class="form-group">
-						<input type="text" name="first_name" value="<?php echo ($this->input->post('first_name') ? $this->input->post('first_name') : $guru['first_name']); ?>" class="form-control" id="first_name" />
+						<input type="text" name="nama" value="<?php echo ($this->input->post('nama') ? $this->input->post('nama') : $guru['nama']); ?>" class="form-control" id="nama" />
 					</div>
 				</div>
-				<div class="col-md-12">
-					<label for="no_hp" class="control-label">No HP</label>
+				<div class="col-md-6">
+					<label for="hp" class="control-label">Hp</label>
 					<div class="form-group">
-						<input type="text" name="no_hp" value="<?php echo ($this->input->post('no_hp') ? $this->input->post('no_hp') : $guru['no_hp']); ?>" class="form-control" id="no_hp" />
+						<input type="text" name="hp" value="<?php echo ($this->input->post('hp') ? $this->input->post('hp') : $guru['hp']); ?>" class="form-control" id="hp" />
+						<span class="text-danger"><?php echo form_error('hp'); ?></span>
 					</div>
 				</div>
-				<div class="col-md-12">
-					<label for="email" class="control-label"><span class="text-danger">*</span>Email</label>
+				<div class="col-md-6">
+					<label for="email" class="control-label">Email</label>
 					<div class="form-group">
 						<input type="text" name="email" value="<?php echo ($this->input->post('email') ? $this->input->post('email') : $guru['email']); ?>" class="form-control" id="email" />
 						<span class="text-danger"><?php echo form_error('email'); ?></span>
 					</div>
 				</div>
-				<div class="col-md-12">
-					<label for="password" class="control-label"><span class="text-danger">*</span>Password</label>
+				<div class="col-md-6">
+					<label for="nomor_induk" class="control-label">Nomor Induk</label>
 					<div class="form-group">
-						<input type="text" name="password" value="<?php echo ($this->input->post('password') ? $this->input->post('password') : $guru['password']); ?>" class="form-control" id="password" />
-						<span class="text-danger"><?php echo form_error('password'); ?></span>
+						<input type="text" name="nomor_induk" value="<?php echo ($this->input->post('nomor_induk') ? $this->input->post('nomor_induk') : $guru['nomor_induk']); ?>" class="form-control" id="nomor_induk" />
+						<span class="text-danger"><?php echo form_error('nomor_induk'); ?></span>
 					</div>
 				</div>
-				<div class="col-md-12">
+				<div class="col-md-6">
 					<label for="foto" class="control-label">Foto</label>
 					<div class="form-group">
 						<input type="text" name="foto" value="<?php echo ($this->input->post('foto') ? $this->input->post('foto') : $guru['foto']); ?>" class="form-control" id="foto" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="tempat_lahir" class="control-label">Tempat Lahir</label>
+					<div class="form-group">
+						<input type="text" name="tempat_lahir" value="<?php echo ($this->input->post('tempat_lahir') ? $this->input->post('tempat_lahir') : $guru['tempat_lahir']); ?>" class="form-control" id="tempat_lahir" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="tanggal_lahir" class="control-label">Tanggal Lahir</label>
+					<div class="form-group">
+						<input type="text" name="tanggal_lahir" value="<?php echo ($this->input->post('tanggal_lahir') ? $this->input->post('tanggal_lahir') : $guru['tanggal_lahir']); ?>" class="form-control" id="tanggal_lahir" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="alamat" class="control-label">Alamat</label>
+					<div class="form-group">
+						<input type="text" name="alamat" value="<?php echo ($this->input->post('alamat') ? $this->input->post('alamat') : $guru['alamat']); ?>" class="form-control" id="alamat" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="biografi" class="control-label">Biografi</label>
+					<div class="form-group">
+						<input type="text" name="biografi" value="<?php echo ($this->input->post('biografi') ? $this->input->post('biografi') : $guru['biografi']); ?>" class="form-control" id="biografi" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="pendidikan" class="control-label">Pendidikan</label>
+					<div class="form-group">
+						<input type="text" name="pendidikan" value="<?php echo ($this->input->post('pendidikan') ? $this->input->post('pendidikan') : $guru['pendidikan']); ?>" class="form-control" id="pendidikan" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="url_fb" class="control-label">Url Fb</label>
+					<div class="form-group">
+						<input type="text" name="url_fb" value="<?php echo ($this->input->post('url_fb') ? $this->input->post('url_fb') : $guru['url_fb']); ?>" class="form-control" id="url_fb" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="url_twitter" class="control-label">Url Twitter</label>
+					<div class="form-group">
+						<input type="text" name="url_twitter" value="<?php echo ($this->input->post('url_twitter') ? $this->input->post('url_twitter') : $guru['url_twitter']); ?>" class="form-control" id="url_twitter" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="url_instagram" class="control-label">Url Instagram</label>
+					<div class="form-group">
+						<input type="text" name="url_instagram" value="<?php echo ($this->input->post('url_instagram') ? $this->input->post('url_instagram') : $guru['url_instagram']); ?>" class="form-control" id="url_instagram" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="url_youtube" class="control-label">Url Youtube</label>
+					<div class="form-group">
+						<input type="text" name="url_youtube" value="<?php echo ($this->input->post('url_youtube') ? $this->input->post('url_youtube') : $guru['url_youtube']); ?>" class="form-control" id="url_youtube" />
 					</div>
 				</div>
 			</div>

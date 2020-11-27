@@ -31,44 +31,31 @@ class Guru extends CI_Controller
      */
     function add()
     {
-        $config['upload_path']          = './uploads/guru/';
-		$config['allowed_types']        = 'jpg|jpeg'; // izinkan hanya file png agar kualitasnya bagus
-        $config['max_size']             = 1000; // batasi ukurannya
-		$config['overwrite']        	= TRUE; // hanya ada 1 file foto guru
-		$config['file_name']             = $this->input->post('no_hp'); // ubah namanya
-        
-		// $config['max_width']            = 1024;
-		// $config['max_height']           = 768;
-
-		$this->load->library('upload', $config);
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('email', 'Email', 'valid_email|required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email');
+        $this->form_validation->set_rules('nomor_induk', 'Nomor Induk', 'numeric');
+        $this->form_validation->set_rules('hp', 'Hp', 'numeric');
 
         if ($this->form_validation->run()) {
-            if (!$this->upload->do_upload('userfile')) {
-				// jika upload gagal
-                $error = array('error' => $this->upload->display_errors());
-                $ext = '.jpg';
-                // print_r($error);
-            } else {
-                // jika upload sukses
-                $data = array('upload_data' => $this->upload->data());
-                $ext = $data['upload_data']['file_ext'];
-                // print_r($data);
-            };
-
             $params = array(
-                'password' => $this->input->post('password'),
-                'nomor_induk' => $this->input->post('nomor_induk'),
-                'foto' => $this->input->post('no_hp').$ext, // ganti nama file foto dengan nomor hp masing2 guru
-                'first_name' => $this->input->post('first_name'),
-                'no_hp' => $this->input->post('no_hp'),
+                'id_user' => $this->input->post('id_user'),
+                'nama' => $this->input->post('nama'),
+                'hp' => $this->input->post('hp'),
                 'email' => $this->input->post('email'),
+                'nomor_induk' => $this->input->post('nomor_induk'),
+                'foto' => $this->input->post('foto'),
+                'tempat_lahir' => $this->input->post('tempat_lahir'),
+                'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                'alamat' => $this->input->post('alamat'),
+                'biografi' => $this->input->post('biografi'),
+                'pendidikan' => $this->input->post('pendidikan'),
+                'url_fb' => $this->input->post('url_fb'),
+                'url_twitter' => $this->input->post('url_twitter'),
+                'url_instagram' => $this->input->post('url_instagram'),
+                'url_youtube' => $this->input->post('url_youtube'),
             );
 
-            // print_r($params);
             $guru_id = $this->Guru_model->add_guru($params);
             redirect('guru/index');
         } else {
@@ -91,17 +78,27 @@ class Guru extends CI_Controller
         if (isset($data['guru']['id'])) {
             $this->load->library('form_validation');
 
-            $this->form_validation->set_rules('email', 'Email', 'valid_email|required');
-            $this->form_validation->set_rules('password', 'Password', 'required');
+            $this->form_validation->set_rules('email', 'Email', 'valid_email');
+            $this->form_validation->set_rules('nomor_induk', 'Nomor Induk', 'numeric');
+            $this->form_validation->set_rules('hp', 'Hp', 'numeric');
 
             if ($this->form_validation->run()) {
                 $params = array(
-                    'password' => $this->input->post('password'),
+                    'id_user' => $this->input->post('id_user'),
+                    'nama' => $this->input->post('nama'),
+                    'hp' => $this->input->post('hp'),
+                    'email' => $this->input->post('email'),
                     'nomor_induk' => $this->input->post('nomor_induk'),
                     'foto' => $this->input->post('foto'),
-                    'first_name' => $this->input->post('first_name'),
-                    'no_hp' => $this->input->post('no_hp'),
-                    'email' => $this->input->post('email'),
+                    'tempat_lahir' => $this->input->post('tempat_lahir'),
+                    'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                    'alamat' => $this->input->post('alamat'),
+                    'biografi' => $this->input->post('biografi'),
+                    'pendidikan' => $this->input->post('pendidikan'),
+                    'url_fb' => $this->input->post('url_fb'),
+                    'url_twitter' => $this->input->post('url_twitter'),
+                    'url_instagram' => $this->input->post('url_instagram'),
+                    'url_youtube' => $this->input->post('url_youtube'),
                 );
 
                 $this->Guru_model->update_guru($id, $params);

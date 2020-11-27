@@ -8,26 +8,42 @@
                 </div>
             </div>
             <div class="box-body">
-                <table class="table table-striped">
+            <table class="table table-striped">
                     <tr>
 						<th>ID</th>
-						<th>Password</th>
-						<th>First Name</th>
-						<th>Last Name</th>
+						<th>Id User</th>
+						<th>Nama</th>
+						<th>Hp</th>
 						<th>Email</th>
 						<th>Nomor Induk</th>
 						<th>Foto</th>
+						<th>Tempat Lahir</th>
+						<th>Tanggal Lahir</th>
+						<th>Alamat</th>
+						<th>Biografi</th>
+						<th>Url Fb</th>
+						<th>Url Twitter</th>
+						<th>Url Instagram</th>
+						<th>Url Youtube</th>
 						<th>Actions</th>
                     </tr>
                     <?php foreach($siswa as $s){ ?>
                     <tr>
 						<td><?php echo $s['id']; ?></td>
-						<td><?php echo $s['password']; ?></td>
-						<td><?php echo $s['first_name']; ?></td>
-						<td><?php echo $s['last_name']; ?></td>
+						<td><?php echo $s['id_user']; ?></td>
+						<td><?php echo $s['nama']; ?></td>
+						<td><?php echo $s['hp']; ?></td>
 						<td><?php echo $s['email']; ?></td>
 						<td><?php echo $s['nomor_induk']; ?></td>
 						<td><?php echo $s['foto']; ?></td>
+						<td><?php echo $s['tempat_lahir']; ?></td>
+						<td><?php echo $s['tanggal_lahir']; ?></td>
+						<td><?php echo $s['alamat']; ?></td>
+						<td><?php echo $s['biografi']; ?></td>
+						<td><?php echo $s['url_fb']; ?></td>
+						<td><?php echo $s['url_twitter']; ?></td>
+						<td><?php echo $s['url_instagram']; ?></td>
+						<td><?php echo $s['url_youtube']; ?></td>
 						<td>
                             <a href="<?php echo site_url('siswa/edit/'.$s['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
                             <a href="<?php echo site_url('siswa/remove/'.$s['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
