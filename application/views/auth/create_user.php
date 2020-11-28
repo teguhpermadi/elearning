@@ -80,7 +80,8 @@
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                        <p><?php echo form_submit('submit', lang('create_user_submit_btn')); ?></p>
+                        <?php echo form_submit('submit', lang('create_user_submit_btn'), 'class="btn btn-primary"'); ?>
+                        <a href="<?= base_url('auth') ?>" class="btn btn-secondary">Batal</a>
                   </div>
                   <!-- /.card-footer-->
                   <?php echo form_close(); ?>
