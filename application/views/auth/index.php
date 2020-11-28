@@ -38,23 +38,28 @@
 				<h3>Daftar Admin</h3>
 			</div>
 			<div class="card-body">
-				<table class="table table-hover">
-					<tr>
-						<th><?php echo lang('index_fname_th'); ?></th>
-						<th><?php echo lang('index_lname_th'); ?></th>
-						<th><?php echo lang('index_email_th'); ?></th>
-						<th><?php echo lang('index_status_th'); ?></th>
-						<th><?php echo lang('index_action_th'); ?></th>
-					</tr>
-					<?php foreach ($admin as $a) : ?>
+				<table class="table table-hover" id="tableAdmin">
+					<thead>
 						<tr>
-							<td><?php echo htmlspecialchars($a->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
-							<td><?php echo htmlspecialchars($a->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
-							<td><?php echo htmlspecialchars($a->email, ENT_QUOTES, 'UTF-8'); ?></td>
-							<td><?php echo ($a->active) ? anchor("auth/deactivate/" . $a->id, lang('index_active_link')) : anchor("auth/activate/" . $a->id, lang('index_inactive_link')); ?></td>
-							<td><?php echo anchor("auth/edit_user/" . $a->id, 'Edit'); ?></td>
+							<th><?php echo lang('index_fname_th'); ?></th>
+							<th><?php echo lang('index_lname_th'); ?></th>
+							<th><?php echo lang('index_email_th'); ?></th>
+							<th><?php echo lang('index_status_th'); ?></th>
+							<th><?php echo lang('index_action_th'); ?></th>
 						</tr>
-					<?php endforeach; ?>
+					</thead>
+					<tbody>
+
+						<?php foreach ($admin as $a) : ?>
+							<tr>
+								<td><?php echo htmlspecialchars($a->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo htmlspecialchars($a->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo htmlspecialchars($a->email, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo ($a->active) ? anchor("auth/deactivate/" . $a->id, lang('index_active_link'), 'class="btn btn-info btn-sm"') : anchor("auth/activate/" . $a->id, lang('index_inactive_link'), 'class="btn btn-warning btn-sm"'); ?></td>
+								<td><?php echo anchor("auth/edit_user/" . $a->id, 'Edit', 'class="btn btn-secondary btn-sm"'); ?></td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
 				</table>
 			</div>
 			<!-- /.card-body -->
@@ -66,23 +71,28 @@
 				<h3>Daftar Guru</h3>
 			</div>
 			<div class="card-body">
-				<table class="table table-hover">
-					<tr>
-						<th><?php echo lang('index_fname_th'); ?></th>
-						<th><?php echo lang('index_lname_th'); ?></th>
-						<th><?php echo lang('index_email_th'); ?></th>
-						<th><?php echo lang('index_status_th'); ?></th>
-						<th><?php echo lang('index_action_th'); ?></th>
-					</tr>
-					<?php foreach ($guru as $g) : ?>
+				<table class="table table-hover" id="tableGuru">
+					<thead>
+
 						<tr>
-							<td><?php echo htmlspecialchars($g->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
-							<td><?php echo htmlspecialchars($g->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
-							<td><?php echo htmlspecialchars($g->email, ENT_QUOTES, 'UTF-8'); ?></td>
-							<td><?php echo ($g->active) ? anchor("auth/deactivate/" . $g->id, lang('index_active_link')) : anchor("auth/activate/" . $g->id, lang('index_inactive_link')); ?></td>
-							<td><?php echo anchor("auth/edit_user/" . $g->id, 'Edit'); ?></td>
+							<th><?php echo lang('index_fname_th'); ?></th>
+							<th><?php echo lang('index_lname_th'); ?></th>
+							<th><?php echo lang('index_email_th'); ?></th>
+							<th><?php echo lang('index_status_th'); ?></th>
+							<th><?php echo lang('index_action_th'); ?></th>
 						</tr>
-					<?php endforeach; ?>
+					</thead>
+					<tbody>
+						<?php foreach ($guru as $g) : ?>
+							<tr>
+								<td><?php echo htmlspecialchars($g->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo htmlspecialchars($g->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo htmlspecialchars($g->email, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo ($g->active) ? anchor("auth/deactivate/" . $g->id, lang('index_active_link'), 'class="btn btn-info btn-sm"') : anchor("auth/activate/" . $g->id, lang('index_inactive_link'), 'class="btn btn-warning btn-sm"'); ?></td>
+								<td><?php echo anchor("auth/edit_user/" . $g->id, 'Edit', 'class="btn btn-secondary btn-sm"'); ?></td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -92,7 +102,8 @@
 				<h3>Daftar Siswa</h3>
 			</div>
 			<div class="card-body">
-				<table class="table table-hover">
+				<table class="table table-hover" id="tableSiswa">
+					<thead>
 					<tr>
 						<th><?php echo lang('index_fname_th'); ?></th>
 						<th><?php echo lang('index_lname_th'); ?></th>
@@ -100,15 +111,18 @@
 						<th><?php echo lang('index_status_th'); ?></th>
 						<th><?php echo lang('index_action_th'); ?></th>
 					</tr>
+					</thead>
+					<tbody>
 					<?php foreach ($siswa as $s) : ?>
 						<tr>
 							<td><?php echo htmlspecialchars($s->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
 							<td><?php echo htmlspecialchars($s->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
 							<td><?php echo htmlspecialchars($s->email, ENT_QUOTES, 'UTF-8'); ?></td>
-							<td><?php echo ($s->active) ? anchor("auth/deactivate/" . $s->id, lang('index_active_link')) : anchor("auth/activate/" . $s->id, lang('index_inactive_link')); ?></td>
-							<td><?php echo anchor("auth/edit_user/" . $s->id, 'Edit'); ?></td>
+							<td><?php echo ($s->active) ? anchor("auth/deactivate/" . $s->id, lang('index_active_link'), 'class="btn btn-info btn-sm"') : anchor("auth/activate/" . $s->id, lang('index_inactive_link'), 'class="btn btn-warning btn-sm"'); ?></td>
+							<td><?php echo anchor("auth/edit_user/" . $s->id, 'Edit', 'class="btn btn-secondary btn-sm"'); ?></td>
 						</tr>
 					<?php endforeach; ?>
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -132,7 +146,7 @@
 				...
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
 				<button type="button" class="btn btn-primary">Upload</button>
 			</div>
 		</div>
