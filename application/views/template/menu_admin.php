@@ -37,6 +37,14 @@
 		</li>
 		<li class="nav-header">Menu Admin</li>
 		<li class="nav-item">
+			<a href="<?= base_url('auth') ?>" class="nav-link <?php if($this->uri->segment(1) == 'guru') { echo 'active';}?>">
+				<i class="nav-icon fas fa-users"></i>
+				<p>
+					Users
+				</p>
+			</a>
+		</li>
+		<li class="nav-item">
 			<a href="<?= base_url('guru') ?>" class="nav-link <?php if($this->uri->segment(1) == 'guru') { echo 'active';}?>">
 				<i class="nav-icon fas fa-chalkboard-teacher"></i>
 				<p>

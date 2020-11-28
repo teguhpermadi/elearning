@@ -45,17 +45,22 @@ class Auth extends CI_Controller
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			//list the users
-			$this->data['users'] = $this->ion_auth->users()->result();
+			$this->data['admin'] = $this->ion_auth->users('admin')->result(); // get users from 'admin' group
+			$this->data['guru'] = $this->ion_auth->users('guru')->result(); // get users from 'guru' group
+			$this->data['siswa'] = $this->ion_auth->users('siswa')->result(); // get users from 'siswa' group
 			
 			//USAGE NOTE - you can do more complicated queries like this
 			//$this->data['users'] = $this->ion_auth->where('field', 'value')->users()->result();
 			
-			foreach ($this->data['users'] as $k => $user)
-			{
-				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
-			}
+			// foreach ($this->data['users'] as $k => $user)
+			// {
+			// 	$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+			// }
 
+			$this->load->view('template/header');
+			$this->load->view('template/sidebar');
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
+			$this->load->view('template/footer');
 		}
 	}
 
@@ -481,6 +486,9 @@ class Auth extends CI_Controller
 		$identity_column = $this->config->item('identity', 'ion_auth');
 		$this->data['identity_column'] = $identity_column;
 
+		// user group
+		$this->data['groups'] = $this->ion_auth->groups()->result();
+
 		// validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'trim|required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'trim|required');
@@ -498,6 +506,8 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
+		$this->form_validation->set_rules('user_category', 'User Category', 'required');
+
 		if ($this->form_validation->run() === TRUE)
 		{
 			$email = strtolower($this->input->post('email'));
@@ -510,10 +520,17 @@ class Auth extends CI_Controller
 				'company' => $this->input->post('company'),
 				'phone' => $this->input->post('phone'),
 			];
+
+			$group = array($this->input->post('user_category'));
 		}
-		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data))
+		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data, $group))
 		{
 			// check to see if we are creating the user
+			// print_r($identity);
+			// print_r($password);
+			// print_r($email);
+			// print_r($additional_data);
+			// print_r($group);
 			// redirect them back to the admin page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
 			redirect("auth", 'refresh');
@@ -528,52 +545,71 @@ class Auth extends CI_Controller
 				'name' => 'first_name',
 				'id' => 'first_name',
 				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'Nama Depan',
 				'value' => $this->form_validation->set_value('first_name'),
 			];
 			$this->data['last_name'] = [
 				'name' => 'last_name',
 				'id' => 'last_name',
 				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'Nama Belakang',
 				'value' => $this->form_validation->set_value('last_name'),
 			];
 			$this->data['identity'] = [
 				'name' => 'identity',
 				'id' => 'identity',
 				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => '',
 				'value' => $this->form_validation->set_value('identity'),
 			];
 			$this->data['email'] = [
 				'name' => 'email',
 				'id' => 'email',
 				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'Email',
 				'value' => $this->form_validation->set_value('email'),
 			];
 			$this->data['company'] = [
 				'name' => 'company',
 				'id' => 'company',
 				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'Instansi',
 				'value' => $this->form_validation->set_value('company'),
 			];
 			$this->data['phone'] = [
 				'name' => 'phone',
 				'id' => 'phone',
 				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'Handphone',
 				'value' => $this->form_validation->set_value('phone'),
 			];
 			$this->data['password'] = [
 				'name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
+				'class' => 'form-control',
+				'placeholder' => 'Password',
 				'value' => $this->form_validation->set_value('password'),
 			];
 			$this->data['password_confirm'] = [
 				'name' => 'password_confirm',
 				'id' => 'password_confirm',
 				'type' => 'password',
+				'class' => 'form-control',
+				'placeholder' => 'Konfirmasi Password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			];
 
+			$this->load->view('template/header');
+			$this->load->view('template/sidebar');
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
+			$this->load->view('template/footer');
 		}
 	}
 	/**

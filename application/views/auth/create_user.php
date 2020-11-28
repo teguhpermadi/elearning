@@ -1,57 +1,94 @@
-<h1><?php echo lang('create_user_heading');?></h1>
-<p><?php echo lang('create_user_subheading');?></p>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+            <div class="container-fluid">
+                  <div class="row mb-2">
+                        <div class="col-sm-6">
+                              <h1><?php echo lang('create_user_heading'); ?></h1>
+                        </div>
+                  </div>
+            </div><!-- /.container-fluid -->
+      </section>
 
-<div id="infoMessage"><?php echo $message;?></div>
+      <!-- Main content -->
+      <section class="content">
 
-<?php echo form_open("auth/create_user");?>
+            <?php if ($message) { ?>
+                  <div class="alert alert-warning" role="alert">
+                        <div id="infoMessage"><?php echo $message; ?></div>
+                  </div>
+            <?php } ?>
 
-      <p>
-            <?php echo lang('create_user_fname_label', 'first_name');?> <br />
-            <?php echo form_input($first_name);?>
-      </p>
+            <!-- Default box -->
+            <div class="card">
+                  <div class="card-header">
+                        <h3><?php echo lang('create_user_subheading'); ?></h3>
+                  </div>
+                  <?php echo form_open("auth/create_user"); ?>
 
-      <p>
-            <?php echo lang('create_user_lname_label', 'last_name');?> <br />
-            <?php echo form_input($last_name);?>
-      </p>
-      
-      <?php
-      if($identity_column!=='email') {
-          echo '<p>';
-          echo lang('create_user_identity_label', 'identity');
-          echo '<br />';
-          echo form_error('identity');
-          echo form_input($identity);
-          echo '</p>';
-      }
-      ?>
+                  <div class="card-body">
 
-      <p>
-            <?php echo lang('create_user_company_label', 'company');?> <br />
-            <?php echo form_input($company);?>
-      </p>
+                        <div class="form-group">
+                              <?php echo form_input($first_name); ?>
 
-      <p>
-            <?php echo lang('create_user_email_label', 'email');?> <br />
-            <?php echo form_input($email);?>
-      </p>
+                        </div>
+                        <div class="form-group">
+                              <?php echo form_input($last_name); ?>
 
-      <p>
-            <?php echo lang('create_user_phone_label', 'phone');?> <br />
-            <?php echo form_input($phone);?>
-      </p>
+                        </div>
+                        <div class="form-group">
+                              <?php
+                              if ($identity_column !== 'email') {
+                                    echo '<p>';
+                                    echo lang('create_user_identity_label', 'identity');
+                                    echo '<br />';
+                                    echo form_error('identity');
+                                    echo form_input($identity);
+                                    echo '</p>';
+                              }
+                              ?>
+                        </div>
+                        <div class="form-group">
+                              <?php echo form_input($company); ?>
 
-      <p>
-            <?php echo lang('create_user_password_label', 'password');?> <br />
-            <?php echo form_input($password);?>
-      </p>
+                        </div>
+                        <div class="form-group">
+                              <?php echo form_input($email); ?>
 
-      <p>
-            <?php echo lang('create_user_password_confirm_label', 'password_confirm');?> <br />
-            <?php echo form_input($password_confirm);?>
-      </p>
+                        </div>
+                        <div class="form-group">
+                              <?php echo form_input($phone); ?>
 
+                        </div>
+                        <div class="form-group">
+                              <?php echo form_input($password); ?>
 
-      <p><?php echo form_submit('submit', lang('create_user_submit_btn'));?></p>
+                        </div>
+                        <div class="form-group">
+                              <?php echo form_input($password_confirm); ?>
 
-<?php echo form_close();?>
+                        </div>
+                        <div class="form-group">
+                              <select class="custom-select" name="user_category">
+                                    <option selected>User Category</option>
+                                    <?php foreach($groups as $g){ ?>
+                                    <option value="<?= $g->id?>"><?= $g->name?></option>
+                                    <?php } ?>
+                              </select>
+                        </div>
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                        <p><?php echo form_submit('submit', lang('create_user_submit_btn')); ?></p>
+                  </div>
+                  <!-- /.card-footer-->
+                  <?php echo form_close(); ?>
+
+            </div>
+            <!-- /.card -->
+
+      </section>
+      <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
