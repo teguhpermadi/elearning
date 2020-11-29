@@ -16,20 +16,18 @@ class Faker extends CI_Controller
         $faker = Faker\Factory::create();
         $faker->addProvider(new Bluemmb\Faker\PicsumPhotosProvider($faker));
 
-        // $faker->seed(5);
+        $faker->seed(10);
         $random_number_image = rand(0,1084);
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             $url = $faker->imageUrl(100,100, $random_number_image + $i);
             # code...
-            echo "<strong>Title: </strong>" . $faker->title;
-            echo "<br>";
-            echo "<strong>First Name: </strong>" . $faker->firstName;
+            // echo $faker->title;
+            // echo "<br>";
+            echo $faker->phoneNumber;
             echo "<br>";
     
-            echo "<strong>Last Name: </strong>" . $faker->lastName;
-            echo "<br>";
-            echo '<img src="'.$url.'" />';
-            echo '<br>';
+            // echo $faker->lastName;
+            // echo "<br>";
         }
     }
 

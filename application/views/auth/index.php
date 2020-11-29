@@ -25,7 +25,7 @@
 
 		<?php if ($message) { ?>
 			<div class="alert alert-info alert-dismissible fade show" role="alert">
-				<div id="infoMessage"><?php echo $message; ?></div>
+				<?php echo $message; ?>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -104,24 +104,24 @@
 			<div class="card-body">
 				<table class="table table-hover" id="tableSiswa">
 					<thead>
-					<tr>
-						<th><?php echo lang('index_fname_th'); ?></th>
-						<th><?php echo lang('index_lname_th'); ?></th>
-						<th><?php echo lang('index_email_th'); ?></th>
-						<th><?php echo lang('index_status_th'); ?></th>
-						<th><?php echo lang('index_action_th'); ?></th>
-					</tr>
+						<tr>
+							<th><?php echo lang('index_fname_th'); ?></th>
+							<th><?php echo lang('index_lname_th'); ?></th>
+							<th><?php echo lang('index_email_th'); ?></th>
+							<th><?php echo lang('index_status_th'); ?></th>
+							<th><?php echo lang('index_action_th'); ?></th>
+						</tr>
 					</thead>
 					<tbody>
-					<?php foreach ($siswa as $s) : ?>
-						<tr>
-							<td><?php echo htmlspecialchars($s->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
-							<td><?php echo htmlspecialchars($s->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
-							<td><?php echo htmlspecialchars($s->email, ENT_QUOTES, 'UTF-8'); ?></td>
-							<td><?php echo ($s->active) ? anchor("auth/deactivate/" . $s->id, lang('index_active_link'), 'class="btn btn-info btn-sm"') : anchor("auth/activate/" . $s->id, lang('index_inactive_link'), 'class="btn btn-warning btn-sm"'); ?></td>
-							<td><?php echo anchor("auth/edit_user/" . $s->id, 'Edit', 'class="btn btn-secondary btn-sm"'); ?></td>
-						</tr>
-					<?php endforeach; ?>
+						<?php foreach ($siswa as $s) : ?>
+							<tr>
+								<td><?php echo htmlspecialchars($s->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo htmlspecialchars($s->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo htmlspecialchars($s->email, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo ($s->active) ? anchor("auth/deactivate/" . $s->id, lang('index_active_link'), 'class="btn btn-info btn-sm"') : anchor("auth/activate/" . $s->id, lang('index_inactive_link'), 'class="btn btn-warning btn-sm"'); ?></td>
+								<td><?php echo anchor("auth/edit_user/" . $s->id, 'Edit', 'class="btn btn-secondary btn-sm"'); ?></td>
+							</tr>
+						<?php endforeach; ?>
 					</tbody>
 				</table>
 			</div>
@@ -142,13 +142,17 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
+			<?php echo form_open_multipart('auth/do_upload'); ?>
 			<div class="modal-body">
-				...
+				<a href="<?= base_url('auth/download') ?>" class="btn btn-info">Download Template</a>
+				<br><br>
+				<input type="file" name="userfile" size="20" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
-				<button type="button" class="btn btn-primary">Upload</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<button type="submit" class="btn btn-primary">Upload</button>
 			</div>
+			</form>
 		</div>
 	</div>
 </div>

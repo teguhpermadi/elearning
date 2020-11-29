@@ -45,22 +45,6 @@
 			</a>
 		</li>
 		<li class="nav-item">
-			<a href="<?= base_url('guru') ?>" class="nav-link <?php if($this->uri->segment(1) == 'guru') { echo 'active';}?>">
-				<i class="nav-icon fas fa-chalkboard-teacher"></i>
-				<p>
-					Guru
-				</p>
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="<?= base_url('siswa') ?>" class="nav-link <?php if($this->uri->segment(1) == 'siswa') { echo 'active';}?>">
-				<i class="nav-icon fas fa-user-graduate"></i>
-				<p>
-					Siswa
-				</p>
-			</a>
-		</li>
-		<li class="nav-item">
 			<a href="<?= base_url('kelas') ?>" class="nav-link <?php if($this->uri->segment(1) == 'kelas') { echo 'active';}?>">
 				<i class="nav-icon fas fa-book-reader"></i>
 				<p>

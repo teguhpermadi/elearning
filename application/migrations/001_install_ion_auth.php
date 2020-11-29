@@ -210,10 +210,6 @@ class Migration_Install_ion_auth extends CI_Migration {
 				'user_id'  => '1',
 				'group_id' => '1',
 			],
-			[
-				'user_id'  => '1',
-				'group_id' => '2',
-			]
 		];
 		$this->db->insert_batch($this->tables['users_groups'], $data);
 
