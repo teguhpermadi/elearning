@@ -27,14 +27,7 @@
 				</p>
 			</a>
 		</li>
-		<li class="nav-item">
-			<a href="<?= base_url('auth/logout') ?>" class="nav-link <?php if($this->uri->segment(1) == 'auth/logout') { echo 'active';}?>">
-				<i class="nav-icon fas fa-sign-out-alt"></i>
-				<p>
-					Keluar
-				</p>
-			</a>
-		</li>
+		
 		<li class="nav-header">Menu Admin</li>
 		<li class="nav-item">
 			<a href="<?= base_url('auth') ?>" class="nav-link <?php if($this->uri->segment(1) == 'auth') { echo 'active';}?>">

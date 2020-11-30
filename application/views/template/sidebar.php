@@ -21,10 +21,10 @@
           <span class="dropdown-item dropdown-header">Nama User</span>
           <div class="dropdown-divider"></div>
           <a href="<?= base_url('profil_user') ?>" class="dropdown-item">
-            <i class="fas fa-users-cog mr-2"></i> Profil
+            <i class="fas fa-users-cog mr-2"></i> Pengaturan Profil
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <a href="<?= base_url('auth/change_password')?>" class="dropdown-item">
             <i class="fas fa-key mr-2"></i> Ubah Password
           </a>
           <!-- <div class="dropdown-divider"></div>

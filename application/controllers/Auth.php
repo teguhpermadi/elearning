@@ -159,17 +159,23 @@ class Auth extends CI_Controller
 				'name' => 'old',
 				'id' => 'old',
 				'type' => 'password',
+				'class' => 'form-control',
+				'placeholder' => 'Old Password',
 			];
 			$this->data['new_password'] = [
 				'name' => 'new',
 				'id' => 'new',
 				'type' => 'password',
+				'class' => 'form-control',
+				'placeholder' => 'New Password',
 				'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
 			];
 			$this->data['new_password_confirm'] = [
 				'name' => 'new_confirm',
 				'id' => 'new_confirm',
 				'type' => 'password',
+				'class' => 'form-control',
+				'placeholder' => 'Confirm Password',
 				'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
 			];
 			$this->data['user_id'] = [
@@ -180,7 +186,9 @@ class Auth extends CI_Controller
 			];
 
 			// render
+			$this->load->view('template/header_auth');
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'change_password', $this->data);
+			$this->load->view('template/footer_auth');
 		} else {
 			$identity = $this->session->userdata('identity');
 
