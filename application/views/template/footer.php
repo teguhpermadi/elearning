@@ -55,6 +55,7 @@
     $('#tableAdmin').DataTable();
     $('#tableGuru').DataTable();
     $('#tableSiswa').DataTable();
+    $('#tableKelas').DataTable();
 } );
 
 </script>
