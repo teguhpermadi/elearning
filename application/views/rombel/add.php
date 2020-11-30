@@ -11,13 +11,13 @@
 						<label for="id_kelas" class="control-label"><span class="text-danger">*</span>Kela</label>
 						<div class="form-group">
 							<select name="id_kelas" class="form-control">
-								<option value="">select kela</option>
+								<option value="">select kelas</option>
 								<?php 
-								foreach($all_kelas as $kela)
+								foreach($all_kelas as $kelas)
 								{
-									$selected = ($kela['id'] == $this->input->post('id_kelas')) ? ' selected="selected"' : "";
+									$selected = ($kelas['id'] == $this->input->post('id_kelas')) ? ' selected="selected"' : "";
 
-									echo '<option value="'.$kela['id'].'" '.$selected.'>'.$kela['nama'].'</option>';
+									echo '<option value="'.$kelas['id'].'" '.$selected.'>'.$kelas['nama'].'</option>';
 								} 
 								?>
 							</select>

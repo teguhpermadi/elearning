@@ -45,11 +45,13 @@ class Rombel extends CI_Controller
             $rombel_id = $this->Rombel_model->add_rombel($params);
             redirect('rombel/index');
         } else {
-            $this->load->model('Kela_model');
-            $data['all_kelas'] = $this->Kela_model->get_all_kelas();
+            $this->load->model('Kelas_model');
+            $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
 
-            $this->load->model('Siswa_model');
-            $data['all_siswa'] = $this->Siswa_model->get_all_siswa();
+            // $this->load->model('Siswa_model');
+            $users = $this->ion_auth->users('siswa')->result(); // get users from 'members' group
+            print_r(json_encode($users));
+            // $data['all_siswa'] = $this->Siswa_model->get_all_siswa();
 
             $data['_view'] = 'rombel/add';
             $this->load->view('template/header');
@@ -82,8 +84,8 @@ class Rombel extends CI_Controller
                 $this->Rombel_model->update_rombel($id, $params);
                 redirect('rombel/index');
             } else {
-                $this->load->model('Kela_model');
-                $data['all_kelas'] = $this->Kela_model->get_all_kelas();
+                $this->load->model('Kelas_model');
+                $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
 
                 $this->load->model('Siswa_model');
                 $data['all_siswa'] = $this->Siswa_model->get_all_siswa();
