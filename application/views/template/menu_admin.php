@@ -18,16 +18,6 @@
 				</p>
 			</a>
 		</li>
-		<li class="nav-header">Menu User</li>
-		<li class="nav-item">
-			<a href="<?= base_url('profil_user') ?>" class="nav-link <?php if($this->uri->segment(1) == 'profil_user') { echo 'active';}?>">
-				<i class="nav-icon fas fa-chalkboard-teacher"></i>
-				<p>
-					Profil User
-				</p>
-			</a>
-		</li>
-		
 		<li class="nav-header">Menu Admin</li>
 		<li class="nav-item">
 			<a href="<?= base_url('auth') ?>" class="nav-link <?php if($this->uri->segment(1) == 'auth') { echo 'active';}?>">
