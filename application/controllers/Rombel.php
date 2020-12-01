@@ -73,40 +73,21 @@ class Rombel extends CI_Controller
     /*
      * Editing a rombel
      */
-    function edit($id)
+    function edit($id_kelas)
     {
-        // check if the rombel exists before trying to edit it
-        $data['rombel'] = $this->Rombel_model->get_rombel($id);
+        $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
+        $data['rombel'] = ['id_kelas' => $id_kelas];
+        $data['all_siswa'] = $this->Rombel_model->get_siswa();
+        $kelas = $this->Kelas_model->get_kelas($id_kelas);
+        $siswa = $this->Rombel_model->get_siswa_by_kelas($id_kelas);
 
-        if (isset($data['rombel']['id'])) {
-            $this->load->library('form_validation');
+        print_r($kelas);
+        print_r($siswa);
 
-            $this->form_validation->set_rules('id_kelas', 'Id Kelas', 'required');
-            $this->form_validation->set_rules('id_siswa', 'Id Siswa', 'required');
-
-            if ($this->form_validation->run()) {
-                $params = array(
-                    'id_kelas' => $this->input->post('id_kelas'),
-                    'id_siswa' => $this->input->post('id_siswa'),
-                );
-
-                $this->Rombel_model->update_rombel($id, $params);
-                redirect('rombel/index');
-            } else {
-                $this->load->model('Kelas_model');
-                $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
-
-                $this->load->model('Siswa_model');
-                $data['all_siswa'] = $this->Siswa_model->get_all_siswa();
-
-                $data['_view'] = 'rombel/edit';
-                $$this->load->view('template/header');
-                $this->load->view('template/sidebar');
-                $this->load->view('rombel/edit', $data);
-                $this->load->view('template/footer');
-            }
-        } else
-            show_error('The rombel you are trying to edit does not exist.');
+        $this->load->view('template/header');
+            $this->load->view('template/sidebar');
+            $this->load->view('rombel/edit', $data);
+            $this->load->view('template/footer');
     }
 
     /*

@@ -1,3 +1,16 @@
+<style>
+    .area {
+        height: 250px;
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .area:hover {
+        overflow-y: scroll;
+    }
+</style>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -22,57 +35,34 @@
 
         <div class="row">
             <?php foreach ($kelas as $k) { ?>
+                <?php
+                // dapatkan siswa dalam rombel berdasarkan id kelasnya
+                $siswa = $this->Rombel_model->get_siswa_by_kelas($k['id']);
+                $count = count($siswa);
+                // print_r($siswa);
+                ?>
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header"><?= $k['nama'] ?></div>
+                        <div class="card-header">
+                            <h4><?= $k['nama'] ?>
+                            <span class="badge badge-info float-right"><?= $count ?> siswa</span>
+                            </h4>
+                        </div>
                         <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Cras justo odio</li>
-                                <li class="list-group-item">Dapibus ac facilisis in</li>
-                                <li class="list-group-item">Vestibulum at eros</li>
+
+                            <ul class="list-group list-group-flush area">
+                                <?php foreach ($siswa as $s) { ?>
+                                    <li class="list-group-item"><?= $s['first_name'] ?></li>
+                                <?php } ?>
                             </ul>
                         </div>
                         <div class="card-footer">
-                            <a class="btn btn-primary btn-sm" href="#">Edit</a>
+                            <a class="btn btn-primary btn-sm" href="<?= base_url('rombel/edit/' . $k['id']) ?>">Edit</a>
                         </div>
                     </div>
                 </div>
             <?php } ?>
         </div>
-
-        <!-- Default box -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Daftar Rombel</h3>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped">
-                    <tr>
-                        <th>ID</th>
-                        <th>Id Kelas</th>
-                        <th>Id Siswa</th>
-                        <th>Actions</th>
-                    </tr>
-                    <?php foreach ($rombel as $r) { ?>
-                        <tr>
-                            <td><?php echo $r['id']; ?></td>
-                            <td><?php echo $r['id_kelas']; ?></td>
-                            <td><?php echo $r['id_siswa']; ?></td>
-                            <td>
-                                <a href="<?php echo site_url('rombel/edit/' . $r['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>
-                                <a href="<?php echo site_url('rombel/remove/' . $r['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </table>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-                Footer
-            </div>
-            <!-- /.card-footer-->
-        </div>
-        <!-- /.card -->
 
     </section>
     <!-- /.content -->

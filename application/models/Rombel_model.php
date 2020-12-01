@@ -18,7 +18,7 @@ class Rombel_model extends CI_Model
     {
         return $this->db->get_where('rombel',array('id'=>$id))->row_array();
     }
-        
+    
     /*
      * Get all rombel
      */
@@ -64,5 +64,15 @@ class Rombel_model extends CI_Model
         $this->db->where('groups.name', 'siswa');
         $this->db->where('users.id NOT IN (SELECT id_siswa FROM rombel)', null, false);
         return $this->db->get()->result_array();
+    }
+
+    function get_siswa_by_kelas($id_kelas)
+    {
+        return $this->db->select('users.first_name')
+        ->from('users')
+        ->join('rombel', 'users.id = rombel.id_siswa')
+        ->where('rombel.id_kelas ='.$id_kelas)
+        ->get()
+        ->result_array();
     }
 }
