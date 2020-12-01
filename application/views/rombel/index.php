@@ -20,6 +20,26 @@
             <button type="button" class="btn btn-primary">Cetak</button>
         </div>
 
+        <div class="row">
+            <?php foreach ($kelas as $k) { ?>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header"><?= $k['nama'] ?></div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Cras justo odio</li>
+                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Vestibulum at eros</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary btn-sm" href="#">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+
         <!-- Default box -->
         <div class="card">
             <div class="card-header">

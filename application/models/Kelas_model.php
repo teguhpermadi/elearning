@@ -24,7 +24,7 @@ class Kelas_model extends CI_Model
      */
     function get_all_kelas()
     {
-        $this->db->order_by('id', 'desc');
+        $this->db->order_by('tingkat', 'asc');
         return $this->db->get('kelas')->result_array();
     }
         

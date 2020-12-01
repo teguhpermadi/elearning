@@ -10,6 +10,7 @@ class Rombel extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Rombel_model');
+        $this->load->model('Kelas_model');
     }
 
     /*
@@ -18,7 +19,7 @@ class Rombel extends CI_Controller
     function index()
     {
         $data['rombel'] = $this->Rombel_model->get_all_rombel();
-
+        $data['kelas'] = $this->Kelas_model->get_all_kelas();
         $data['_view'] = 'rombel/index';
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
