@@ -34,24 +34,32 @@ class Rombel extends CI_Controller
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('id_kelas', 'Id Kelas', 'required');
-        $this->form_validation->set_rules('id_siswa', 'Id Siswa', 'required');
+        // $this->form_validation->set_rules('id_siswa', 'Id Siswa', 'required');
 
         if ($this->form_validation->run()) {
-            $params = array(
-                'id_kelas' => $this->input->post('id_kelas'),
-                'id_siswa' => $this->input->post('id_siswa'),
-            );
+            $data = [];
+            $id_siswa = $this->input->post('id_siswa[]');
+            foreach($id_siswa as $s){
+                array_push($data, [
+                    'id_kelas' => $this->input->post('id_kelas'),
+                    'id_siswa' => $s,
+                ]);
+            }
 
-            $rombel_id = $this->Rombel_model->add_rombel($params);
+            print_r($data);
+            $this->db->insert_batch('rombel', $data);
             redirect('rombel/index');
         } else {
             $this->load->model('Kelas_model');
             $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
 
             // $this->load->model('Siswa_model');
-            $users = $this->ion_auth->users('siswa')->result(); // get users from 'members' group
-            print_r(json_encode($users));
+            $users = $this->ion_auth->users('siswa')->result_array();
             // $data['all_siswa'] = $this->Siswa_model->get_all_siswa();
+            
+            $siswa = $this->Rombel_model->get_siswa();
+            // print_r($siswa);
+            $data['users'] = $siswa;
 
             $data['_view'] = 'rombel/add';
             $this->load->view('template/header');

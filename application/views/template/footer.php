@@ -1,12 +1,12 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.5
-    </div>
-  </footer>
+  <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+  All rights reserved.
+  <div class="float-right d-none d-sm-inline-block">
+    <b>Version</b> 3.0.5
+  </div>
+</footer>
 
-  <!-- </div> -->
+<!-- </div> -->
 <!-- ./wrapper -->
 
 <!-- jQuery -->
@@ -49,6 +49,8 @@
 <script src="<?= base_url('node_modules/admin-lte/') ?>plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url('node_modules/admin-lte/') ?>plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="<?= base_url('node_modules/admin-lte/') ?>plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- multiselect -->
+<script src="<?= base_url('assets/multiselect/js/jquery.multi-select.js') ?>" type="text/javascript"></script>
 
 <script>
   $(document).ready(function() {
@@ -56,8 +58,9 @@
     $('#tableGuru').DataTable();
     $('#tableSiswa').DataTable();
     $('#tableKelas').DataTable();
-} );
-
+    $('#select').multiSelect();
+  });
 </script>
 </body>
+
 </html>

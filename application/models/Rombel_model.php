@@ -53,4 +53,16 @@ class Rombel_model extends CI_Model
     {
         return $this->db->delete('rombel',array('id'=>$id));
     }
+
+    function get_siswa()
+    {
+        $this->db->select('users.id, users.first_name');
+        $this->db->from('users');
+        $this->db->join('users_groups', 'users_groups.user_id = users.id');
+        $this->db->join('groups', 'users_groups.group_id = groups.id');
+        $this->db->where('users.active', 1);
+        $this->db->where('groups.name', 'siswa');
+        $this->db->where('users.id NOT IN (SELECT id_siswa FROM rombel)', null, false);
+        return $this->db->get()->result_array();
+    }
 }
