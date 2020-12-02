@@ -75,4 +75,18 @@ class Rombel_model extends CI_Model
         ->get()
         ->result_array();
     }
+
+    // dapatkan semua siswa kemudian berikan check pada masing2 siswa untuk masing2
+    function get_siswa_by_rombel($id_kelas)
+    {
+        return $this->db->select('users.id, users.first_name, rombel.id_kelas as check')
+        ->from('users')
+        ->join('rombel', 'users.id = rombel.id_siswa', 'left')
+        ->join('users_groups', 'users_groups.user_id = users.id')
+        ->join('groups', 'users_groups.group_id = groups.id')
+        ->where('users.active', 1)
+        ->where('groups.name = "siswa"')
+        ->get()
+        ->result_array();
+    }
 }

@@ -40,7 +40,7 @@ class Rombel extends CI_Controller
         if ($this->form_validation->run()) {
             $data = [];
             $id_siswa = $this->input->post('id_siswa[]');
-            foreach($id_siswa as $s){
+            foreach ($id_siswa as $s) {
                 array_push($data, [
                     'id_kelas' => $this->input->post('id_kelas'),
                     'id_siswa' => $s,
@@ -57,7 +57,7 @@ class Rombel extends CI_Controller
             // $this->load->model('Siswa_model');
             $users = $this->ion_auth->users('siswa')->result_array();
             // $data['all_siswa'] = $this->Siswa_model->get_all_siswa();
-            
+
             $siswa = $this->Rombel_model->get_siswa();
             // print_r($siswa);
             $data['users'] = $siswa;
@@ -76,18 +76,33 @@ class Rombel extends CI_Controller
     function edit($id_kelas)
     {
         $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
-        $data['rombel'] = ['id_kelas' => $id_kelas];
-        $data['all_siswa'] = $this->Rombel_model->get_siswa();
-        $kelas = $this->Kelas_model->get_kelas($id_kelas);
-        $siswa = $this->Rombel_model->get_siswa_by_kelas($id_kelas);
-
-        print_r($kelas);
-        print_r($siswa);
+        $data['rombel'] = $this->Rombel_model->get_siswa_by_rombel($id_kelas);
+        $data['id_kelas'] = $id_kelas;
 
         $this->load->view('template/header');
-            $this->load->view('template/sidebar');
-            $this->load->view('rombel/edit', $data);
-            $this->load->view('template/footer');
+        $this->load->view('template/sidebar');
+        $this->load->view('rombel/edit', $data);
+        $this->load->view('template/footer');
+    }
+
+    function update()
+    {
+        $data = [];
+        $siswa = $this->input->post('id_siswa[]');
+        $id_kelas = $this->input->post('id_kelas');
+        // delete siswa
+        $this->db->delete('rombel', ['id_kelas' => $id_kelas]);
+
+        foreach ($siswa as $s) {
+            array_push($data, [
+                'id_kelas' => $id_kelas,
+                'id_siswa' => $s,
+            ]);
+        }
+        // print_r($data);
+        $this->db->insert_batch('rombel', $data);
+        redirect('rombel');
+
     }
 
     /*
