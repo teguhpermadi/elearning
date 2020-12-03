@@ -27,11 +27,11 @@
     <!-- Main content -->
     <section class="content">
 
-        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+        <!-- <div class="btn-group mb-3" role="group" aria-label="Basic example">
             <a href="<?php echo site_url('rombel/add'); ?>" class="btn btn-primary">Tambah</a>
             <button type="button" class="btn btn-primary">Upload</button>
             <button type="button" class="btn btn-primary">Cetak</button>
-        </div>
+        </div> -->
 
         <div class="row">
             <?php foreach ($kelas as $k) { ?>
