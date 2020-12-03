@@ -41,7 +41,7 @@
 					<div class="col-md-6">
 						<label for="id_siswa" class="control-label"><span class="text-danger">*</span>Siswa</label>
 						<div class="form-group">
-							<select multiple="multiple" id="select" name="id_siswa[]">
+							<select multiple="multiple" class="select" name="id_siswa[]">
 								<?php foreach ($rombel as $r) {
 									if ($r['check'] == null) {
 										$selected = ''; // jika siswa belum mendapatkan rombel

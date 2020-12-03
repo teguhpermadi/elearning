@@ -18,6 +18,7 @@ class Pengajar extends CI_Controller
     function index()
     {
         $data['pengajar'] = $this->Pengajar_model->get_all_pengajar();
+        $data['all_guru'] = $this->ion_auth->users('guru')->result_array();
 
         $data['_view'] = 'pengajar/index';
         $this->load->view('template/header');
@@ -32,20 +33,25 @@ class Pengajar extends CI_Controller
     function add()
     {
         if (isset($_POST) && count($_POST) > 0) {
-            $params = array(
-                'id_mapel' => $this->input->post('id_mapel'),
-                'id_guru' => $this->input->post('id_guru'),
-                'id_kelas' => $this->input->post('id_kelas'),
-            );
+            $data = [];
+            $id_kelas = $this->input->post('id_kelas[]');
 
-            $pengajar_id = $this->Pengajar_model->add_pengajar($params);
+            foreach ($id_kelas as $kelas) {
+                array_push($data, [
+                    'id_mapel' => $this->input->post('id_mapel'),
+                    'id_guru' => $this->input->post('id_guru'),
+                    'id_kelas' => $kelas,
+                ]);
+            }
+            // print_r($data);
+            $this->db->insert_batch('pengajar', $data);
+            // $pengajar_id = $this->Pengajar_model->add_pengajar($params);
             redirect('pengajar/index');
         } else {
             $this->load->model('Mapel_model');
             $data['all_mapel'] = $this->Mapel_model->get_all_mapel();
 
-            $this->load->model('Guru_model');
-            $data['all_guru'] = $this->Guru_model->get_all_guru();
+            $data['all_guru'] = $this->ion_auth->users('guru')->result_array();
 
             $this->load->model('Kelas_model');
             $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
@@ -61,39 +67,26 @@ class Pengajar extends CI_Controller
     /*
      * Editing a pengajar
      */
-    function edit($id)
+    function edit($id_guru)
     {
-        // check if the pengajar exists before trying to edit it
-        $data['pengajar'] = $this->Pengajar_model->get_pengajar($id);
 
-        if (isset($data['pengajar']['id'])) {
-            if (isset($_POST) && count($_POST) > 0) {
-                $params = array(
-                    'id_mapel' => $this->input->post('id_mapel'),
-                    'id_guru' => $this->input->post('id_guru'),
-                    'id_kelas' => $this->input->post('id_kelas'),
-                );
+        $this->load->model('Mapel_model');
+        $data['all_mapel'] = $this->Mapel_model->get_all_mapel();
 
-                $this->Pengajar_model->update_pengajar($id, $params);
-                redirect('pengajar/index');
-            } else {
-                $this->load->model('Mapel_model');
-                $data['all_mapel'] = $this->Mapel_model->get_all_mapel();
+        $this->load->model('Kelas_model');
+        $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
+        $data['all_guru'] = $this->ion_auth->users('guru')->result_array();
+        $data['data_mapel'] = $this->Pengajar_model->get_mapel_for_edit($id_guru);
 
-                $this->load->model('Guru_model');
-                $data['all_guru'] = $this->Guru_model->get_all_guru();
+        $data['pengajar'] = [
+            'id_guru' => $id_guru,
+        ];
 
-                $this->load->model('Kelas_model');
-                $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
-
-                $data['_view'] = 'pengajar/edit';
-                $this->load->view('template/header');
-                $this->load->view('template/sidebar');
-                $this->load->view('pengajar/edit', $data);
-                $this->load->view('template/footer');
-            }
-        } else
-            show_error('The pengajar you are trying to edit does not exist.');
+        $data['_view'] = 'pengajar/edit';
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('pengajar/edit', $data);
+        $this->load->view('template/footer');
     }
 
     /*

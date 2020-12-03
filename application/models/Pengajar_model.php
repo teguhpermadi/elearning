@@ -53,4 +53,31 @@ class Pengajar_model extends CI_Model
     {
         return $this->db->delete('pengajar',array('id'=>$id));
     }
+
+    function get_mapel($id_guru)
+    {
+        return $this->db->select('mapel.nama as nama_mapel, mapel.kode as kode_mapel, kelas.nama as nama_kelas')
+        ->from('pengajar')
+        ->join('kelas', 'pengajar.id_kelas = kelas.id')
+        ->join('mapel', 'pengajar.id_mapel = mapel.id')
+        ->where('pengajar.id_guru', $id_guru)
+        ->get()
+        ->result_array();
+    }
+
+    function get_mapel_for_edit($id_guru)
+    {
+        return $this->db->select('mapel.id as id_mapel, mapel.nama as nama_mapel, mapel.kode as kode_mapel')
+        ->from('pengajar')
+        ->join('mapel', 'pengajar.id_mapel = mapel.id')
+        ->where('pengajar.id_guru', $id_guru)
+        ->group_by('nama_mapel')
+        ->get()
+        ->result_array();
+    }
+
+    function get_kelas_by_mapel($id_guru, $id_mapel)
+    {
+        return
+    }
 }

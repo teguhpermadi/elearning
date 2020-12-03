@@ -58,7 +58,7 @@
     $('#tableGuru').DataTable();
     $('#tableSiswa').DataTable();
     $('#tableKelas').DataTable();
-    $('#select').multiSelect();
+    $('.select').multiSelect();
   });
 </script>
 </body>
