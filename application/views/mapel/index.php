@@ -16,7 +16,7 @@
 
         <div class="btn-group mb-3" role="group" aria-label="Basic example">
             <a href="<?php echo site_url('mapel/add'); ?>" class="btn btn-primary">Tambah</a>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Upload</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">Upload</button>
             <button type="button" class="btn btn-primary">Cetak</button>
         </div>
 
@@ -54,22 +54,26 @@
 <!-- /.content-wrapper -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload Mata Pelajaran</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="button" class="btn btn-primary">Upload</button>
-      </div>
-    </div>
-  </div>
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="uploadModalLabel">Upload User</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<?php echo form_open_multipart('mapel/do_upload'); ?>
+			<div class="modal-body">
+				<a href="<?= base_url('mapel/download') ?>" class="btn btn-info">Download Template</a>
+				<br><br>
+				<input type="file" name="userfile" size="20" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<button type="submit" class="btn btn-primary">Upload</button>
+			</div>
+			</form>
+		</div>
+	</div>
 </div>

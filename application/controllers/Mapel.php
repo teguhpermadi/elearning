@@ -4,6 +4,10 @@
  * www.crudigniter.com
  */
 
+require 'vendor/autoload.php'; //untuk load semua library di folder vendor
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
+
 class Mapel extends CI_Controller
 {
     function __construct()
@@ -99,5 +103,47 @@ class Mapel extends CI_Controller
             redirect('mapel/index');
         } else
             show_error('The mapel you are trying to delete does not exist.');
+    }
+
+    function download()
+    {
+		force_download('downloads/template mapel.xlsx', NULL);
+    }
+
+    function do_upload()
+    {
+        $config['upload_path']          = './uploads/';
+		$config['allowed_types']        = 'xlsx|xls|csv';
+		$config['file_name']			= 'template_mapel';
+		$config['overwrite']			= TRUE;
+
+		$this->load->library('upload', $config);
+
+		if (!$this->upload->do_upload('userfile')) {
+			$error = array('error' => $this->upload->display_errors());
+			print_r($error);
+		} else {
+            $data_mapel = [];
+			$data = array('upload_data' => $this->upload->data());
+			// print_r($data);
+			$helper = new Sample();
+			$inputFileName = 'uploads/'.$data['upload_data']['file_name'];
+			$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory to identify the format');
+			$spreadsheet = IOFactory::load($inputFileName);
+			$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+			// baca data mulai dari baris ke dua
+			for ($i=2; $i < count($sheetData); $i++) { 
+                $data = [
+                    'nama' => $sheetData[$i]['A'],
+                    'kode' => $sheetData[$i]['B'],
+                ];
+
+                array_push($data_mapel, $data);
+            }
+
+            // print_r($data_mapel);
+            $this->db->insert_batch('mapel', $data_mapel);
+            redirect('mapel');
+        }
     }
 }
