@@ -78,6 +78,14 @@ class Pengajar_model extends CI_Model
 
     function get_kelas_by_mapel($id_guru, $id_mapel)
     {
-        return
+        $this->db->select('kelas.id, pengajar.id_kelas as check')
+        ->from('kelas')
+        ->join('pengajar', 'pengajar.id_kelas = kelas.id', 'left')
+        // ->where('pengajar.id_guru = '.$id_guru)
+        // ->where('pengajar.id_mapel = '.$id_mapel)
+        ->get()
+        ->result_array();
+
+        return $this->db->last_query();
     }
 }

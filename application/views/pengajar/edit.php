@@ -65,6 +65,10 @@
 						<div class="col-md-6">
 							<label for="id_kelas" class="control-label">Kelas</label>
 							<div class="form-group">
+							<?php 
+							$kelas = $this->Pengajar_model->get_kelas_by_mapel($pengajar['id_guru'], $dm['id_mapel']);
+							print_r($kelas);
+							?>
 								<select multiple="multiple" class="select" name="id_kelas[]">
 									<?php
 									foreach ($all_kelas as $kelas) {
