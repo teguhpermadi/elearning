@@ -18,8 +18,8 @@ class Pengajar extends CI_Controller
     function index()
     {
         $data['pengajar'] = $this->Pengajar_model->get_all_pengajar();
-        $data['all_guru'] = $this->ion_auth->users('guru')->result_array();
-
+        // $data['all_guru'] = $this->ion_auth->users('guru')->result_array();
+        // print_r($data['pengajar']);
         $data['_view'] = 'pengajar/index';
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -69,7 +69,6 @@ class Pengajar extends CI_Controller
      */
     function edit($id_guru)
     {
-
         $this->load->model('Mapel_model');
         $data['all_mapel'] = $this->Mapel_model->get_all_mapel();
 
@@ -77,6 +76,9 @@ class Pengajar extends CI_Controller
         $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
         $data['all_guru'] = $this->ion_auth->users('guru')->result_array();
         $data['data_mapel'] = $this->Pengajar_model->get_mapel_for_edit($id_guru);
+        // $data['data_kelas'] = $this->Pengajar_model->get_kelas_by_mapel();
+
+        // print_r($data['data_kelas']);
 
         $data['pengajar'] = [
             'id_guru' => $id_guru,
@@ -87,6 +89,33 @@ class Pengajar extends CI_Controller
         $this->load->view('template/sidebar');
         $this->load->view('pengajar/edit', $data);
         $this->load->view('template/footer');
+    }
+
+    function update()
+    {
+        $id_guru = $this->input->post('id_guru');
+
+        $data_mapel = $this->Pengajar_model->get_mapel_for_edit($id_guru);
+        // pecah mapelnya
+        foreach ($data_mapel as $mapel) {
+            $data_kelas = [];
+            $id_mapel = $mapel['id_mapel'];
+            // hapus dulu datanya
+            $this->Pengajar_model->delete_mapel($id_mapel);
+            $get_kelas = $this->input->post($id_mapel . '-id_kelas[]');
+            // pecah kelasnya pada tiap mapel
+            foreach ($get_kelas as $kelas) {
+                array_push($data_kelas, [
+                    'id_guru' => $id_guru,
+                    'id_mapel' => $id_mapel,
+                    'id_kelas' => $kelas
+                ]);
+            }
+            echo json_encode($data_kelas);
+            // array_merge($data, $data_kelas);
+            $this->db->insert_batch('pengajar',$data_kelas);
+        }
+        redirect('pengajar');
     }
 
     /*

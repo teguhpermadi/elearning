@@ -42,7 +42,6 @@
 				<!-- antisipasi kemungkinan 1 guru mengajar beberapa mapel sekaligus -->
 				<?php
 				foreach ($data_mapel as $dm) {
-					
 				?>
 
 					<div class="row">
@@ -65,18 +64,20 @@
 						<div class="col-md-6">
 							<label for="id_kelas" class="control-label">Kelas</label>
 							<div class="form-group">
-							<?php 
-							$kelas = $this->Pengajar_model->get_kelas_by_mapel($pengajar['id_guru'], $dm['id_mapel']);
-							print_r($kelas);
-							?>
-								<select multiple="multiple" class="select" name="id_kelas[]">
+								<select multiple="multiple" class="select" name="<?= $dm['id_mapel'] ?>-id_kelas[]" required>
 									<?php
-									foreach ($all_kelas as $kelas) {
-										$selected = ($kelas['id'] == $this->input->post('id_kelas')) ? ' selected="selected"' : "";
-
-										echo '<option value="' . $kelas['id'] . '" ' . $selected . '>' . $kelas['nama'] . '</option>';
-									}
+									// ambil data kelasnya
+									$data_kelas = $this->Pengajar_model->get_kelas_by_mapel($dm['id_mapel']);
+									foreach ($data_kelas as $kelas) {
+										// ambil semua kelas kemudian cocokan dengan id guru dan id mapel
+										if ($kelas['id_guru'] == $pengajar['id_guru']) {
+											$selected = 'selected';
+										} else {
+											$selected = '';
+										}
 									?>
+										<option value="<?= $kelas['id'] ?>" <?= $selected; ?>><?= $kelas['nama'] ?></option>
+									<?php } ?>
 								</select>
 							</div>
 						</div>
@@ -85,6 +86,7 @@
 			</div>
 			<!-- /.card-body -->
 			<div class="card-footer">
+				<input type="hidden" name="id_guru" value="<?= $pengajar['id_guru'] ?>">
 				<button type="submit" class="btn btn-primary">Simpan</button>
 				<a href="<?= base_url('pengajar') ?>" class="btn btn-secondary">Batal</a>
 			</div>

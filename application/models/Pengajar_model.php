@@ -24,8 +24,12 @@ class Pengajar_model extends CI_Model
      */
     function get_all_pengajar()
     {
-        $this->db->order_by('id', 'desc');
-        return $this->db->get('pengajar')->result_array();
+        return $this->db->select('users.first_name, users.id')
+        ->from('pengajar')
+        ->join('users', 'users.id = pengajar.id_guru')
+        ->group_by('users.first_name')
+        ->get()
+        ->result_array();
     }
         
     /*
@@ -53,14 +57,20 @@ class Pengajar_model extends CI_Model
     {
         return $this->db->delete('pengajar',array('id'=>$id));
     }
+    
+    function delete_mapel($id)
+    {
+        return $this->db->delete('pengajar',array('id_mapel'=>$id));
+    }
 
     function get_mapel($id_guru)
     {
-        return $this->db->select('mapel.nama as nama_mapel, mapel.kode as kode_mapel, kelas.nama as nama_kelas')
+        return $this->db->select('mapel.nama as nama_mapel, mapel.kode as kode_mapel, kelas.nama as nama_kelas, pengajar.id as id')
         ->from('pengajar')
         ->join('kelas', 'pengajar.id_kelas = kelas.id')
         ->join('mapel', 'pengajar.id_mapel = mapel.id')
         ->where('pengajar.id_guru', $id_guru)
+        ->order_by('nama_mapel', 'asc')
         ->get()
         ->result_array();
     }
@@ -76,16 +86,14 @@ class Pengajar_model extends CI_Model
         ->result_array();
     }
 
-    function get_kelas_by_mapel($id_guru, $id_mapel)
+    function get_kelas_by_mapel($id_mapel)
     {
-        $this->db->select('kelas.id, pengajar.id_kelas as check')
+        return $this->db->select('kelas.id, kelas.nama, pengajar.id_mapel, pengajar.id_guru')
         ->from('kelas')
-        ->join('pengajar', 'pengajar.id_kelas = kelas.id', 'left')
-        // ->where('pengajar.id_guru = '.$id_guru)
-        // ->where('pengajar.id_mapel = '.$id_mapel)
+        ->join('pengajar', 'pengajar.id_kelas = kelas.id and pengajar.id_mapel ='. $id_mapel, 'left')
         ->get()
         ->result_array();
 
-        return $this->db->last_query();
+        // return $this->db->last_query();
     }
 }
