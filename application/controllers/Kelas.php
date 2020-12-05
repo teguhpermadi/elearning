@@ -13,6 +13,7 @@ class kelas extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Kelas_model');
+        check_login();
     }
 
     /*
@@ -110,47 +111,46 @@ class kelas extends CI_Controller
 
     function download()
     {
-		force_download('downloads/template kelas.xlsx', NULL);
-
+        force_download('downloads/template kelas.xlsx', NULL);
     }
 
     function do_upload()
     {
         $config['upload_path']          = './uploads/';
-		$config['allowed_types']        = 'xlsx|xls|csv';
-		$config['file_name']			= 'template_kelas';
-		$config['overwrite']			= TRUE;
+        $config['allowed_types']        = 'xlsx|xls|csv';
+        $config['file_name']            = 'template_kelas';
+        $config['overwrite']            = TRUE;
 
-		$this->load->library('upload', $config);
+        $this->load->library('upload', $config);
 
-		if (!$this->upload->do_upload('userfile')) {
-			$error = array('error' => $this->upload->display_errors());
-			print_r($error);
-		} else {
-			$data_kelas = [];
-			$data = array('upload_data' => $this->upload->data());
-			// print_r($data);
-			$helper = new Sample();
-			$inputFileName = 'uploads/'.$data['upload_data']['file_name'];
-			$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory to identify the format');
-			$spreadsheet = IOFactory::load($inputFileName);
-			$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-			// baca data mulai dari baris ke dua
-			for ($i=2; $i < count($sheetData); $i++) { 
-				# code...
-				// print_r($sheetData[$i]);
-				// pecah datanya pada masing-masing kolom
-				$data = [
+        if (!$this->upload->do_upload('userfile')) {
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+        } else {
+            $data_kelas = [];
+            $data = array('upload_data' => $this->upload->data());
+            // print_r($data);
+            $helper = new Sample();
+            $inputFileName = 'uploads/' . $data['upload_data']['file_name'];
+            $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory to identify the format');
+            $spreadsheet = IOFactory::load($inputFileName);
+            $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+            // baca data mulai dari baris ke dua
+            for ($i = 2; $i < count($sheetData); $i++) {
+                # code...
+                // print_r($sheetData[$i]);
+                // pecah datanya pada masing-masing kolom
+                $data = [
                     'tingkat' => $sheetData[$i]['A'],
                     'nama' => $sheetData[$i]['B'],
                     'kode' => $sheetData[$i]['C'],
                 ];
 
                 array_push($data_kelas, $data);
-			}
+            }
 
             $this->db->insert_batch('kelas', $data_kelas);
             redirect('kelas');
-		}
+        }
     }
 }

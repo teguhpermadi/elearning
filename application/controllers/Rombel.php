@@ -11,6 +11,7 @@ class Rombel extends CI_Controller
         parent::__construct();
         $this->load->model('Rombel_model');
         $this->load->model('Kelas_model');
+        check_login();
     }
 
     /*
@@ -102,7 +103,6 @@ class Rombel extends CI_Controller
         // print_r($data);
         $this->db->insert_batch('rombel', $data);
         redirect('rombel');
-
     }
 
     /*

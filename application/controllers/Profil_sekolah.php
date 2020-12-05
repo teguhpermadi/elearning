@@ -11,7 +11,7 @@ class Profil_sekolah extends CI_Controller
 		parent::__construct();
 		$this->load->model('Profil_sekolah_model');
 		$this->output->delete_cache('profil_sekolah/index');
-
+		check_login();
 	}
 
 	/*

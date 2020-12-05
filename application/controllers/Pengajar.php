@@ -10,6 +10,7 @@ class Pengajar extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Pengajar_model');
+        check_login();
     }
 
     /*
@@ -113,7 +114,7 @@ class Pengajar extends CI_Controller
             }
             echo json_encode($data_kelas);
             // array_merge($data, $data_kelas);
-            $this->db->insert_batch('pengajar',$data_kelas);
+            $this->db->insert_batch('pengajar', $data_kelas);
         }
         redirect('pengajar');
     }
