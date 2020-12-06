@@ -59,6 +59,8 @@
     $('#tableSiswa').DataTable();
     $('#tableKelas').DataTable();
     $('.select').multiSelect();
+    // Summernote
+    $('.textarea').summernote()
   });
 </script>
 </body>
