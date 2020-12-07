@@ -20,7 +20,7 @@
 		</li>
 		<li class="nav-header">Menu Guru</li>
 		<li class="nav-item menu-open">
-			<a href="<?= base_url('materi') ?>" class="nav-link <?php if($this->uri->segment(1) == 'posts') { echo 'active';}?>">
+			<a href="<?= base_url('materi') ?>" class="nav-link">
 				<i class="nav-icon fas fa-book"></i>
 				<p>
 					Materi
@@ -41,7 +41,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?= base_url('category') ?>" class="nav-link <?php if($this->uri->segment(1) == 'category') { echo 'active';}?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kategori</p>
                 </a>
