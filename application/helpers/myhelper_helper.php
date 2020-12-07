@@ -21,6 +21,7 @@ function user_info()
     $user_groups = $ci->ion_auth->get_users_groups($user->id)->row(); // informasi group user
 
     $data = [
+        'id' => $user->id,
         'ip_address' => $user->ip_address,
         'username' => $user->username,
         'password' => $user->password,

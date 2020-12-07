@@ -55,29 +55,30 @@
               <input class="form-control" type="date" name="" id="">
             </div>
             <div class="form-group">
+              <label for="">Slug (optional)</label>
+              <input type="text" name="" id="" class="form-control">
+            </div>
+            <div class="form-group">
               <!-- category -->
               <label for="">Ketegori</label>
               <select class="form-control" name="" id="">
-                <option value="">category 1</option>
-                <option value="">category 2</option>
-                <option value="">category 3</option>
+                <?php foreach($category as $c){ ?>
+                <option value="<?= $c['id'] ?>"><?= $c['nama'] ?></option>
+                <?php } ?>
               </select>
             </div>
             <div class="form-group">
               <!-- tag -->
               <label for="">Tag</label>
               <br>
+              <?php foreach($tags as $tag){ ?>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                  tag 1
+                <input class="form-check-input" type="checkbox" value="" id="<?= $tag['id'] ?>">
+                <label class="form-check-label" for="default_<?= $tag['id'] ?>">
+                  <?= $tag['nama'] ?>
                 </label>
               </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                <label class="form-check-label" for="defaultCheck2">
-                  tag 2
-                </label>
+              <?php } ?>
               </div>
             </div>
           </div>
