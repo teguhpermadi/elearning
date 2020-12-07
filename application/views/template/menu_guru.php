@@ -47,7 +47,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?= base_url('tags') ?>" class="nav-link <?php if($this->uri->segment(1) == 'tags') { echo 'active';}?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tag</p>
                 </a>

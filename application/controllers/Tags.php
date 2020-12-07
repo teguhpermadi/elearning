@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Category extends CI_Controller
+class Tags extends CI_Controller
 {
 
     public function __construct()
@@ -14,7 +14,7 @@ class Category extends CI_Controller
     {
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('category/index');
+        $this->load->view('tags/index');
         $this->load->view('template/footer');
     }
 
