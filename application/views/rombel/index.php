@@ -52,7 +52,9 @@
 
                             <ul class="list-group list-group-flush area">
                                 <?php foreach ($siswa as $s) { ?>
-                                    <li class="list-group-item"><?= $s['first_name'] ?></li>
+                                    <li class="list-group-item"><?= $s['first_name'] ?>
+                                    <a class="float-right btn btn-danger btn-sm" href="<?= base_url('rombel/remove/').$s['id'] ?>">Hapus</a>
+                                </li>
                                 <?php } ?>
                             </ul>
                         </div>

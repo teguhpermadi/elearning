@@ -68,7 +68,7 @@ class Rombel_model extends CI_Model
 
     function get_siswa_by_kelas($id_kelas)
     {
-        return $this->db->select('users.first_name')
+        return $this->db->select('rombel.id as id, users.first_name')
         ->from('users')
         ->join('rombel', 'users.id = rombel.id_siswa')
         ->where('rombel.id_kelas ='.$id_kelas)
