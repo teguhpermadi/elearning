@@ -60,7 +60,13 @@
     $('#tableKelas').DataTable();
     $('.select').multiSelect();
     // Summernote
-    $('.textarea').summernote()
+    $('.summernote').summernote({
+      height: 250, //set editable area's height
+      codemirror: { // codemirror options
+        theme: 'monokai'
+      },
+      placeholder: 'Tulis konten disini'
+    })
   });
 </script>
 </body>
