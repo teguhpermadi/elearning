@@ -58,6 +58,8 @@
     $('#tableGuru').DataTable();
     $('#tableSiswa').DataTable();
     $('#tableKelas').DataTable();
+    $('#tableCategory').DataTable();
+    $('#tableTag').DataTable();
     $('.select').multiSelect();
     // Summernote
     $('.summernote').summernote({

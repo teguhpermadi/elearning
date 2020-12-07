@@ -14,6 +14,7 @@ class Mapel extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Mapel_model');
+        $this->load->model('Category_model');
         check_login();
     }
 
@@ -48,6 +49,16 @@ class Mapel extends CI_Controller
             );
 
             $mapel_id = $this->Mapel_model->add_mapel($params);
+
+            // tambahkan data kedalam table category
+            $category = [
+                'title' => $this->input->post('nama'),
+                'slug' => str_replace(' ', '-', $this->input->post('kode')), // ganti spasi dengan karakter -
+                'content' => 'Kategori ' . $this->input->post('nama'),
+            ];
+
+            $category = $this->Category_model->add_category($category);
+
             redirect('mapel/index');
         } else {
             $data['_view'] = 'mapel/add';
@@ -79,6 +90,16 @@ class Mapel extends CI_Controller
                 );
 
                 $this->Mapel_model->update_mapel($id, $params);
+
+                // ubah kelas dan ubah data pada tabel category
+                $category = [
+                    'title' => $this->input->post('nama'),
+                    'slug' => str_replace(' ', '-', $this->input->post('kode')), // ganti spasi dengan karakter -
+                    'content' => 'Kategori ' . $this->input->post('nama'),
+                ];
+
+                $this->Category_model->update_category($id, $category);
+
                 redirect('mapel/index');
             } else {
                 $data['_view'] = 'mapel/edit';
@@ -101,6 +122,9 @@ class Mapel extends CI_Controller
         // check if the mapel exists before trying to delete it
         if (isset($mapel['id'])) {
             $this->Mapel_model->delete_mapel($id);
+            // hapus kategori
+            $this->Category_model->delete_category($id);
+
             redirect('mapel/index');
         } else
             show_error('The mapel you are trying to delete does not exist.');
@@ -125,6 +149,7 @@ class Mapel extends CI_Controller
             print_r($error);
         } else {
             $data_mapel = [];
+            $data_category = [];
             $data = array('upload_data' => $this->upload->data());
             // print_r($data);
             $helper = new Sample();
@@ -139,11 +164,21 @@ class Mapel extends CI_Controller
                     'kode' => $sheetData[$i]['B'],
                 ];
 
+                $category = [
+                    'title' => $sheetData[$i]['A'],
+                    'slug' => str_replace(' ', '-', $sheetData[$i]['B']),
+                    'content' => 'Kategori ' . $sheetData[$i]['A'],
+                ];
+
                 array_push($data_mapel, $data);
+                array_push($data_category, $category);
             }
 
             // print_r($data_mapel);
             $this->db->insert_batch('mapel', $data_mapel);
+            // tambahkan data ke dalam table category
+            $this->db->insert_batch('category', $data_category);
+            
             redirect('mapel');
         }
     }

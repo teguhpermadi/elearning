@@ -13,6 +13,7 @@ class kelas extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Kelas_model');
+        $this->load->model('Tags_model');
         check_login();
     }
 
@@ -49,6 +50,16 @@ class kelas extends CI_Controller
             );
 
             $kelas_id = $this->Kelas_model->add_kelas($params);
+
+            $tags = [
+                'title' => $this->input->post('nama'),
+                'slug' => str_replace(' ', '-', $this->input->post('kode')),
+                'content' => $this->input->post('kode'),
+            ];
+
+            // tambah kelas ke dalam tabel tag
+            $tag_id = $this->Tags_model->add_tag($tags);
+
             redirect('kelas/index');
         } else {
             $data['_view'] = 'kelas/add';
@@ -82,6 +93,16 @@ class kelas extends CI_Controller
                 );
 
                 $this->Kelas_model->update_kelas($id, $params);
+
+                // update kelas di tabel tags
+                $tags = [
+                    'title' => $this->input->post('nama'),
+                    'slug' => str_replace(' ', '-', $this->input->post('kode')),
+                    'content' => $this->input->post('kode'),
+                ];
+
+                $this->Tags_model->update_tag($id, $tags);
+
                 redirect('kelas/index');
             } else {
                 $data['_view'] = 'kelas/edit';
@@ -104,6 +125,9 @@ class kelas extends CI_Controller
         // check if the kelas exists before trying to delete it
         if (isset($kelas['id'])) {
             $this->Kelas_model->delete_kelas($id);
+            // hapus tag
+            $this->Tags_model->delete_tag($id);
+
             redirect('kelas/index');
         } else
             show_error('The kelas you are trying to delete does not exist.');
@@ -128,6 +152,8 @@ class kelas extends CI_Controller
             print_r($error);
         } else {
             $data_kelas = [];
+            $data_tag = [];
+
             $data = array('upload_data' => $this->upload->data());
             // print_r($data);
             $helper = new Sample();
@@ -147,9 +173,20 @@ class kelas extends CI_Controller
                 ];
 
                 array_push($data_kelas, $data);
+
+                // tambah data tag
+                $tag = [
+                    'title' => $sheetData[$i]['B'],
+                    'slug' => str_replace(' ', '-', $sheetData[$i]['C']),
+                    'content' => $sheetData[$i]['C'],
+                ];
+
+                array_push($data_tag, $tag);
+
             }
 
             $this->db->insert_batch('kelas', $data_kelas);
+            $this->db->insert_batch('tag', $data_tag);
             redirect('kelas');
         }
     }

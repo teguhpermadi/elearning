@@ -15,9 +15,8 @@
     <section class="content">
 
         <div class="row">
-            <div class="col-md-6">
-                <!-- form -->
-                <!-- Default box -->
+            <!-- form -->
+            <!-- <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Tambah Kategori</h3>
@@ -27,14 +26,11 @@
                             <input type="text" class="form-control" name="" id="" placeholder="Nama Kategori">
                         </div>
                     </div>
-                    <!-- /.card-body -->
                     <div class="card-footer">
                         <button class="btn btn-primary">Simpan</button>
                     </div>
-                    <!-- /.card-footer-->
                 </div>
-                <!-- /.card -->
-            </div>
+            </div> -->
             <div class="col-md-6">
                 <!-- list -->
                 <!-- Default box -->
@@ -43,32 +39,20 @@
                         <h3 class="card-title">Daftar Kategori</h3>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table class="table table-striped" id="tableCategory">
                             <thead>
                                 <tr>
                                     <th>Nama Kategori</th>
-                                    <th>Aksi</th>
+                                    <th>Slug</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($all_category as $category){ ?>
                                 <tr>
-                                    <td>kategori 1</td>
-                                    <td>
-                                        <div class="btn btn-warning">Edit</div>
-                                    </td>
+                                    <td><?= $category['title'] ?></td>
+                                    <td><?= $category['slug'] ?></td>
                                 </tr>
-                                <tr>
-                                    <td>kategori 2</td>
-                                    <td>
-                                        <div class="btn btn-warning">Edit</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>kategori 3</td>
-                                    <td>
-                                        <div class="btn btn-warning">Edit</div>
-                                    </td>
-                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

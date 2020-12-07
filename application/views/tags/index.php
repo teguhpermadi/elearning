@@ -13,11 +13,9 @@
 
     <!-- Main content -->
     <section class="content">
-
-        <div class="row">
-            <div class="col-md-6">
-                <!-- form -->
-                <!-- Default box -->
+-        <div class="row">
+            <!-- form -->
+            <!-- <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Tambah Tag</h3>
@@ -27,14 +25,11 @@
                             <input type="text" class="form-control" name="" id="" placeholder="Nama Tag">
                         </div>
                     </div>
-                    <!-- /.card-body -->
                     <div class="card-footer">
                         <button class="btn btn-primary">Simpan</button>
                     </div>
-                    <!-- /.card-footer-->
                 </div>
-                <!-- /.card -->
-            </div>
+            </div> -->
             <div class="col-md-6">
                 <!-- list -->
                 <!-- Default box -->
@@ -43,32 +38,20 @@
                         <h3 class="card-title">Daftar Kategori</h3>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table class="table table-striped" id="tableTag">
                             <thead>
                                 <tr>
                                     <th>Nama Kategori</th>
-                                    <th>Aksi</th>
+                                    <th>Slug</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($data_tags as $tag){ ?>
                                 <tr>
-                                    <td>tag 1</td>
-                                    <td>
-                                        <div class="btn btn-warning">Edit</div>
-                                    </td>
+                                    <td><?= $tag['title'] ?></td>
+                                    <td><?= $tag['slug'] ?></td>
                                 </tr>
-                                <tr>
-                                    <td>tag 2</td>
-                                    <td>
-                                        <div class="btn btn-warning">Edit</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>tag 3</td>
-                                    <td>
-                                        <div class="btn btn-warning">Edit</div>
-                                    </td>
-                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
