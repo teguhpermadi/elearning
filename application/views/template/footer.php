@@ -53,9 +53,8 @@
 <script src="<?= base_url('assets/multiselect/js/jquery.multi-select.js') ?>" type="text/javascript"></script>
 
 <script>
-  $(document).ready(function() {
+  
     <?= $script; ?>
-  });
 </script>
 
 

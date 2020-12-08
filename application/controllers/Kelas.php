@@ -23,7 +23,11 @@ class kelas extends CI_Controller
     function index()
     {
         $data['kelas'] = $this->Kelas_model->get_all_kelas();
-        $data['script'] = "$('#tableKelas').DataTable()";
+        $data['script'] = "
+        $(document).ready(function() {
+            $('#tableKelas').DataTable()
+        });
+        ";
 
         $data['_view'] = 'kelas/index';
         $this->load->view('template/header');
@@ -37,7 +41,10 @@ class kelas extends CI_Controller
      */
     function add()
     {
-        $data['script'] = "$('#tableKelas').DataTable()";
+        $data['script'] = "
+        $(document).ready(function() {
+            $('#tableKelas').DataTable()
+        });";
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('nama', 'Nama', 'required');
@@ -77,7 +84,11 @@ class kelas extends CI_Controller
      */
     function edit($id)
     {
-        $data['script'] = "$('#tableKelas').DataTable()";
+        $data['script'] = "
+        $(document).ready(function() {
+            $('#tableKelas').DataTable()
+        });
+        ";
 
         // check if the kelas exists before trying to edit it
         $data['kelas'] = $this->Kelas_model->get_kelas($id);
