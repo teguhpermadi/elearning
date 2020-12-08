@@ -23,6 +23,8 @@ class Mapel extends CI_Controller
      */
     function index()
     {
+        $data['script'] = '';
+
         $data['mapel'] = $this->Mapel_model->get_all_mapel();
 
         $data['_view'] = 'mapel/index';
@@ -37,6 +39,8 @@ class Mapel extends CI_Controller
      */
     function add()
     {
+        $data['script'] = '';
+
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
@@ -74,6 +78,8 @@ class Mapel extends CI_Controller
      */
     function edit($id)
     {
+        $data['script'] = '';
+
         // check if the mapel exists before trying to edit it
         $data['mapel'] = $this->Mapel_model->get_mapel($id);
 

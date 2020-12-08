@@ -58,10 +58,15 @@ class Auth extends CI_Controller
 			// 	$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			// }
 
+			$data['script'] = "
+				$('#tableAdmin').DataTable();
+				$('#tableGuru').DataTable();
+				$('#tableSiswa').DataTable();
+			";
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
-			$this->load->view('template/footer');
+			$this->load->view('template/footer', $data);
 		}
 	}
 
@@ -873,12 +878,12 @@ class Auth extends CI_Controller
 			$data = array('upload_data' => $this->upload->data());
 			// print_r($data);
 			$helper = new Sample();
-			$inputFileName = 'uploads/'.$data['upload_data']['file_name'];
+			$inputFileName = 'uploads/' . $data['upload_data']['file_name'];
 			$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory to identify the format');
 			$spreadsheet = IOFactory::load($inputFileName);
 			$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 			// baca data mulai dari baris ke dua
-			for ($i=2; $i < count($sheetData); $i++) { 
+			for ($i = 2; $i < count($sheetData); $i++) {
 				# code...
 				// print_r($sheetData[$i]);
 				// pecah datanya pada masing-masing kolom
@@ -890,7 +895,7 @@ class Auth extends CI_Controller
 					'last_name' => $sheetData[$i]['B'],
 					'phone' => $sheetData[$i]['E'],
 				];
-				
+
 				$group = array($sheetData[$i]['F']);
 
 				$this->ion_auth->register($identity, $password, $email, $additional_data, $group);

@@ -54,23 +54,11 @@
 
 <script>
   $(document).ready(function() {
-    $('#tableAdmin').DataTable();
-    $('#tableGuru').DataTable();
-    $('#tableSiswa').DataTable();
-    $('#tableKelas').DataTable();
-    $('#tableCategory').DataTable();
-    $('#tableTag').DataTable();
-    $('.select').multiSelect();
-    // Summernote
-    $('.summernote').summernote({
-      height: 250, //set editable area's height
-      codemirror: { // codemirror options
-        theme: 'monokai'
-      },
-      placeholder: 'Tulis konten disini'
-    })
+    <?= $script; ?>
   });
 </script>
+
+
 </body>
 
 </html>

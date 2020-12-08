@@ -10,15 +10,15 @@ class Category extends CI_Controller
         $this->load->model('Category_model');
         check_login();
     }
-
+    
     function index()
     {
+        $data['script'] = "$('#tableCategory').DataTable();";
         $data['all_category'] = $this->Category_model->get_all_category();
-
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('category/index', $data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer', $data);
     }
 
 }

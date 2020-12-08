@@ -18,6 +18,8 @@ class Pengajar extends CI_Controller
      */
     function index()
     {
+        $data['script'] = "$('.select').multiSelect();";
+
         $data['pengajar'] = $this->Pengajar_model->get_all_pengajar();
         // $data['all_guru'] = $this->ion_auth->users('guru')->result_array();
         // print_r($data['pengajar']);
@@ -33,6 +35,8 @@ class Pengajar extends CI_Controller
      */
     function add()
     {
+        $data['script'] = "$('.select').multiSelect();";
+
         if (isset($_POST) && count($_POST) > 0) {
             $data = [];
             $id_kelas = $this->input->post('id_kelas[]');
@@ -70,6 +74,8 @@ class Pengajar extends CI_Controller
      */
     function edit($id_guru)
     {
+        $data['script'] = "$('.select').multiSelect();";
+
         $this->load->model('Mapel_model');
         $data['all_mapel'] = $this->Mapel_model->get_all_mapel();
 

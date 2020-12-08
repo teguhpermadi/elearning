@@ -11,6 +11,8 @@ class Profil_user extends CI_Controller
 
     public function index()
     {
+        $data['script'] = '';
+
         $user = $this->ion_auth->user()->row();
         $user_groups = $this->ion_auth->get_users_groups($user->id)->result();
         $data['user'] = $user;
@@ -20,6 +22,6 @@ class Profil_user extends CI_Controller
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('profil_user/index', $data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer', $data);
     }
 }

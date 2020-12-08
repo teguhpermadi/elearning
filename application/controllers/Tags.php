@@ -13,12 +13,14 @@ class Tags extends CI_Controller
 
     function index()
     {
+        $data['script'] = "$('#tableTag').DataTable();";
+
         $data['data_tags'] = $this->Tags_model->get_all_tags();
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('tags/index', $data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer', $data);
     }
 
 }

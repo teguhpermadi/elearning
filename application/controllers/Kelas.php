@@ -23,12 +23,13 @@ class kelas extends CI_Controller
     function index()
     {
         $data['kelas'] = $this->Kelas_model->get_all_kelas();
+        $data['script'] = "$('#tableKelas').DataTable()";
 
         $data['_view'] = 'kelas/index';
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('kelas/index', $data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer', $data);
     }
 
     /*
@@ -36,6 +37,7 @@ class kelas extends CI_Controller
      */
     function add()
     {
+        $data['script'] = "$('#tableKelas').DataTable()";
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('nama', 'Nama', 'required');
@@ -66,7 +68,7 @@ class kelas extends CI_Controller
             $this->load->view('template/header');
             $this->load->view('template/sidebar');
             $this->load->view('kelas/add', $data);
-            $this->load->view('template/footer');
+            $this->load->view('template/footer', $data);
         }
     }
 
@@ -75,6 +77,8 @@ class kelas extends CI_Controller
      */
     function edit($id)
     {
+        $data['script'] = "$('#tableKelas').DataTable()";
+
         // check if the kelas exists before trying to edit it
         $data['kelas'] = $this->Kelas_model->get_kelas($id);
 
@@ -109,7 +113,7 @@ class kelas extends CI_Controller
                 $this->load->view('template/header');
                 $this->load->view('template/sidebar');
                 $this->load->view('kelas/edit', $data);
-                $this->load->view('template/footer');
+                $this->load->view('template/footer', $data);
             }
         } else
             show_error('The kelas you are trying to edit does not exist.');

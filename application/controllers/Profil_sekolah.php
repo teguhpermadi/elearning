@@ -19,6 +19,8 @@ class Profil_sekolah extends CI_Controller
      */
 	function index()
 	{
+        $data['script'] = '';
+
 		$this->output->delete_cache('profil_sekolah/index');
 		$data['profil_sekolah'] = $this->Profil_sekolah_model->get_all_profil_sekolah();
 
@@ -26,7 +28,7 @@ class Profil_sekolah extends CI_Controller
 		$this->load->view('template/header');
 		$this->load->view('template/sidebar');
 		$this->load->view('profil_sekolah/index', $data);
-		$this->load->view('template/footer');
+		$this->load->view('template/footer', $data);
 	}
 
 	/*
@@ -34,6 +36,8 @@ class Profil_sekolah extends CI_Controller
      */
 	function add()
 	{
+        $data['script'] = '';
+
 		$config['upload_path']          = './uploads/';
 		$config['allowed_types']        = 'png'; // izinkan hanya file png agar kualitasnya bagus
 		$config['overwrite']        	= TRUE; // hanya ada 1 file logo
@@ -104,7 +108,7 @@ class Profil_sekolah extends CI_Controller
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('profil_sekolah/add', $data);
-			$this->load->view('template/footer');
+			$this->load->view('template/footer', $data);
 		}
 	}
 
@@ -113,6 +117,8 @@ class Profil_sekolah extends CI_Controller
      */
 	function edit($id)
 	{
+        $data['script'] = '';
+
 		$config['upload_path']          = './uploads/';
 		$config['allowed_types']        = 'png'; // izinkan hanya file png agar kualitasnya bagus
 		$config['overwrite']        	= TRUE; // hanya ada 1 file logo
@@ -186,7 +192,7 @@ class Profil_sekolah extends CI_Controller
 				$this->load->view('template/header');
 				$this->load->view('template/sidebar');
 				$this->load->view('profil_sekolah/edit', $data);
-				$this->load->view('template/footer');
+				$this->load->view('template/footer', $data);
 			}
 		} else
 			show_error('The profil_sekolah you are trying to edit does not exist.');

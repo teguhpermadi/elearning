@@ -19,13 +19,15 @@ class Rombel extends CI_Controller
      */
     function index()
     {
+        $data['script'] = "$('.select').multiSelect();";
+
         $data['rombel'] = $this->Rombel_model->get_all_rombel();
         $data['kelas'] = $this->Kelas_model->get_all_kelas();
         $data['_view'] = 'rombel/index';
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('rombel/index', $data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer', $data);
     }
 
     /*
@@ -33,6 +35,8 @@ class Rombel extends CI_Controller
      */
     function add()
     {
+        $data['script'] = "$('.select').multiSelect();";
+
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('id_kelas', 'Id Kelas', 'required');
@@ -67,7 +71,7 @@ class Rombel extends CI_Controller
             $this->load->view('template/header');
             $this->load->view('template/sidebar');
             $this->load->view('rombel/add', $data);
-            $this->load->view('template/footer');
+            $this->load->view('template/footer', $data);
         }
     }
 
@@ -76,6 +80,8 @@ class Rombel extends CI_Controller
      */
     function edit($id_kelas)
     {
+        $data['script'] = "$('.select').multiSelect();";
+
         $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
         $data['rombel'] = $this->Rombel_model->get_siswa_by_rombel($id_kelas);
         $data['id_kelas'] = $id_kelas;
@@ -83,7 +89,7 @@ class Rombel extends CI_Controller
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('rombel/edit', $data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer', $data);
     }
 
     function update()
