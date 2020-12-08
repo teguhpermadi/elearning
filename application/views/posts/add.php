@@ -43,16 +43,16 @@
             <div class="form-group">
               <!-- terbitkan / simpan -->
               <label for="">Status</label>
-              <select class="form-control" name="" id="">
-                <option value="">Terbitkan</option>
-                <option value="">Draf</option>
-                <option value="">Jadwalkan</option>
+              <select class="form-control" name="status" id="status">
+                <option value="terbitkan">Terbitkan</option>
+                <option value="draf">Draf</option>
+                <option value="jadwalkan">Jadwalkan</option>
               </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="waktu">
               <!-- terbitkan tanggal -->
               <label for="">Waktu Terbit</label>
-              <input class="form-control" type="date" name="" id="">
+              <input class="form-control" type="datetime-local" name="" id="">
             </div>
             <div class="form-group">
               <label for="">Slug (optional)</label>

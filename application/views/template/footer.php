@@ -110,6 +110,16 @@
         }
       });
     }
+
+    // hide and show waktu terbit
+    $('#waktu').hide(); 
+    $('#status').change(function(){
+        if($('#status').val() == 'jadwalkan') {
+            $('#waktu').show(); 
+        } else {
+            $('#waktu').hide(); 
+        } 
+    });
   });
 </script>
 </body>
