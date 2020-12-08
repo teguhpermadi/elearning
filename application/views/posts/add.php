@@ -28,7 +28,7 @@
 
           </div>
           <div class="card-body">
-            <div class="summernote"></div>
+            <textarea class="summernote"></textarea>
           </div>
         </div>
         <!-- /.card -->
