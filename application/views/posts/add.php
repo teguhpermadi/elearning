@@ -13,7 +13,7 @@
 
   <!-- Main content -->
   <section class="content">
-
+    <?php echo form_open('posts/save') ?>
     <div class="row">
       <div class="col-md-8">
         <!-- editor -->
@@ -22,13 +22,13 @@
           <div class="card-header">
             <div class="row">
               <div class="col-md-12">
-                <input type="text" name="title" id="title" class="form-control col-md-12" placeholder="Judul">
+                <input type="text" name="title" id="title" class="form-control col-md-12" placeholder="Judul" required>
               </div>
             </div>
 
           </div>
           <div class="card-body">
-            <textarea class="summernote"></textarea>
+            <textarea class="summernote" name="content"></textarea>
           </div>
         </div>
         <!-- /.card -->
@@ -52,47 +52,42 @@
             <div class="form-group" id="waktu">
               <!-- terbitkan tanggal -->
               <label for="">Waktu Terbit</label>
-              <input class="form-control" type="datetime-local" name="" id="">
+              <input class="form-control" type="datetime-local" name="date" id="date">
             </div>
             <div class="form-group">
               <label for="">Slug (optional)</label>
-              <input type="text" name="" id="" class="form-control">
+              <input type="text" name="slug" id="slug" class="form-control">
             </div>
             <div class="form-group">
               <!-- category -->
               <label for="">Ketegori</label>
-              <select class="form-control" name="" id="">
-                <?php foreach($category as $c){ ?>
-                <option value="<?= $c['id'] ?>"><?= $c['nama'] ?></option>
+              <select class="form-control" name="category" id="category">
+                <?php foreach ($category as $c) { ?>
+                  <option value="<?= $c['id'] ?>"><?= $c['nama'] ?></option>
                 <?php } ?>
               </select>
             </div>
-            <div class="form-group">
-              <!-- tag -->
-              <label for="">Tag</label>
-              <br>
-              <?php foreach($tags as $tag){ ?>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="" id="<?= $tag['id'] ?>">
-                <label class="form-check-label" for="default_<?= $tag['id'] ?>">
-                  <?= $tag['nama'] ?>
-                </label>
-              </div>
-              <?php } ?>
+            <div class="form-group options">
+              <label class="control-label" for="optiontext">Tag</label>
+              <div class="col-md-12">
+              <?php foreach ($tags as $tag) { ?>
+                <input type="checkbox" name="option[]" value="<?= $tag['id'] ?>" required /> <?= $tag['nama'] ?><br>
+                <?php } ?>
               </div>
             </div>
           </div>
-          <div class="card-footer">
-            <button class="btn btn-primary">Simpan</button>
-            <button class="btn btn-info">Preview</button>
-            <button class="btn btn-secondary">Kembali</button>
-          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary">Simpan</button>
+          <button class="btn btn-info">Preview</button>
+          <button class="btn btn-secondary">Kembali</button>
         </div>
       </div>
     </div>
 </div>
+</div>
 
-
+<?php form_close() ?>
 </section>
 <!-- /.content -->
 </div>

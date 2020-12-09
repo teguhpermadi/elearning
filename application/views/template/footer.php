@@ -111,14 +111,26 @@
       });
     }
 
-    // hide and show waktu terbit
-    $('#waktu').hide(); 
-    $('#status').change(function(){
-        if($('#status').val() == 'jadwalkan') {
-            $('#waktu').show(); 
-        } else {
-            $('#waktu').hide(); 
-        } 
+    // default published
+    $("#date").hide()
+
+    // disable date time
+    $('#status').change(function() {
+      if ($('#status').val() == 'jadwalkan') {
+        $("#date").show()
+      } else {
+        $("#date").hide()
+      } 
+    })
+
+    // required checkbox
+    var requiredCheckboxes = $('.options :checkbox[required]');
+    requiredCheckboxes.change(function() {
+      if (requiredCheckboxes.is(':checked')) {
+        requiredCheckboxes.removeAttr('required');
+      } else {
+        requiredCheckboxes.attr('required', 'required');
+      }
     });
   });
 </script>

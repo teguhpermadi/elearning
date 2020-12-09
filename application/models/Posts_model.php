@@ -31,4 +31,22 @@ class Posts_model extends CI_Model
         ->join('kelas', 'kelas.id = pengajar.id_kelas')
         ->get()->result_array();
     }
+
+    function add_posts($params)
+    {
+        $this->db->insert('posts',$params);
+        return $this->db->insert_id();
+    }
+
+    function add_posts_category($params)
+    {
+        $this->db->insert('post_category',$params);
+        return $this->db->insert_id();   
+    }
+
+    function add_posts_tag($params)
+    {
+        $this->db->insert('post_tag',$params);
+        return $this->db->insert_id();   
+    }
 }
