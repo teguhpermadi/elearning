@@ -13,9 +13,10 @@ class Posts extends CI_Controller
 
     function index()
     {
+        $data['all_posts'] = $this->Posts_model->get_all_posts();
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('posts/index');
+        $this->load->view('posts/index', $data);
         $this->load->view('template/footer');
     }
 

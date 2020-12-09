@@ -60,6 +60,7 @@
     $('#tableKelas').DataTable();
     $('#tableCategory').DataTable();
     $('#tableTag').DataTable();
+    $('.table-striped').DataTable();
     $('.select').multiSelect();
     // Summernote
     $('.summernote').summernote({
