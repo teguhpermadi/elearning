@@ -119,6 +119,15 @@ class Posts extends CI_Controller
         $this->load->view('template/footer');
     }
 
+    function view($id)
+    {
+        $data['data_post'] = $this->Posts_model->get_post($id);
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('posts/view', $data);
+        $this->load->view('template/footer');
+    }
+
     function edit()
     {
     }
