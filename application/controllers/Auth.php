@@ -59,11 +59,9 @@ class Auth extends CI_Controller
 			// }
 
 			$data['script'] = "
-			$(document).ready(function() {
 				$('#tableAdmin').DataTable();
 				$('#tableGuru').DataTable();
 				$('#tableSiswa').DataTable();
-			});
 			";
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');

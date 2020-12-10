@@ -13,11 +13,7 @@ class Category extends CI_Controller
     
     function index()
     {
-        $data['script'] = "
-        $(document).ready(function() {
-            $('#tableCategory').DataTable();
-        });
-        ";
+        $data['script'] = "$('#tableCategory').DataTable();";
         $data['all_category'] = $this->Category_model->get_all_category();
         $this->load->view('template/header');
         $this->load->view('template/sidebar');

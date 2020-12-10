@@ -19,11 +19,7 @@ class Rombel extends CI_Controller
      */
     function index()
     {
-        $data['script'] = "
-        $(document).ready(function() {
-            $('.select').multiSelect();
-        });
-        ";
+        $data['script'] = "$('.select').multiSelect();";
 
         $data['rombel'] = $this->Rombel_model->get_all_rombel();
         $data['kelas'] = $this->Kelas_model->get_all_kelas();
@@ -39,11 +35,8 @@ class Rombel extends CI_Controller
      */
     function add()
     {
-        $data['script'] = "
-        $(document).ready(function() {
-            $('.select').multiSelect();
-        });
-        ";
+        $data['script'] = "$('.select').multiSelect();";
+
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('id_kelas', 'Id Kelas', 'required');
@@ -87,11 +80,7 @@ class Rombel extends CI_Controller
      */
     function edit($id_kelas)
     {
-        $data['script'] = "
-        $(document).ready(function() {
-            $('.select').multiSelect();
-        });
-        ";
+        $data['script'] = "$('.select').multiSelect();";
 
         $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
         $data['rombel'] = $this->Rombel_model->get_siswa_by_rombel($id_kelas);
