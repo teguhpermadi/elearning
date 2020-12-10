@@ -33,4 +33,9 @@ class Category_model extends CI_Model
     {
         return $this->db->delete('category',array('id'=>$id));
     }
+
+    function get_category($id)
+    {
+        return $this->db->get_where('category',array('id'=>$id))->row_array();
+    }
 }

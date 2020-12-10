@@ -33,4 +33,9 @@ class Tags_model extends CI_Model
     {
         return $this->db->delete('tag',array('id'=>$id));
     }
+
+    function get_tag($id)
+    {
+        return $this->db->get_where('tag',array('id'=>$id))->row_array();
+    }
 }

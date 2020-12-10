@@ -13,7 +13,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <?php echo form_open('posts/save') ?>
+    <form id="add_form" method="POST">
     <div class="row">
       <div class="col-md-8">
         <!-- editor -->
@@ -44,26 +44,15 @@
               <!-- terbitkan / simpan -->
               <label for="">Status</label>
               <select class="form-control" name="status" id="status">
-<<<<<<< HEAD
-                <option value="terbit">Terbitkan</option>
-=======
                 <option value="terbitkan">Terbitkan</option>
->>>>>>> 85d67ab8b488cdffc93f7c0ddf363689e5cecaa9
                 <option value="draf">Draf</option>
                 <option value="jadwalkan">Jadwalkan</option>
               </select>
             </div>
-<<<<<<< HEAD
-            <div class="form-group" name="tanggal" id="tanggal">
-              <!-- terbitkan tanggal -->
-              <label for="">Waktu Terbit</label>
-              <input class="form-control" type="date" name="date" id="date">
-=======
             <div class="form-group" id="waktu">
               <!-- terbitkan tanggal -->
               <label for="">Waktu Terbit</label>
               <input class="form-control" type="datetime-local" name="date" id="date">
->>>>>>> 85d67ab8b488cdffc93f7c0ddf363689e5cecaa9
             </div>
             <div class="form-group">
               <label for="">Slug (optional)</label>
@@ -87,18 +76,18 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="card-footer">
-          <button type="submit" class="btn btn-primary">Simpan</button>
-          <button class="btn btn-info">Preview</button>
-          <button class="btn btn-secondary">Kembali</button>
+          <div class="card-footer">
+            <button class="btn btn-primary" type="submit" onclick="javascript: form.action='<?= base_url('posts/save') ?>';">Simpan</button>
+            <button class="btn btn-info" type="submit" onclick="javascript: form.action='<?= base_url('posts/preview') ?>'; form.target='_blank'">Preview</button>
+            <!-- <button class="btn btn-secondary">Kembali</button> -->
+          </div>
         </div>
       </div>
     </div>
 </div>
 </div>
 
-<?php form_close() ?>
+</form>
 </section>
 <!-- /.content -->
 </div>

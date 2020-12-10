@@ -54,16 +54,16 @@
 
 <script>
   $(document).ready(function() {
-<<<<<<< HEAD
-    <?= $script; ?>
-=======
     $('#tableAdmin').DataTable();
     $('#tableGuru').DataTable();
     $('#tableSiswa').DataTable();
     $('#tableKelas').DataTable();
     $('#tableCategory').DataTable();
     $('#tableTag').DataTable();
-    $('.table-striped').DataTable();
+    $('#posts').DataTable({
+      // "dom": 'flrtip',
+      // "dom": '<"top float-right" f>'
+    });
     $('.select').multiSelect();
     // Summernote
     $('.summernote').summernote({
@@ -136,7 +136,6 @@
         requiredCheckboxes.attr('required', 'required');
       }
     });
->>>>>>> 85d67ab8b488cdffc93f7c0ddf363689e5cecaa9
   });
 </script>
 

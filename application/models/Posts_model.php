@@ -37,6 +37,7 @@ class Posts_model extends CI_Model
         ->from('pengajar')
         ->where('pengajar.id_guru', $id_user)
         ->join('kelas', 'kelas.id = pengajar.id_kelas')
+        ->group_by('kelas.nama')
         ->get()->result_array();
     }
 
@@ -68,6 +69,14 @@ class Posts_model extends CI_Model
 
     function get_tag_by_post_id($id)
     {
-        return $this->db->select('tag.*')
+        return $this->db->select('tag.*')->from('post_tag')
+        ->join('tag', 'tag.id = post_tag.tag_id')
+        ->where('post_tag.post_id ='.$id)
+        ->get()->result_array();
+    }
+
+    function remove_post($id)
+    {
+        return $this->db->delete('posts',array('id'=>$id));
     }
 }

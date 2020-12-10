@@ -7,6 +7,8 @@ class Posts extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Posts_model');
+        $this->load->model('Category_model');
+        $this->load->model('Tags_model');
         check_login();
         $this->load->library('upload');
     }
@@ -25,50 +27,18 @@ class Posts extends CI_Controller
         // dapatkan kategori dan tag berdasarkan table pengajar
         $data['category'] = $this->Posts_model->get_category_by();
         $data['tags'] = $this->Posts_model->get_tag_by();
-<<<<<<< HEAD
-        $data['script'] = "
-        $('.summernote').summernote({
-            height: 250, //set editable area's height
-            codemirror: { // codemirror options
-              theme: 'monokai'
-            },
-            placeholder: 'Tulis konten disini'
-        })
-
-        var now = new Date();
-        var day = ('0' + now.getDate()).slice(-2);
-        var month = ('0' + (now.getMonth() + 1)).slice(-2);
-        var today = now.getFullYear()+'-'+(month)+'-'+(day) ;
-        $('#date').val(today);
-
-        $('#tanggal').hide(); 
-        $('#status').change(function(){
-            if($('#status').val() == 'terbit') {
-                $('#tanggal').hide(); 
-            } else if ($('#status').val() == 'draf') {
-                $('#tanggal').hide(); 
-            }
-            else {
-                $('#tanggal').show(); 
-            } 
-        });
-        ";
-=======
         date_default_timezone_set('Asia/Jakarta');
         $data['datetime'] = date("Y-m-d\TH:i:s");
->>>>>>> 85d67ab8b488cdffc93f7c0ddf363689e5cecaa9
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('posts/add', $data);
-<<<<<<< HEAD
-        $this->load->view('template/footer', $data);
-=======
         $this->load->view('template/footer');
     }
 
     function save()
     {
+        
         date_default_timezone_set('Asia/Jakarta');
         $date_now = date("Y-m-d\TH:i:s");
 
@@ -89,6 +59,7 @@ class Posts extends CI_Controller
 
             default:
                 $status = 1;
+                $date = $date_now;
                 break;
         }
 
@@ -126,7 +97,26 @@ class Posts extends CI_Controller
         }
 
         redirect('posts');
->>>>>>> 85d67ab8b488cdffc93f7c0ddf363689e5cecaa9
+    }
+    
+    function preview()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $date_now = date("Y-m-d H:i:s");
+
+        $data = [
+            'author_id' => user_info()['id'],
+            'title' => $this->input->post('title'),
+            'content' => $this->input->post('content'),
+            'published_at' => $date_now,
+            'category' => $this->input->post('category'),
+            'tags' => $this->input->post('option[]'),
+        ];
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('posts/preview', $data);
+        $this->load->view('template/footer');
     }
 
     function edit()
@@ -137,10 +127,10 @@ class Posts extends CI_Controller
     {
     }
 
-    function remove()
+    function remove($id)
     {
-<<<<<<< HEAD
-=======
+        $this->Posts_model->remove_post($id);
+        redirect('posts');
     }
 
     //Upload image summernote
@@ -181,6 +171,5 @@ class Posts extends CI_Controller
         if (unlink($file_name)) {
             echo 'File Delete Successfully';
         }
->>>>>>> 85d67ab8b488cdffc93f7c0ddf363689e5cecaa9
     }
 }
