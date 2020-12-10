@@ -80,12 +80,20 @@ class Posts_model extends CI_Model
 
     function remove_post($id)
     {
-        return $this->db->delete('posts', array('id' => $id));
+        $this->db->delete('posts', array('id' => $id));
+        $this->db->delete('post_category', array('post_id' => $id));
+        $this->db->delete('post_tag', array('post_id' => $id));
     }
 
     function get_user_info($id)
     {
         // pengganti $this
         return $this->db->get_where('users', ['id'=>$id])->row_array();
+    }
+
+    function post_update($id, $params)
+    {
+        $this->db->where('id',$id);
+        return $this->db->update('posts',$params);
     }
 }

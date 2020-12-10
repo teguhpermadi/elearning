@@ -116,7 +116,7 @@
     }
 
     // default published
-    $("#date").hide()
+    // $("#date").hide()
 
     // disable date time
     $('#status').change(function() {

@@ -1,7 +1,7 @@
 <style>
     .watermark {
         position: fixed;
-        bottom: 70px;
+        top: 70px;
         right: 25px;
     }
 </style>

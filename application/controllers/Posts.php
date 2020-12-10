@@ -38,7 +38,7 @@ class Posts extends CI_Controller
 
     function save()
     {
-        
+
         date_default_timezone_set('Asia/Jakarta');
         $date_now = date("Y-m-d\TH:i:s");
 
@@ -98,7 +98,7 @@ class Posts extends CI_Controller
 
         redirect('posts');
     }
-    
+
     function preview()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -128,12 +128,64 @@ class Posts extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function edit()
+    function edit($id)
     {
+        $data['category'] = $this->Posts_model->get_category_by();
+        $data['tags'] = $this->Posts_model->get_tag_by();
+        $data['data_post'] = $this->Posts_model->get_post($id);
+        $data['data_category'] = $this->Posts_model->get_category_by_post_id($id);
+        $data['data_tag'] = $this->Posts_model->get_tag_by_post_id($id);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('posts/edit', $data);
+        $this->load->view('template/footer');
     }
 
-    function update()
+    function update($post_id)
     {
+        date_default_timezone_set('Asia/Jakarta');
+        $date_now = date("Y-m-d\TH:i:s");
+
+        // handel status
+        switch ($this->input->post('status')) {
+            case 'terbitkan':
+                $status = 1;
+                $date = $date_now;
+                break;
+            case 'draf':
+                $status = 0;
+                $date = $date_now;
+                break;
+            case 'jadwalkan':
+                $status = 1;
+                $date = $this->input->post('date');
+                break;
+
+            default:
+                $status = 1;
+                $date = $date_now;
+                break;
+        }
+
+        $params = [
+            'author_id' => user_info()['id'],
+            // 'parrent_id' => 
+            'title' => $this->input->post('title'),
+            // 'meta_title' => 
+            'slug' => $this->input->post('slug'),
+            // 'summary' => 
+            'published' => $status,
+            'created_at' => $date_now,
+            // 'updated_at' => 
+            'published_at' => $date,
+            'content' => $this->input->post('content'),
+        ];
+
+        // update post
+        $this->Posts_model->post_update($post_id, $params);
+        redirect('posts');
+
     }
 
     function remove($id)
