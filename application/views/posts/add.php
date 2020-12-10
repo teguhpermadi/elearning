@@ -61,9 +61,10 @@
             <div class="form-group">
               <!-- category -->
               <label for="">Ketegori</label>
-              <select class="form-control" name="category" id="category">
+              <select class="form-control" name="category" id="category" required>
+                <option value="">Pilih salah satu</option>
                 <?php foreach ($category as $c) { ?>
-                  <option value="<?= $c['id'] ?>"><?= $c['nama'] ?></option>
+                  <option value="<?= $c['id'] ?>"><?= $c['title'] ?></option>
                 <?php } ?>
               </select>
             </div>
@@ -71,7 +72,7 @@
               <label class="control-label" for="optiontext">Tag</label>
               <div class="col-md-12">
               <?php foreach ($tags as $tag) { ?>
-                <input type="checkbox" name="option[]" value="<?= $tag['id'] ?>" required /> <?= $tag['nama'] ?><br>
+                <input type="checkbox" name="option[]" value="<?= $tag['id'] ?>" required /> <?= $tag['title'] ?><br>
                 <?php } ?>
               </div>
             </div>

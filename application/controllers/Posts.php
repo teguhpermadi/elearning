@@ -40,7 +40,7 @@ class Posts extends CI_Controller
     {
 
         date_default_timezone_set('Asia/Jakarta');
-        $date_now = date("Y-m-d\TH:i:s");
+        $date_now = date("Y-m-d\TH:i");
 
         // handel status
         switch ($this->input->post('status')) {
@@ -83,7 +83,7 @@ class Posts extends CI_Controller
 
         $posts_category = [
             'post_id' => $id_posts,
-            'category_id' => is_numeric($this->input->post('category')),
+            'category_id' => (int)$this->input->post('category'),
         ];
         $id_category = $this->Posts_model->add_posts_category($posts_category);
 
@@ -91,18 +91,21 @@ class Posts extends CI_Controller
         foreach ($tags as $tag) {
             $data_tag  = [
                 'post_id' => $id_posts,
-                'tag_id' => is_numeric($tag),
+                'tag_id' => (int)$tag,
             ];
             $id_tag = $this->Posts_model->add_posts_tag($data_tag);
         }
 
         redirect('posts');
+        // print_r($params);
+        // print_r($posts_category);
+        // print_r($data_tag);
     }
 
     function preview()
     {
         date_default_timezone_set('Asia/Jakarta');
-        $date_now = date("Y-m-d H:i:s");
+        $date_now = date("Y-m-d H:i");
 
         $data = [
             'author_id' => user_info()['id'],
@@ -136,6 +139,9 @@ class Posts extends CI_Controller
         $data['data_category'] = $this->Posts_model->get_category_by_post_id($id);
         $data['data_tag'] = $this->Posts_model->get_tag_by_post_id($id);
 
+        // print_r($data['data_tag']);
+        // die;
+
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('posts/edit', $data);
@@ -145,7 +151,7 @@ class Posts extends CI_Controller
     function update($post_id)
     {
         date_default_timezone_set('Asia/Jakarta');
-        $date_now = date("Y-m-d\TH:i:s");
+        $date_now = date("Y-m-d\TH:i");
 
         // handel status
         switch ($this->input->post('status')) {
@@ -176,14 +182,32 @@ class Posts extends CI_Controller
             'slug' => $this->input->post('slug'),
             // 'summary' => 
             'published' => $status,
-            'created_at' => $date_now,
-            // 'updated_at' => 
+            // 'created_at' => $date_now,
+            'updated_at' => $date_now,
             'published_at' => $date,
             'content' => $this->input->post('content'),
         ];
 
+        $post_category = [
+            // 'post_id' => $post_id,
+            'category_id' => (int)$this->input->post('category'),
+        ];
+
+        $tags = $this->input->post('option[]');
+        $post_tags = [];
+        foreach ($tags as $tag) {
+            array_push($post_tags, [
+                'post_id' => $post_id,
+                'tag_id' => (int)$tag,
+            ]);
+        }
+
         // update post
-        $this->Posts_model->post_update($post_id, $params);
+        $this->Posts_model->post_update($post_id, $params, $post_category, $post_tags);
+        // print_r($params);
+        // print_r($post_category);
+        // print_r($post_tags);
+
         redirect('posts');
 
     }

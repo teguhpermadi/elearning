@@ -9,7 +9,8 @@
                     <h1>
                         <?php
                         $cat = $this->Posts_model->get_category_by_post_id($data_post['id']);
-                        echo $cat[0]['title']
+                        print_r($cat);
+                        // echo $cat[0]['title']
                         ?>
                     </h1>
                 </div>

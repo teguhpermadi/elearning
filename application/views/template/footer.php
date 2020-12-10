@@ -119,13 +119,13 @@
     // $("#date").hide()
 
     // disable date time
-    $('#status').change(function() {
-      if ($('#status').val() == 'jadwalkan') {
-        $("#date").show()
-      } else {
-        $("#date").hide()
-      } 
-    })
+    // $('#status').change(function() {
+    //   if ($('#status').val() == 'jadwalkan') {
+    //     $("#date").show()
+    //   } else {
+    //     $("#date").hide()
+    //   } 
+    // })
 
     // required checkbox
     var requiredCheckboxes = $('.options :checkbox[required]');

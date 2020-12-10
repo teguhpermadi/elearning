@@ -47,7 +47,7 @@
                                 <select class="form-control" name="status" id="status">
                                     <?php
                                     date_default_timezone_set('Asia/Jakarta');
-                                    $date_now = date("Y-m-d H:i:s");
+                                    $date_now = date("Y-m-d H:i");
 
                                     if ($data_post['published'] == 0) // jika statusnya masih draf
                                     {
@@ -88,16 +88,18 @@
                                     <?php
                                     foreach ($category as $c) {
                                         $selected = ($c['id'] == $data_category[0]['id']) ? 'selected' : '';
-                                        echo '<option value="' . $c['id'] . '" ' . $selected . '>' . $c['nama'] . '</option>';
+                                        echo '<option value="' . $c['id'] . '" ' . $selected . '>' . $c['title'] . '</option>';
                                     } ?>
                                 </select>
                             </div>
                             <div class="form-group options">
                                 <label class="control-label" for="optiontext">Tag</label>
                                 <div class="col-md-12">
-                                    <?php foreach ($tags as $tag) {
-                                        $checked = ($tag['id'] == $data_tag[0]['id']) ? 'checked' : '';
-                                        echo '<input type="checkbox" name="option[]" value="' . $tag['id'] . '" ' . $checked . ' required /> ' . $tag['nama'] . '<br>';
+                                <!-- <?php echo json_encode($data_tag) ?> -->
+                                <!-- <?= $data_post['id'] ?> -->
+                                    <?php foreach ($data_tag as $tag) {
+                                        $checked = ($tag['post_id'] == $data_post['id']) ? 'checked' : '';
+                                        echo '<input type="checkbox" name="option[]" value="' . $tag['id'] . '" ' . $checked . ' /> ' . $tag['title'] . '<br>';
                                     } ?>
                                 </div>
                             </div>

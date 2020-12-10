@@ -38,24 +38,42 @@
                             <a href="<?= base_url('posts/view/'.$post['id']) ?>">
                             <?= $post['title'] ?></td>
                         </a>    
-							<td><?php echo ($post['published'] == 1) ? '<span class="badge badge-info">Terbit</span>' : '<span class="badge badge-secondary">Draf</span>'; ?></td>
+							<td><?php
+							 date_default_timezone_set('Asia/Jakarta');
+							 $date_now = date("Y-m-d H:i:s");
+
+							if ($post['published'] == 0) {
+								'<span class="badge badge-secondary">Draf</span>';
+							} else {
+								if($post['published_at'] > $date_now){
+									echo '<span class="badge badge-info">Terjadwal</span>'; 
+								} else {
+									echo '<span class="badge badge-info">Terbit</span>'; 
+								}
+							}
+							?>
+									 </td>
 							<td><?= $post['created_at'] ?></td>
 							<td><?= $post['published_at'] ?></td>
 							<td>
 								<?php
-                                    $category = $this->Posts_model->get_category_by_post_id($post['id']);
-                                    foreach ($category as $c) {
+									$get_category = $this->Posts_model->get_category_by_post_id($post['id']);
+									// print_r($get_category);
+									// print_r($post['id']);
+                                    foreach ($get_category as $gc) {
                                     ?>
-								<span class="badge badge-info"><?= $c['title'] ?></span>
+								<span class="badge badge-info"><?= $gc['title'] ?></span>
 								<?php } ?>
 							</td>
 							<td>
 								<?php
                                     $tags = $this->Posts_model->get_tag_by_post_id($post['id']);
                                     foreach ($tags as $tag) {
+										if($tag['post_id'] == $post['id']){
+											echo '<span class="badge badge-info mr-1">'.$tag['title'].'</span>';
+										}
+									}
                                     ?>
-								<span class="badge badge-info"><?= $tag['title'] ?></span>
-                                    <?php } ?>
                             </td>
                             <td>
                                 <a href="<?= base_url('posts/edit/'.$post['id']) ?>" class="btn btn-warning btn-sm">Edit</a>
