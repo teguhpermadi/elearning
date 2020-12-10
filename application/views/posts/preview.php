@@ -1,3 +1,12 @@
+<style>
+    .watermark {
+        position: fixed;
+        bottom: 70px;
+        right: 25px;
+    }
+</style>
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -28,7 +37,7 @@
                 <?php
                 foreach ($tags as $tag) {
                     $t = $this->Tags_model->get_tag($tag);
-                    echo '<span class="badge badge-info float-right mr-1">'.$t['title'].'</span>';
+                    echo '<span class="badge badge-info float-right mr-1">' . $t['title'] . '</span>';
                 }
                 ?>
             </div>
@@ -38,7 +47,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
                 <span class="text-info font-weight-bold">Draf </span> <?= $published_at ?>
-                <span class="text-info font-weight-bold">Penulis </span> <?= user_info()['first_name']?>
+                <span class="text-info font-weight-bold">Penulis </span> <?= user_info()['first_name'] ?>
             </div>
             <!-- /.card-footer-->
         </div>
@@ -48,3 +57,5 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<div class="watermark alert alert-warning"><strong>PREVIEW</strong></div>
