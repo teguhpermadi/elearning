@@ -13,6 +13,50 @@
 
     <!-- Main content -->
     <section class="content">
+        <?php echo json_encode($all_posts) ?>
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Daftar Postingan</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Judul</th>
+                            <th>Slug</th>
+                            <th>Status</th>
+                            <th>Tanggal Buat</th>
+                            <th>Tanggal Terbit</th>
+                            <th>Kategori</th>
+                            <th>Tag</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($all_posts as $post) { ?>
+                            <tr>
+                                <td><?= $post['title'] ?></td>
+                                <td><?= $post['slug'] ?></td>
+                                <td><?= $post['published'] ?></td>
+                                <td><?= $post['created_at'] ?></td>
+                                <td><?= $post['published_at'] ?></td>
+                                <td>
+                                    <?php 
+                                    $category = $this->Posts_model->get_category_by_post_id($post['id']);
+
+                                    print_r($category);
+                                    ?>
+
+                                </td>
+                                <td>Tag</td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
 
         <div class="row ml-1 mb-3">
             <form class="form-inline">

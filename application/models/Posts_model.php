@@ -10,6 +10,14 @@ class Posts_model extends CI_Model
     {
         parent::__construct();
     }
+
+    function get_all_posts()
+    {
+        return $this->db->select('*')
+        ->from('posts')->get()->result_array();
+
+        
+    }
     
     function get_category_by()
     {
@@ -30,5 +38,36 @@ class Posts_model extends CI_Model
         ->where('pengajar.id_guru', $id_user)
         ->join('kelas', 'kelas.id = pengajar.id_kelas')
         ->get()->result_array();
+    }
+
+    function add_posts($params)
+    {
+        $this->db->insert('posts',$params);
+        return $this->db->insert_id();
+    }
+
+    function add_posts_category($params)
+    {
+        $this->db->insert('post_category',$params);
+        return $this->db->insert_id();   
+    }
+
+    function add_posts_tag($params)
+    {
+        $this->db->insert('post_tag',$params);
+        return $this->db->insert_id();   
+    }
+
+    function get_category_by_post_id($id)
+    {
+        return $this->db->select('category.*')->from('post_category')
+        ->join('category', 'category.id = post_category.category_id')
+        ->where('post_category.post_id ='.$id)
+        ->get()->result_array();
+    }
+
+    function get_tag_by_post_id($id)
+    {
+        return $this->db->select('tag.*')
     }
 }

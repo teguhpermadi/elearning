@@ -54,7 +54,89 @@
 
 <script>
   $(document).ready(function() {
+<<<<<<< HEAD
     <?= $script; ?>
+=======
+    $('#tableAdmin').DataTable();
+    $('#tableGuru').DataTable();
+    $('#tableSiswa').DataTable();
+    $('#tableKelas').DataTable();
+    $('#tableCategory').DataTable();
+    $('#tableTag').DataTable();
+    $('.table-striped').DataTable();
+    $('.select').multiSelect();
+    // Summernote
+    $('.summernote').summernote({
+      height: 250, //set editable area's height
+      codemirror: { // codemirror options
+        theme: 'monokai'
+      },
+      placeholder: 'Tulis konten disini',
+      callbacks: {
+        onImageUpload: function(image) {
+          uploadImage(image[0]);
+        },
+        onMediaDelete: function(target) {
+          deleteImage(target[0].src);
+        }
+      }
+    });
+
+    function uploadImage(image) {
+      var data = new FormData();
+      data.append("image", image);
+      $.ajax({
+        url: "<?php echo base_url('posts/upload_image') ?>",
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: data,
+        type: "POST",
+        success: function(url) {
+          $('.summernote').summernote("insertImage", url);
+        },
+        error: function(data) {
+          console.log(data);
+        }
+      });
+    }
+
+    function deleteImage(src) {
+      $.ajax({
+        data: {
+          src: src
+        },
+        type: "POST",
+        url: "<?php echo base_url('posts/delete_image') ?>",
+        cache: false,
+        success: function(response) {
+          console.log(response);
+        }
+      });
+    }
+
+    // default published
+    $("#date").hide()
+
+    // disable date time
+    $('#status').change(function() {
+      if ($('#status').val() == 'jadwalkan') {
+        $("#date").show()
+      } else {
+        $("#date").hide()
+      } 
+    })
+
+    // required checkbox
+    var requiredCheckboxes = $('.options :checkbox[required]');
+    requiredCheckboxes.change(function() {
+      if (requiredCheckboxes.is(':checked')) {
+        requiredCheckboxes.removeAttr('required');
+      } else {
+        requiredCheckboxes.attr('required', 'required');
+      }
+    });
+>>>>>>> 85d67ab8b488cdffc93f7c0ddf363689e5cecaa9
   });
 </script>
 
