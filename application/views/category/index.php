@@ -14,54 +14,42 @@
     <!-- Main content -->
     <section class="content">
 
-        <div class="row">
-            <!-- form -->
-            <!-- <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Tambah Kategori</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="" id="" placeholder="Nama Kategori">
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
-            </div> -->
-            <div class="col-md-6">
-                <!-- list -->
-                <!-- Default box -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Daftar Kategori</h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped" id="tableCategory">
-                            <thead>
-                                <tr>
-                                    <th>Nama Kategori</th>
-                                    <th>Slug</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach($all_category as $category){ ?>
-                                <tr>
-                                    <td><?= $category['title'] ?></td>
-                                    <td><?= $category['slug'] ?></td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <a href="<?php echo site_url('category/add'); ?>" class="btn btn-success btn-sm">Add</a>
             </div>
-        </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>ID</th>
+                        <th>Parrent Id</th>
+                        <th>Title</th>
+                        <th>Meta Title</th>
+                        <th>Slug</th>
+                        <th>Content</th>
+                        <th>Actions</th>
+                    </tr>
+                    <?php foreach ($category as $c) { ?>
+                        <tr>
+                            <td><?php echo $c['id']; ?></td>
+                            <td><?php echo $c['parrent_id']; ?></td>
+                            <td><?php echo $c['title']; ?></td>
+                            <td><?php echo $c['meta_title']; ?></td>
+                            <td><?php echo $c['slug']; ?></td>
+                            <td><?php echo $c['content']; ?></td>
+                            <td>
+                                <a href="<?php echo site_url('category/edit/' . $c['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>
+                                <a href="<?php echo site_url('category/remove/' . $c['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </table>
+            </div>
+            <!-- /.card-body -->
 
+        </div>
+        <!-- /.card -->
 
     </section>
     <!-- /.content -->

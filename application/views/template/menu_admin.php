@@ -59,5 +59,13 @@
 				</p>
 			</a>
 		</li>
+		<li class="nav-item">
+			<a href="<?= base_url('category') ?>" class="nav-link <?php if($this->uri->segment(1) == 'category') { echo 'active';}?>">
+				<i class="nav-icon fas fa-book"></i>
+				<p>
+					Kategori
+				</p>
+			</a>
+		</li>
 	</ul>
 </nav>
