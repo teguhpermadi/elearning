@@ -18,6 +18,11 @@ class Post_category_model extends CI_Model
     {
         return $this->db->get_where('post_category',array('id'=>$id))->row_array();
     }
+
+    function get_post_category_by_post_id($post_id)
+    {
+        return $this->db->get_where('post_category',array('post_id'=>$post_id))->row_array();
+    }
         
     /*
      * Get all post_category

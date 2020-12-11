@@ -18,6 +18,16 @@ class Post_tag_model extends CI_Model
     {
         return $this->db->get_where('post_tag',array('id'=>$id))->row_array();
     }
+
+    function get_post_tag_join_tag()
+    {
+        return $this->db->select('post_tag.*, tag.id as tag_id, tag.title')
+        ->from('post_tag')
+        ->join('tag', 'tag.id = post_tag.tag_id', 'right')
+        ->get()->result_array();
+
+        // return $this->db->last_query();
+    }
         
     /*
      * Get all post_tag

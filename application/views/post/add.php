@@ -146,7 +146,7 @@
 								foreach ($all_tag as $tag) {
 									$checked = ($tag['id'] == $this->input->post('tag_id')) ? ' checked="checked"' : "";
 
-									echo '<input type="checkbox" name="tag_id[]" value="' . $tag['id'] . '" ' . $selected . '/> ' . $tag['title'] . '<br>';
+									echo '<input type="checkbox" name="tag_id[]" value="' . $tag['id'] . '" ' . $checked . '/> ' . $tag['title'] . '<br>';
 								}
 								?>
 							</div>
