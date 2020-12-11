@@ -53,4 +53,10 @@ class Post_model extends CI_Model
     {
         return $this->db->delete('posts',array('id'=>$id));
     }
+
+    // get user info
+    function get_user($id)
+    {
+        return $this->db->get_where('users',array('id'=>$id))->row_array();
+    }
 }
