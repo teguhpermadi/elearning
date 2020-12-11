@@ -19,11 +19,12 @@ class Pengajar_model extends CI_Model
         return $this->db->get_where('pengajar',array('id'=>$id))->row_array();
     }
 
-    function get_pengajar_by_mapel_and_kelas($id_mapel)
+    function get_pengajar_by_mapel_and_kelas($id_mapel, $id_kelas)
     {
         return $this->db->select('*')
         ->from('pengajar')
         ->where('pengajar.id_mapel', $id_mapel)
+        ->where('pengajar.id_kelas', $id_kelas)
         ->join('users', 'users.id = pengajar.id_guru')
         ->get()->row_array();
     }

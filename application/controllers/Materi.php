@@ -45,12 +45,18 @@ class Materi extends CI_Controller
     
     function view_mapel()
     {
-        $data = $this->uri->segment(3);
-        var_dump($data);
-        die;
+		$uri = explode('-', $this->uri->segment(3));
+		$id_mapel = $uri[0];
+		$id_kelas = $uri[1];
+		
+		$data['mapel_kelas'] = [
+			'id_mapel' => $id_mapel,
+			'id_kelas' => $id_kelas,
+		];
 
-        // $data['mapel'] = $this->Mapel_model->get_mapel($id_mapel);
-        // $data['pengajar'] = $this->Pengajar_model->get_pengajar_by_mapel_and_kelas($id_mapel, $id_kelas);
+        $data['mapel'] = $this->Mapel_model->get_mapel($id_mapel);
+		$data['pengajar'] = $this->Pengajar_model->get_pengajar_by_mapel_and_kelas($id_mapel, $id_kelas);
+
         $this->load->view('template/header');
 		$this->load->view('template/sidebar');
 		$this->load->view('materi/view_mapel', $data);

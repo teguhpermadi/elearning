@@ -77,18 +77,17 @@ class Post extends CI_Controller
 
             // tambahkan kedalam tabel tag
             $tags_id = $this->input->post('tag_id[]');
-            
+
             // cek tags id nya
             if ($tags_id) {
-                    foreach ($tags_id as $tag_id) {
-                        # code...
-                        $post_tag = [
-                            'post_id' => $post_id,
-                            'tag_id' => $tag_id,
-                        ];
-                        $post_tag_id = $this->Post_tag_model->add_post_tag($post_tag);
-                    }
-
+                foreach ($tags_id as $tag_id) {
+                    # code...
+                    $post_tag = [
+                        'post_id' => $post_id,
+                        'tag_id' => $tag_id,
+                    ];
+                    $post_tag_id = $this->Post_tag_model->add_post_tag($post_tag);
+                }
             }
 
             redirect('post/index');
@@ -167,7 +166,7 @@ class Post extends CI_Controller
                 $this->db->delete('post_tag', ['post_id' => $id]);
 
                 // cek tags id nya
-                if($tags_id){
+                if ($tags_id) {
                     // jika ada tag yang dipilih
                     foreach ($tags_id as $tag_id) {
                         # code...
@@ -175,7 +174,7 @@ class Post extends CI_Controller
                             'post_id' => $id,
                             'tag_id' => $tag_id,
                         ];
-    
+
                         $post_tag_id = $this->Post_tag_model->add_post_tag($post_tag);
                     }
                 } else {
@@ -212,5 +211,17 @@ class Post extends CI_Controller
             redirect('post/index');
         } else
             show_error('The post you are trying to delete does not exist.');
+    }
+
+    function view($id)
+    {
+        $data['post'] = $this->Post_model->get_post($id);
+
+        // var_dump($data);
+        // die;
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('post/view', $data);
+        $this->load->view('template/footer');
     }
 }

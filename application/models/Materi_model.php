@@ -33,4 +33,22 @@ class Materi_model extends CI_Model
         ->join('mapel', 'mapel.id = pengajar.id_mapel')
         ->get()->result_array();
     }
+
+    function get_post_by_auhtor_category_tag($author_id, $id_mapel, $id_kelas)
+    {
+        return $this->db->select('posts.*')
+        ->from('posts')
+        ->join('post_category', 'post_category.post_id = posts.id')
+        ->join('post_tag', 'post_tag.post_id = posts.id')
+        ->where('posts.author_id', $author_id)
+        ->where('post_category.category_id', $id_mapel)
+        ->where('post_tag.tag_id', $id_kelas)
+        ->order_by('posts.id', 'desc')
+        ->get()->result_array();
+    }
+
+    function get_guru_by_mapel_and_kelas($id_mapel, $id_kelas)
+    {
+
+    }
 }
