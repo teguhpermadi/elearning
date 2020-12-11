@@ -29,13 +29,13 @@
 			</a>
 			<ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?= base_url('posts/add') ?>" class="nav-link <?php if($this->uri->segment(2) == 'add') { echo 'active';}?>">
+                <a href="<?= base_url('post/add') ?>" class="nav-link <?php if($this->uri->segment(2) == 'add') { echo 'active';}?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Baru</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('posts') ?>" class="nav-link <?php if($this->uri->segment(2) == 'posts') { echo 'active';}?>">
+                <a href="<?= base_url('post') ?>" class="nav-link <?php if($this->uri->segment(2) == 'post') { echo 'active';}?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Semua Postingan</p>
                 </a>
@@ -47,7 +47,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('tags') ?>" class="nav-link <?php if($this->uri->segment(1) == 'tags') { echo 'active';}?>">
+                <a href="<?= base_url('tag') ?>" class="nav-link <?php if($this->uri->segment(1) == 'tag') { echo 'active';}?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tag</p>
                 </a>
