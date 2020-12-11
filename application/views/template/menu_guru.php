@@ -54,7 +54,7 @@
               </li>
             </ul>
 		</li>
-		<li class="nav-item">
+		<!-- <li class="nav-item">
 			<a href="<?= base_url('bank_soal') ?>" class="nav-link <?php if($this->uri->segment(1) == 'bank_soal') { echo 'active';}?>">
 				<i class="nav-icon fas fa-database"></i>
 				<p>
@@ -77,6 +77,6 @@
 					Rekap Absensi
 				</p>
 			</a>
-		</li>
+		</li> -->
 	</ul>
 </nav>

@@ -93,9 +93,9 @@ class Post extends CI_Controller
 
             redirect('post/index');
         } else {
-            $data['all_posts'] = $this->Post_model->get_all_posts();
-            $data['all_category'] = $this->Category_model->get_all_category();
-            $data['all_tag'] = $this->Tag_model->get_all_tag();
+            $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
+            $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
+            $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
 
             $data['_view'] = 'post/add';
             $this->load->view('template/header');
@@ -113,7 +113,7 @@ class Post extends CI_Controller
         // check if the post exists before trying to edit it
         $data['post'] = $this->Post_model->get_post($id);
         $data['post_category'] = $this->Post_category_model->get_post_category_by_post_id($id);
-        $data['post_tag'] = $this->Post_tag_model->get_post_tag_join_tag();
+        $data['post_tag'] = $this->Post_tag_model->get_post_tag_join_tag($id);
 
         // echo json_encode($data['post']);
         // die;
@@ -185,9 +185,9 @@ class Post extends CI_Controller
 
                 redirect('post/index');
             } else {
-                $data['all_posts'] = $this->Post_model->get_all_posts();
-                $data['all_category'] = $this->Category_model->get_all_category();
-                $data['all_tag'] = $this->Tag_model->get_all_tag();
+                $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
+                $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
+                $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
 
                 $data['_view'] = 'post/edit';
                 $this->load->view('template/header');

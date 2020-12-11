@@ -49,10 +49,10 @@
 								<select name="parrent_id" class="form-control">
 									<option value="">select post</option>
 									<?php
-									foreach ($all_posts as $post) {
-										$selected = ($post['id'] == $post['parrent_id']) ? ' selected="selected"' : "";
+									foreach ($all_posts as $sub_post) {
+										$selected = ($sub_post['id'] == $post['parrent_id']) ? ' selected="selected"' : "";
 
-										echo '<option value="' . $post['id'] . '" ' . $selected . '>' . $post['title'] . '</option>';
+										echo '<option value="' . $sub_post['id'] . '" ' . $selected . '>' . $sub_post['title'] . '</option>';
 									}
 									?>
 								</select>
@@ -147,6 +147,9 @@
 							<label for="tag_id" class="control-label">Tag</label>
 							<div class="form-group">
 								<?php
+								// echo json_encode($post_tag);
+								// var_dump($post);
+								// die;
 								foreach ($post_tag as $tag) {
 									$checked = ($tag['post_id'] == $post['id']) ? ' checked' : "";
 

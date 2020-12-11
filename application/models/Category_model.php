@@ -28,8 +28,15 @@ class Category_model extends CI_Model
         return $this->db->get('category')->result_array();
     }
 
-    function get_all_category_by_user_id()
+    function get_all_category_join_pengajar()
     {
+        $user_id = user_info()['id'];
+        return $this->db->select('*')
+        ->from('pengajar')
+        ->where('pengajar.id_guru', $user_id)
+        ->join('category','category.id = pengajar.id_mapel')
+        ->group_by('category.title')
+        ->get()->result_array();
     }
         
     /*

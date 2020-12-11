@@ -27,6 +27,17 @@ class Tag_model extends CI_Model
         $this->db->order_by('id', 'asc');
         return $this->db->get('tag')->result_array();
     }
+
+    function get_all_tag_join_pengajar()
+    {
+        $user_id = user_info()['id'];
+        return $this->db->select('*')
+        ->from('pengajar')
+        ->where('pengajar.id_guru', $user_id)
+        ->join('tag','tag.id = pengajar.id_kelas')
+        ->group_by('tag.title')
+        ->get()->result_array();
+    }
         
     /*
      * function to add new tag

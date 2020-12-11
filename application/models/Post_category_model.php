@@ -32,7 +32,7 @@ class Post_category_model extends CI_Model
         ->where('post_category.post_id', $post_id)
         ->get()->row_array();
     }
-        
+
     /*
      * Get all post_category
      */
