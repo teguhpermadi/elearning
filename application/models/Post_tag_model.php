@@ -45,6 +45,15 @@ class Post_tag_model extends CI_Model
         $this->db->where('id',$id);
         return $this->db->update('post_tag',$params);
     }
+
+    function update_post_tag_by_post_id($post_id,$params)
+    {
+        // hapus dulu semua tag yang terkait dengan post id
+        $this->db->delete('post_tag', ['post_id' => $post_id]);
+        // timpa dengan data tag yang baru
+        $this->db->insert('post_tag',$params);
+        return $this->db->insert_id();
+    }
     
     /*
      * function to delete post_tag

@@ -45,6 +45,12 @@ class Post_category_model extends CI_Model
         $this->db->where('id',$id);
         return $this->db->update('post_category',$params);
     }
+
+    function update_post_category_by_post_id($post_id,$params)
+    {
+        $this->db->where('post_id',$post_id);
+        return $this->db->update('post_category',$params);
+    }
     
     /*
      * function to delete post_category

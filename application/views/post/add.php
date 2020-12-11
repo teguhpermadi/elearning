@@ -71,8 +71,8 @@
 									);
 
 									foreach ($published_values as $value => $display_text) {
-										$selected = ($value == $this->input->post('published')) ? ' selected="selected"' : "";
-
+										// $selected = ($value == $this->input->post('published')) ? ' selected="selected"' : "";
+										$selected = '';
 										echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
 									}
 									?>
@@ -142,30 +142,28 @@
 						<div class="col-md-12">
 							<label for="tag_id" class="control-label">Tag</label>
 							<div class="form-group">
-								<select name="tag_id" class="form-control">
-									<option value="">select tag</option>
-									<?php
-									foreach ($all_tag as $tag) {
-										$selected = ($tag['id'] == $this->input->post('tag_id')) ? ' selected="selected"' : "";
+								<?php
+								foreach ($all_tag as $tag) {
+									$checked = ($tag['id'] == $this->input->post('tag_id')) ? ' checked="checked"' : "";
 
-										echo '<option value="' . $tag['id'] . '" ' . $selected . '>' . $tag['title'] . '</option>';
-									}
-									?>
-								</select>
+									echo '<input type="checkbox" name="tag_id[]" value="' . $tag['id'] . '" ' . $selected . '/> ' . $tag['title'] . '<br>';
+								}
+								?>
 							</div>
 						</div>
 					</div>
-					<div class="card-footer">
-						<button type="submit" class="btn btn-success">
-							<i class="fa fa-check"></i> Save
-						</button>
-					</div>
+				</div>
+				<div class="card-footer">
+					<button type="submit" class="btn btn-success">
+						<i class="fa fa-check"></i> Save
+					</button>
 				</div>
 			</div>
 		</div>
-		<?php echo form_close(); ?>
+</div>
+<?php echo form_close(); ?>
 
-	</section>
-	<!-- /.content -->
+</section>
+<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

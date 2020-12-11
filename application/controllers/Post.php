@@ -11,8 +11,9 @@ class Post extends CI_Controller
         parent::__construct();
         $this->load->model('Post_model');
         $this->load->model('Category_model');
+        $this->load->model('Post_category_model');
         $this->load->model('Tag_model');
-
+        $this->load->model('Post_tag_model');
     }
 
     /*
@@ -39,6 +40,7 @@ class Post extends CI_Controller
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('content', 'Content', 'required');
         $this->form_validation->set_rules('published_at', 'Published At', 'required');
+        $this->form_validation->set_rules('published', 'Published', 'required');
         $this->form_validation->set_rules('category_id', 'Category', 'required');
 
         if ($this->form_validation->run()) {
@@ -50,7 +52,7 @@ class Post extends CI_Controller
                 // 'meta_title' => $this->input->post('meta_title'),
                 // 'slug' => $this->input->post('slug'),
                 // 'summary' => $this->input->post('summary'),
-                'created_at' =>datetime_now(),
+                'created_at' => datetime_now(),
                 'updated_at' => datetime_now(),
                 'published_at' => $this->input->post('published_at'),
                 'content' => $this->input->post('content'),
@@ -61,26 +63,33 @@ class Post extends CI_Controller
             // tambahkan kedalam tabel kategori
             $post_category = [
                 'post_id' => $post_id,
-                'category_id' => $this->input->post('category_id'),
+                'category_id' => (int)$this->input->post('category_id'),
             ];
 
-            $category_id = $this->Category_model->add_category($post_category);
+            $post_category_id = $this->Post_category_model->add_post_category($post_category);
 
             // tambahkan kedalam tabel tag
-            $post_tag = [
-                'post_id' => $post_id,
-                'tag_id' => $this->input->post('tag_id'),
-            ];
+            $tags_id = $this->input->post('tag_id[]');
 
-            $post_tag_id = $this->Post_tag_model->add_post_tag($post_tag);
+            // cek tags id nya
+            if ($tags_id) {
 
+                foreach ($tags_id as $tag_id) {
+                    # code...
+                    $post_tag = [
+                        'post_id' => $post_id,
+                        'tag_id' => $tag_id,
+                    ];
+                    $post_tag_id = $this->Post_tag_model->add_post_tag($post_tag);
+                }
+            }
 
             redirect('post/index');
         } else {
             $data['all_posts'] = $this->Post_model->get_all_posts();
             $data['all_category'] = $this->Category_model->get_all_category();
             $data['all_tag'] = $this->Tag_model->get_all_tag();
-            
+
             $data['_view'] = 'post/add';
             $this->load->view('template/header');
             $this->load->view('template/sidebar');
@@ -102,6 +111,9 @@ class Post extends CI_Controller
 
             $this->form_validation->set_rules('title', 'Title', 'required');
             $this->form_validation->set_rules('content', 'Content', 'required');
+            $this->form_validation->set_rules('published_at', 'Published At', 'required');
+            $this->form_validation->set_rules('published', 'Published', 'required');
+            $this->form_validation->set_rules('category_id', 'Category', 'required');
 
             if ($this->form_validation->run()) {
                 $params = array(
@@ -119,6 +131,32 @@ class Post extends CI_Controller
                 );
 
                 $this->Post_model->update_post($id, $params);
+
+                // update post category
+                $post_category = [
+                    // 'post_id' => $post_id,
+                    'category_id' => (int)$this->input->post('category_id'),
+                ];
+
+                $post_category_id = $this->Post_category_model->update_post_category_by_post_id($id, $post_category);
+
+                // update post tag
+
+                $tags_id = $this->input->post('tag_id[]');
+
+                // cek tags id nya
+                if ($tags_id) {
+
+                    foreach ($tags_id as $tag_id) {
+                        # code...
+                        $post_tag = [
+                            'post_id' => $id,
+                            'tag_id' => $tag_id,
+                        ];
+                        $post_tag_id = $this->Post_tag_model->update_post_tag_by_post_id($id, $post_tag);
+                    }
+                }
+
                 redirect('post/index');
             } else {
                 $data['all_posts'] = $this->Post_model->get_all_posts();
