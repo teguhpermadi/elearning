@@ -77,6 +77,8 @@
 									}
 									?>
 								</select>
+								<span class="text-danger"><?php echo form_error('published'); ?></span>
+								
 							</div>
 						</div>
 						<!-- <div class="col-md-12">
@@ -150,6 +152,7 @@
 								}
 								?>
 							</div>
+
 						</div>
 					</div>
 				</div>

@@ -24,7 +24,7 @@ class Tag_model extends CI_Model
      */
     function get_all_tag()
     {
-        $this->db->order_by('id', 'desc');
+        $this->db->order_by('id', 'asc');
         return $this->db->get('tag')->result_array();
     }
         

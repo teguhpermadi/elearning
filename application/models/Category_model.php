@@ -27,6 +27,10 @@ class Category_model extends CI_Model
         $this->db->order_by('id', 'desc');
         return $this->db->get('category')->result_array();
     }
+
+    function get_all_category_by_user_id()
+    {
+    }
         
     /*
      * function to add new category

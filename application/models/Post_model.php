@@ -27,6 +27,26 @@ class Post_model extends CI_Model
         $this->db->order_by('id', 'desc');
         return $this->db->get('posts')->result_array();
     }
+
+    function get_all_posts_by_user_id()
+    {
+        $user_id = user_info()['id'];
+        return $this->db->get_where('posts',array('author_id'=>$user_id))->result_array();
+    }
+
+    function get_all_posts_by_category_id($category_id)
+    {
+        return $this->db->select('*')
+        ->from('post')
+        ->join('post_category', 'post.id = post_category.post_id')
+        ->where('post_category.category_id', $category_id)
+        ->get()->result_array();
+    }
+
+    function get_all_posts_by_tag_id()
+    {
+
+    }
         
     /*
      * function to add new post

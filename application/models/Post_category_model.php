@@ -23,6 +23,15 @@ class Post_category_model extends CI_Model
     {
         return $this->db->get_where('post_category',array('post_id'=>$post_id))->row_array();
     }
+
+    function get_post_category_join_category($post_id)
+    {
+        return $this->db->select('*')
+        ->from('post_category')
+        ->join('category', 'category.id = post_category.category_id', 'left')
+        ->where('post_category.post_id', $post_id)
+        ->get()->row_array();
+    }
         
     /*
      * Get all post_category

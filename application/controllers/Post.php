@@ -21,7 +21,8 @@ class Post extends CI_Controller
      */
     function index()
     {
-        $data['posts'] = $this->Post_model->get_all_posts();
+        // $data['posts'] = $this->Post_model->get_all_posts();
+        $data['posts'] = $this->Post_model->get_all_posts_by_user_id();
 
         $data['_view'] = 'post/index';
         $this->load->view('template/header');
@@ -41,7 +42,7 @@ class Post extends CI_Controller
         $this->form_validation->set_rules('content', 'Content', 'required');
         $this->form_validation->set_rules('published_at', 'Published At', 'required');
         $this->form_validation->set_rules('published', 'Published', 'required');
-        // $this->form_validation->set_rules('category_id', 'Category', 'required');
+        $this->form_validation->set_rules('category_id', 'Category', 'required');
 
         if ($this->form_validation->run()) {
             $params = array(
@@ -64,30 +65,30 @@ class Post extends CI_Controller
             $category_id = (int)$this->input->post('category_id');
 
             // cek kategorinya
-            if($category_id){
-                
+            if ($category_id) {
+
                 $post_category = [
                     'post_id' => $post_id,
                     'category_id' => $category_id,
                 ];
-    
+
                 $post_category_id = $this->Post_category_model->add_post_category($post_category);
             }
 
             // tambahkan kedalam tabel tag
             $tags_id = $this->input->post('tag_id[]');
-
+            
             // cek tags id nya
             if ($tags_id) {
+                    foreach ($tags_id as $tag_id) {
+                        # code...
+                        $post_tag = [
+                            'post_id' => $post_id,
+                            'tag_id' => $tag_id,
+                        ];
+                        $post_tag_id = $this->Post_tag_model->add_post_tag($post_tag);
+                    }
 
-                foreach ($tags_id as $tag_id) {
-                    # code...
-                    $post_tag = [
-                        'post_id' => $post_id,
-                        'tag_id' => $tag_id,
-                    ];
-                    $post_tag_id = $this->Post_tag_model->add_post_tag($post_tag);
-                }
             }
 
             redirect('post/index');
@@ -114,7 +115,7 @@ class Post extends CI_Controller
         $data['post_category'] = $this->Post_category_model->get_post_category_by_post_id($id);
         $data['post_tag'] = $this->Post_tag_model->get_post_tag_join_tag();
 
-        // echo json_encode($data['post_tag']);
+        // echo json_encode($data['post']);
         // die;
 
         if (isset($data['post']['id'])) {
@@ -124,7 +125,9 @@ class Post extends CI_Controller
             $this->form_validation->set_rules('content', 'Content', 'required');
             $this->form_validation->set_rules('published_at', 'Published At', 'required');
             $this->form_validation->set_rules('published', 'Published', 'required');
-            // $this->form_validation->set_rules('category_id', 'Category', 'required');
+            $this->form_validation->set_rules('category_id', 'Category', 'required');
+            // $this->form_validation->set_rules('tag_id[]', 'Tag minimal pilih 1', 'required');
+
 
             if ($this->form_validation->run()) {
                 $params = array(
@@ -147,37 +150,43 @@ class Post extends CI_Controller
                 $category_id = (int)$this->input->post('category_id');
 
                 // cek kategori
-                if($category_id){
+                if ($category_id) {
 
                     $post_category = [
                         // 'post_id' => $post_id,
                         'category_id' => $category_id,
                     ];
-    
+
                     $post_category_id = $this->Post_category_model->update_post_category_by_post_id($id, $post_category);
                 }
 
                 // update post tag
 
                 $tags_id = $this->input->post('tag_id[]');
+                // hapus dulu semua tag yang terkait dengan post id
+                $this->db->delete('post_tag', ['post_id' => $id]);
 
                 // cek tags id nya
-                if ($tags_id) {
-
+                if($tags_id){
+                    // jika ada tag yang dipilih
                     foreach ($tags_id as $tag_id) {
                         # code...
                         $post_tag = [
                             'post_id' => $id,
                             'tag_id' => $tag_id,
                         ];
-                        $post_tag_id = $this->Post_tag_model->update_post_tag_by_post_id($id, $post_tag);
+    
+                        $post_tag_id = $this->Post_tag_model->add_post_tag($post_tag);
                     }
+                } else {
+                    // hapus dulu semua tag yang terkait dengan post id
+                    $this->db->delete('post_tag', ['post_id' => $id]);
                 }
 
                 redirect('post/index');
             } else {
                 $data['all_posts'] = $this->Post_model->get_all_posts();
-				$data['all_category'] = $this->Category_model->get_all_category();
+                $data['all_category'] = $this->Category_model->get_all_category();
                 $data['all_tag'] = $this->Tag_model->get_all_tag();
 
                 $data['_view'] = 'post/edit';

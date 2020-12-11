@@ -21,9 +21,21 @@ class Post_tag_model extends CI_Model
 
     function get_post_tag_join_tag()
     {
-        return $this->db->select('post_tag.*, tag.id as tag_id, tag.title')
+        return $this->db->select('*')
         ->from('post_tag')
         ->join('tag', 'tag.id = post_tag.tag_id', 'right')
+        ->order_by('tag.id', 'asc')
+        ->get()->result_array();
+
+        // return $this->db->last_query();
+    }
+
+    function get_post_tag_join_tag_by_post_id($post_id)
+    {
+        return $this->db->select('tag.title')
+        ->from('post_tag')
+        ->where('post_tag.post_id', $post_id)
+        ->join('tag', 'post_tag.tag_id = tag.id')
         ->get()->result_array();
 
         // return $this->db->last_query();
@@ -54,15 +66,6 @@ class Post_tag_model extends CI_Model
     {
         $this->db->where('id',$id);
         return $this->db->update('post_tag',$params);
-    }
-
-    function update_post_tag_by_post_id($post_id,$params)
-    {
-        // hapus dulu semua tag yang terkait dengan post id
-        $this->db->delete('post_tag', ['post_id' => $post_id]);
-        // timpa dengan data tag yang baru
-        $this->db->insert('post_tag',$params);
-        return $this->db->insert_id();
     }
     
     /*
