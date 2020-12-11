@@ -15,7 +15,7 @@
 	<section class="content">
 		<?php echo form_open('post/add'); ?>
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">
 						<div class="col-md-12">
@@ -37,7 +37,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header">
 						Pengaturan
@@ -120,6 +120,38 @@
 							<label for="published_at" class="control-label">Published At</label>
 							<div class="form-group">
 								<input type="datetime-local" name="published_at" value="<?php echo $this->input->post('published_at'); ?>" class="has-datetimepicker form-control" id="published_at" />
+								<span class="text-danger"><?php echo form_error('published_at'); ?></span>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label for="category_id" class="control-label"><span class="text-danger">*</span>Category</label>
+							<div class="form-group">
+								<select name="category_id" class="form-control">
+									<option value="">select category</option>
+									<?php
+									foreach ($all_category as $category) {
+										$selected = ($category['id'] == $this->input->post('category_id')) ? ' selected="selected"' : "";
+
+										echo '<option value="' . $category['id'] . '" ' . $selected . '>' . $category['title'] . '</option>';
+									}
+									?>
+								</select>
+								<span class="text-danger"><?php echo form_error('category_id'); ?></span>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label for="tag_id" class="control-label">Tag</label>
+							<div class="form-group">
+								<select name="tag_id" class="form-control">
+									<option value="">select tag</option>
+									<?php
+									foreach ($all_tag as $tag) {
+										$selected = ($tag['id'] == $this->input->post('tag_id')) ? ' selected="selected"' : "";
+
+										echo '<option value="' . $tag['id'] . '" ' . $selected . '>' . $tag['title'] . '</option>';
+									}
+									?>
+								</select>
 							</div>
 						</div>
 					</div>

@@ -5,10 +5,9 @@ function check_login()
     // pengganti $this
     $ci = &get_instance();
 
-    if (!$ci->ion_auth->logged_in())
-		{
-			redirect('auth/login');
-		}
+    if (!$ci->ion_auth->logged_in()) {
+        redirect('auth/login');
+    }
 }
 
 function user_info()
@@ -72,4 +71,10 @@ function user_menu()
             $ci->load->view('template/menu_siswa');
             break;
     }
+}
+
+function datetime_now()
+{
+    date_default_timezone_set('Asia/Jakarta');
+    return date("Y-m-d\TH:i");
 }
