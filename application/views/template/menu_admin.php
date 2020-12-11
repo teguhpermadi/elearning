@@ -67,5 +67,13 @@
 				</p>
 			</a>
 		</li>
+		<li class="nav-item">
+			<a href="<?= base_url('tag') ?>" class="nav-link <?php if($this->uri->segment(1) == 'tag') { echo 'active';}?>">
+				<i class="nav-icon fas fa-book"></i>
+				<p>
+					Tag
+				</p>
+			</a>
+		</li>
 	</ul>
 </nav>
