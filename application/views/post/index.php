@@ -19,7 +19,8 @@
 				<h3 class="card-title">Daftar Postingan</h3>
 			</div>
 			<div class="card-body">
-				<table class="table table-striped">
+				<table class="table table-striped datatable">
+				<thead>
 					<tr>
 						<!-- <th>ID</th> -->
 						<!-- <th>Parrent Id</th> -->
@@ -37,6 +38,9 @@
 						<th>Tag</th>
 						<th>Actions</th>
 					</tr>
+				</thead>
+				<tbody>
+				
 					<?php foreach ($posts as $p) { ?>
 						<tr>
 							<!-- <td><?php echo $p['id']; ?></td> -->
@@ -89,6 +93,7 @@
 							</td>
 						</tr>
 					<?php } ?>
+				</tbody>
 				</table>
 			</div>
 			<!-- /.card-body -->

@@ -35,10 +35,10 @@ class Pengajar_model extends CI_Model
      */
     function get_all_pengajar()
     {
-        return $this->db->select('users.first_name, users.id')
+        return $this->db->select('users.*')
         ->from('pengajar')
         ->join('users', 'users.id = pengajar.id_guru')
-        ->group_by('users.first_name')
+        ->group_by('users.email')
         ->get()
         ->result_array();
     }

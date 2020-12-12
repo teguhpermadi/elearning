@@ -18,7 +18,7 @@ class Pengajar extends CI_Controller
      */
     function index()
     {
-        $data['script'] = "$('.select').multiSelect();";
+        // $data['script'] = "$('.select').multiSelect();";
 
         $data['pengajar'] = $this->Pengajar_model->get_all_pengajar();
         // $data['all_guru'] = $this->ion_auth->users('guru')->result_array();

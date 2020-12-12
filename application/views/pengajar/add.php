@@ -46,7 +46,7 @@
 								foreach ($all_guru as $guru) {
 									$selected = ($guru['id'] == $this->input->post('id_guru')) ? ' selected="selected"' : "";
 
-									echo '<option value="' . $guru['id'] . '" ' . $selected . '>' . $guru['first_name'] . '</option>';
+									echo '<option value="' . $guru['id'] . '" ' . $selected . '>' . $guru['first_name'] . $guru['last_name']. '</option>';
 								}
 								?>
 							</select>

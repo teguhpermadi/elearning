@@ -13,7 +13,7 @@ class kelas extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Kelas_model');
-        $this->load->model('Tags_model');
+        $this->load->model('Tag_model');
         check_login();
     }
 
@@ -60,7 +60,7 @@ class kelas extends CI_Controller
             ];
 
             // tambah kelas ke dalam tabel tag
-            $tag_id = $this->Tags_model->add_tag($tags);
+            $tag_id = $this->Tag_model->add_tag($tags);
 
             redirect('kelas/index');
         } else {
@@ -105,7 +105,7 @@ class kelas extends CI_Controller
                     'content' => $this->input->post('kode'),
                 ];
 
-                $this->Tags_model->update_tag($id, $tags);
+                $this->Tag_model->update_tag($id, $tags);
 
                 redirect('kelas/index');
             } else {
@@ -130,7 +130,7 @@ class kelas extends CI_Controller
         if (isset($kelas['id'])) {
             $this->Kelas_model->delete_kelas($id);
             // hapus tag
-            $this->Tags_model->delete_tag($id);
+            $this->Tag_model->delete_tag($id);
 
             redirect('kelas/index');
         } else

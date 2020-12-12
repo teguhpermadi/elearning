@@ -9,6 +9,7 @@ class Post_category extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Post_category_model');
+        check_login();
     } 
 
     /*

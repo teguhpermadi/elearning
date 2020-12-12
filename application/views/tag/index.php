@@ -14,13 +14,18 @@
     <!-- Main content -->
     <section class="content">
 
+    <div class="row">
+                <a href="<?php echo site_url('tag/add'); ?>" class="btn btn-primary ml-2 mb-3">Tambah</a>
+    </div>
+
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <a href="<?php echo site_url('tag/add'); ?>" class="btn btn-success btn-sm">Add</a>
+            Daftar Tag
             </div>
             <div class="card-body">
-                <table class="table table-striped">
+                <table class="table table-striped datatable">
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
@@ -29,6 +34,8 @@
                         <th>Content</th>
                         <th>Actions</th>
                     </tr>
+                </thead>
+                <tbody>
                     <?php foreach ($tag as $t) { ?>
                         <tr>
                             <td><?php echo $t['id']; ?></td>
@@ -42,6 +49,7 @@
                             </td>
                         </tr>
                     <?php } ?>
+                </tbody>
                 </table>
             </div>
             <!-- /.card-body -->

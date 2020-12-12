@@ -14,6 +14,7 @@ class Post extends CI_Controller
         $this->load->model('Post_category_model');
         $this->load->model('Tag_model');
         $this->load->model('Post_tag_model');
+        check_login();
     }
 
     /*

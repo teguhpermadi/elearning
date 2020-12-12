@@ -54,15 +54,9 @@
 
 <script>
   $(document).ready(function() {
-    $('#tableAdmin').DataTable();
-    $('#tableGuru').DataTable();
-    $('#tableSiswa').DataTable();
-    $('#tableKelas').DataTable();
-    $('#tableCategory').DataTable();
-    $('#tableTag').DataTable();
-    $('#posts').DataTable({
+    $('.datatable').DataTable({
       // "dom": 'flrtip',
-      // "dom": '<"top float-right" f>'
+      "dom": '<"top float-left" l><"top float-right" f><t><"bottom float-left" i><"bottom float-right" p>'
     });
     $('.select').multiSelect();
     // Summernote

@@ -14,36 +14,45 @@
     <!-- Main content -->
     <section class="content">
 
+        <div class="row">
+            <a href="<?php echo site_url('category/add'); ?>" class="btn btn-primary ml-2 mb-3">Tambah</a>
+
+        </div>
+
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <a href="<?php echo site_url('category/add'); ?>" class="btn btn-success btn-sm">Add</a>
+            Daftar Kategori
             </div>
             <div class="card-body">
-                <table class="table table-striped">
-                    <tr>
-                        <th>ID</th>
-                        <th>Parrent Id</th>
-                        <th>Title</th>
-                        <th>Meta Title</th>
-                        <th>Slug</th>
-                        <th>Content</th>
-                        <th>Actions</th>
-                    </tr>
-                    <?php foreach ($category as $c) { ?>
+                <table class="table table-striped datatable">
+                    <thead>
                         <tr>
-                            <td><?php echo $c['id']; ?></td>
-                            <td><?php echo $c['parrent_id']; ?></td>
-                            <td><?php echo $c['title']; ?></td>
-                            <td><?php echo $c['meta_title']; ?></td>
-                            <td><?php echo $c['slug']; ?></td>
-                            <td><?php echo $c['content']; ?></td>
-                            <td>
-                                <a href="<?php echo site_url('category/edit/' . $c['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>
-                                <a href="<?php echo site_url('category/remove/' . $c['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
-                            </td>
+                            <th>ID</th>
+                            <th>Parrent Id</th>
+                            <th>Title</th>
+                            <th>Meta Title</th>
+                            <th>Slug</th>
+                            <th>Content</th>
+                            <th>Actions</th>
                         </tr>
-                    <?php } ?>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($category as $c) { ?>
+                            <tr>
+                                <td><?php echo $c['id']; ?></td>
+                                <td><?php echo $c['parrent_id']; ?></td>
+                                <td><?php echo $c['title']; ?></td>
+                                <td><?php echo $c['meta_title']; ?></td>
+                                <td><?php echo $c['slug']; ?></td>
+                                <td><?php echo $c['content']; ?></td>
+                                <td>
+                                    <a href="<?php echo site_url('category/edit/' . $c['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>
+                                    <a href="<?php echo site_url('category/remove/' . $c['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
                 </table>
             </div>
             <!-- /.card-body -->

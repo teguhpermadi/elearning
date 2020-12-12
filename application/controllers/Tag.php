@@ -9,6 +9,7 @@ class Tag extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Tag_model');
+        check_login();
     } 
 
     /*

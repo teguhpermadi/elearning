@@ -17,7 +17,7 @@
         <div class="btn-group mb-3" role="group" aria-label="Basic example">
             <a href="<?php echo site_url('mapel/add'); ?>" class="btn btn-primary">Tambah</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">Upload</button>
-            <button type="button" class="btn btn-primary">Cetak</button>
+            <!-- <button type="button" class="btn btn-primary">Cetak</button> -->
         </div>
 
         <!-- Default box -->
@@ -26,12 +26,15 @@
                 <h3 class="card-title">Daftar Mata Pelajaran</h3>
             </div>
             <div class="card-body">
-                <table class="table table-striped">
+                <table class="table table-striped datatable">
+                <thead>
                     <tr>
                         <th>Nama</th>
                         <th>Kode</th>
                         <th>Actions</th>
                     </tr>
+                </thead>
+                <tbody>
                     <?php foreach ($mapel as $m) { ?>
                         <tr>
                             <td><?php echo $m['nama']; ?></td>
@@ -42,6 +45,7 @@
                             </td>
                         </tr>
                     <?php } ?>
+                </tbody>
                 </table>
             </div>
             <!-- /.card-body -->

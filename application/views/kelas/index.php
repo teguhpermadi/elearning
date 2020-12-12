@@ -16,7 +16,7 @@
         <div class="btn-group mb-3" role="group" aria-label="Basic example">
             <a href="<?php echo site_url('kelas/add'); ?>" class="btn btn-primary">Tambah</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">Upload</button>
-            <button type="button" class="btn btn-primary">Cetak</button>
+            <!-- <button type="button" class="btn btn-primary">Cetak</button> -->
         </div>
         <!-- Default box -->
         <div class="card">
@@ -24,7 +24,7 @@
                 <h3 class="card-title">Daftar Kelas</h3>
             </div>
             <div class="card-body">
-                <table class="table table-hover" id="tableKelas">
+                <table class="table table-hover datatable" id="tableKelas">
                     <thead>
                         <tr>
                             <th>Tingkat</th>

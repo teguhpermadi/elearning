@@ -38,7 +38,7 @@
 				<h3>Daftar Admin</h3>
 			</div>
 			<div class="card-body">
-				<table class="table table-hover" id="tableAdmin">
+				<table class="table table-hover datatable" id="tableAdmin">
 					<thead>
 						<tr>
 							<th><?php echo lang('index_fname_th'); ?></th>
@@ -71,7 +71,7 @@
 				<h3>Daftar Guru</h3>
 			</div>
 			<div class="card-body">
-				<table class="table table-hover" id="tableGuru">
+				<table class="table table-hover datatable" id="tableGuru">
 					<thead>
 
 						<tr>
@@ -102,7 +102,7 @@
 				<h3>Daftar Siswa</h3>
 			</div>
 			<div class="card-body">
-				<table class="table table-hover" id="tableSiswa">
+				<table class="table table-hover datatable" id="tableSiswa">
 					<thead>
 						<tr>
 							<th><?php echo lang('index_fname_th'); ?></th>

@@ -10,6 +10,7 @@ class Post_tag extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Post_tag_model');
+        check_login();
     }
 
     /*

@@ -43,7 +43,7 @@
           <div class="card">
             <div class="card-header">
               <h4>
-                <?= $guru['first_name'] ?>
+                <?= $guru['first_name'] . ' ' .$guru['last_name'] ?>
                 <span class="badge badge-info float-right"><?= $jml_mapel ?> Mapel</span>
               </h4>
             </div>
