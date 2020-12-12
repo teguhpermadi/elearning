@@ -147,9 +147,7 @@
 							<label for="tag_id" class="control-label">Tag</label>
 							<div class="form-group">
 								<?php
-								// echo json_encode($post_tag);
-								// var_dump($post);
-								// die;
+								
 								foreach ($post_tag as $tag) {
 									$checked = ($tag['post_id'] == $post['id']) ? ' checked' : "";
 

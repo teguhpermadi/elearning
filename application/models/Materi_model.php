@@ -43,8 +43,11 @@ class Materi_model extends CI_Model
         ->where('posts.author_id', $author_id)
         ->where('post_category.category_id', $id_mapel)
         ->where('post_tag.tag_id', $id_kelas)
+        ->where('posts.published != 0')
         ->order_by('posts.id', 'desc')
         ->get()->result_array();
+
+        // return $this->db->last_query();
     }
 
     function get_guru_by_mapel_and_kelas($id_mapel, $id_kelas)

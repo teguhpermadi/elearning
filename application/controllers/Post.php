@@ -15,6 +15,7 @@ class Post extends CI_Controller
         $this->load->model('Tag_model');
         $this->load->model('Post_tag_model');
         check_login();
+        $this->load->library('upload');
     }
 
     /*
@@ -85,7 +86,7 @@ class Post extends CI_Controller
                     # code...
                     $post_tag = [
                         'post_id' => $post_id,
-                        'tag_id' => $tag_id,
+                        'tag_id' => (int)$tag_id,
                     ];
                     $post_tag_id = $this->Post_tag_model->add_post_tag($post_tag);
                 }
@@ -115,7 +116,7 @@ class Post extends CI_Controller
         $data['post_category'] = $this->Post_category_model->get_post_category_by_post_id($id);
         $data['post_tag'] = $this->Post_tag_model->get_post_tag_join_tag($id);
 
-        // echo json_encode($data['post']);
+        // echo json_encode($data['post_tag']);
         // die;
 
         if (isset($data['post']['id'])) {

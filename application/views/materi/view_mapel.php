@@ -18,27 +18,47 @@
     <div class="row">
       <?php
       $all_post = $this->Materi_model->get_post_by_auhtor_category_tag($pengajar['id'], $mapel_kelas['id_mapel'], $mapel_kelas['id_kelas']);
+
+      // var_dump($all_post);
+      // die;
       foreach ($all_post as $post) {
+        // cek tanggal publish nya
+
+        $date_now = strtotime(datetime_now());
+        $date_publish = strtotime($post['published_at']);
+
+        // echo $date_now;
+        // echo '<br>';
+        // echo $date_publish;
+        // die;
+
+        if ($date_publish <= $date_now) {
       ?>
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">
-              <?= $post['title'] ?>
-              </h3>
-            </div>
-            <div class="card-body">
-              <?php
-              echo word_limiter($post['content'], 200);
-              ?>
-            </div>
-            <div class="card-footer">
-              <a href="<?= base_url('post/view/').$post['id'] ?>" class="btn btn-primary">Lihat</a>
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <?= $post['title'] ?>
+                </h3>
+                <span class="badge badge-info float-right">
+                  <?= $post['published_at'] ?>
+                </span>
+              </div>
+              <div class="card-body">
+                <?php
+                echo word_limiter($post['content'], 50);
+                ?>
+              </div>
+              <div class="card-footer">
+                <a href="<?= base_url('post/view/') . $post['id'] ?>" class="btn btn-primary">Lihat</a>
+              </div>
             </div>
           </div>
-        </div>
 
-      <?php } ?>
+      <?php
+        }
+      }
+      ?>
     </div>
 
   </section>

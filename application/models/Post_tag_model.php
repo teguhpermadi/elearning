@@ -23,13 +23,13 @@ class Post_tag_model extends CI_Model
     {
         $user_id = user_info()['id'];
 
-        return $this->db->select('*')
+        return $this->db->select('post_tag.post_id, tag.id, tag.title')
         ->from('post_tag')
-        ->join('tag', 'tag.id = post_tag.tag_id', 'right')
+        ->join('tag', 'tag.id = post_tag.tag_id')
         ->join('pengajar', 'pengajar.id_kelas = tag.id')
+        ->where('post_tag.post_id = '.$post_id)
         ->order_by('tag.id', 'asc')
         ->group_by('tag.title')
-        ->where('post_tag.post_id = '.$post_id.' OR post_tag.post_id IS NULL')
         ->get()->result_array();
 
         // return $this->db->last_query();
