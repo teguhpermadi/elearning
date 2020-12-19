@@ -130,9 +130,12 @@
         requiredCheckboxes.attr('required', 'required');
       }
     });
+
   });
 </script>
 
+<!-- cek jika variabel js tidak ditemukan -->
+<?= (empty($js)) ? '' : $js ?>
 
 </body>
 

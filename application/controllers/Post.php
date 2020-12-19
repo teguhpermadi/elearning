@@ -218,13 +218,14 @@ class Post extends CI_Controller
     function view($id)
     {
         $data['post'] = $this->Post_model->get_post($id);
-
+        $data['max'] = $this->Post_model->count_comment($id);
+        $data['js'] = $this->load->view('post/js', $data, true);
         // var_dump($data);
         // die;
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('post/view', $data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer', $data);
     }
 
     //Upload image summernote
@@ -265,5 +266,81 @@ class Post extends CI_Controller
         if (unlink($file_name)) {
             echo 'File Delete Successfully';
         }
+    }
+
+    // get all comment
+    function all_comment($post_id)
+    {
+        $response = '';
+        $response1 = '';
+        $result = $this->Post_model->all_comment($post_id);
+
+        foreach ($result as  $value) {
+            $result1 = $this->Post_model->comment_replies($post_id, $value->id);
+            if ($result1) {
+                foreach ($result1 as  $value1) {
+                    $response1 .= '<div class="card-comment" style="margin-left: 100px;">
+                        <img class="img-circle img-sm" src="' . base_url('node_modules/admin-lte/dist/img/user3-128x128.jpg') . '">
+                        <div class="comment-text">
+                        <span class="username">'
+                        . $value1->first_name .
+                        '<span class="text-muted float-right">' . $value1->published_at . '</span>
+                        </span>'
+                        . $value1->content .
+                        '<br>
+                        <a href="javascript:void(0)" data-commentID=' . $value1->id . ' onclick="reply(this)" class="btn btn-default btn-sm">
+                        <i class="fas fa-share"></i> Balas</a></div>
+                        </div>
+                    </div>';
+                }
+            }
+
+            $response .= '<div class="card-comment">
+                            <img class="img-circle img-sm" src="' . base_url('node_modules/admin-lte/dist/img/user3-128x128.jpg') . '">
+                            <div class="comment-text">
+                            <span class="username">'
+                            . $value->first_name .
+                            '<span class="text-muted float-right">' . $value->published_at . '</span>
+                            </span>'
+                            . $value->content .
+                            '<br>
+                            <a href="javascript:void(0)" data-commentID=' . $value->id . ' onclick="reply(this)" class="btn btn-default btn-sm">
+                            <i class="fas fa-share"></i> Balas</a></div>
+                            </div>
+                            <div class="replies">' . $response1 . '</div>
+                        </div>';
+
+            $response1 = '';
+        }
+        echo json_encode($response);
+    }
+
+    // addcomment
+    function add_comment()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $params  = array(
+            'author_id' => user_info()['id'],
+            'published' => 1,
+            'post_id' => $this->input->post('post_id'),
+            'parrent_id' => $this->input->post('parrent_id'),
+            'content' => $this->input->post('comment'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'published_at' => date('Y-m-d H:i:s'),
+        );
+
+        // tambahkan komentar kedalam tabel
+        $result = $this->Post_model->add_comment($params);
+
+        // kemudian dapatkan komentar yang berhasil ditambahkan sebagai feedback
+        if ($result) {
+            $user_id = user_info()['id'];
+            $comment = $this->input->post('comment');
+            $letasrow = $this->Post_model->affected_comment($user_id, $comment);
+            if ($letasrow) {
+                echo json_encode($letasrow);
+            }
+        }
+        return true;
     }
 }
