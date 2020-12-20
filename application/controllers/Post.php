@@ -287,6 +287,7 @@ class Post extends CI_Controller
     {
         $comment_html = '';
         $all_comment = $this->Post_model->load_comment($post_id);
+$level = 1;
 
         foreach ($all_comment as $comment) {
             $comment_html .= '
@@ -303,17 +304,22 @@ class Post extends CI_Controller
                 <button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '"><i class="fas fa-share"></i> Balas</button>
                 </div>
             ';
-            $comment_html .= $this->load_reply($comment['post_id'], $comment['id'], 0);
+            $comment_html .= $this->load_reply($comment['post_id'], $comment['id'], $level);
         }
 
         echo json_encode($comment_html);
     }
 
-    function load_reply($post_id, $parrent_id, $marginleft = 0)
+    function load_reply($post_id, $parrent_id, $level)
     {
         $comment_html = '';
         $reply = $this->Post_model->load_reply($post_id, $parrent_id);
         $get_reply = $reply->result_array();
+
+        $marginleft = 48 * $level;
+        $next_level = $level + 1;
+
+        $max_level = 4;
 
         foreach ($get_reply as $comment) {
             $comment_html .= '
@@ -327,10 +333,14 @@ class Post extends CI_Controller
                                     </span>
                                     ' . $comment['content'] . '
                                 </div>
-                            <button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '"><i class="fas fa-share"></i> Balas</button>
-                            </div>
-                        ';
-            $comment_html .= $this->load_reply($comment['post_id'], $comment['id']);
+                            ';
+
+                        if($level < $max_level){
+                            $comment_html .= '<button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '"><i class="fas fa-share"></i> Balas</button></div>';
+                        } else {
+                            $comment_html .= '</div>';
+                        }
+            $comment_html .= $this->load_reply($comment['post_id'], $comment['id'], $next_level);
         }
 
         return $comment_html;
