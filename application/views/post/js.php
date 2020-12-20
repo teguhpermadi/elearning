@@ -1,142 +1,73 @@
 <script>
-    $(document).ready(function() {
-        var max = '<?= $max  ?>';
-        getallcomment()
+		$(document).ready(function() {
+			//Mengirimkan Token Keamanan
+			$.ajaxSetup({
+				headers: {
+					'Csrf-Token': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
 
-        $("#addcomment").on('click', function() {
-            var post_id = $("#post_id").val();;
-            var parrent_id = 0;
-            var comment = $("#comment").val();
+			$('#form_comment').on('submit', function(event) {
+				event.preventDefault();
+				var form_data = $(this).serialize();
+				$.ajax({
+					url: "<?= base_url('post/add_comment') ?>",
+					method: "POST",
+					data: form_data,
+					success: function(data) {
+						$('#form_comment')[0].reset();
+						$('#parrent_id').val('0');
+						load_comment();
+					},
+					error: function(data) {
+						console.log(data.responseText)
+					}
+				})
+			});
 
-            if (comment.length >= 1) {
-                $.ajax({
-                    url: "<?= base_url('post/add_comment') ?>",
-                    method: 'POST',
-                    data: {
-                        post_id: post_id,
-                        parrent_id: parrent_id,
-                        comment: comment,
-                    },
-                    success: function(data) {
-                        var result = JSON.parse(data);
-                        $("#comment").val("");
-                        console.log(result)
-                        // max++;
-                        // $("#comm_count").text(max + " Comments");
-                        // $(".usercomments").html('')
-                        // getallcomment();
+			load_comment();
 
-                        // tambahkan feedback dari komentar baru kedalam html
-                        $(".usercomments").append(`
-                        <div class="card-comment">
-                            <img class="img-circle img-sm" src="">
-                            <div class="comment-text">
-                            <span class="username">` + 
-                            + result.first_name +
-                            `<span class="text-muted float-right">` + result.published_at + `</span>
-                            </span>`
-                            + result.content +
-                            `<br>
-                            <a href="javascript:void(0)" data-commentID=` + result.id + ` onclick="reply(this)" class="btn btn-default btn-sm">
-                            <i class="fas fa-share"></i> Balas</a></div>
-                            </div>
-                        </div>
-                        `);
+			function load_comment() {
+				$.ajax({
+					url: "<?= base_url('post/load_comment/').$post['id'] ?>",
+					method: "POST",
+					success: function(data) {
+                        var d = $.parseJSON(data);
+						$('#display_comment').html(d);
+					},
+					error: function(data) {
+						console.log(data.responseText)
+					}
+				})
+			}
 
-                    },
-                    error: function() {
-                        alert('Data not inserted.');
-                    }
+			$(document).on('click', '.reply', function() {
+				var parrent_id = $(this).attr("id");
+				$('#parrent_id').val(parrent_id);
+				$('#content').focus();
+			});
 
-                });
-            }
-        })
+			// $(document).on('click', '.delete', function() {
+			// 	var komentar_id = $(this).attr("id");
+			// 	$.ajax({
+			// 		url: "delete_komentar.php",
+			// 		method: "POST",
+			// 		data: {
+			// 			komentar_id: komentar_id
+			// 		},
+			// 		dataType: 'JSON',
+			// 		success: function(data) {
+			// 			if (data.status) {
+			// 				load_comment();
+			// 			} else {
+			// 				load_comment();
 
-        $("#addreply").on('click', function() {
-            var post_id = $('#post_id').val()
-            var parrent_id = $('#comment_id').val()
-            var comment = $("#replycomment").val();
-
-            if (comment.length >= 1) {
-                $.ajax({
-                    url: "<?= base_url('post/add_comment') ?>",
-                    method: 'POST',
-                    data: {
-                        post_id: post_id,
-                        parrent_id: parrent_id,
-                        comment: comment,
-                    },
-                    success: function(response) {
-                        var result = JSON.parse(response);
-                        // max++;
-                        // $("#comm_count").text(max + " Comments");
-                        $("#replycomment").val("");
-
-                        $(".replyrow").hide();
-
-                        // $(".usercomments").html('')
-                        // getallcomment();
-
-                        $(".replyrow").parent().next().append(`
-                        <div class="card-comment">
-                            <img class="img-circle img-sm" src="' . base_url('node_modules/admin-lte/dist/img/user3-128x128.jpg') . '">
-                            <div class="comment-text">
-                            <span class="username">` + 
-                            + result.first_name +
-                            `<span class="text-muted float-right">` + result.published_at + `</span>
-                            </span>`
-                            + result.content +
-                            `<br>
-                            <a href="javascript:void(0)" data-commentID=` + result.id + ` onclick="reply(this)" class="btn btn-default btn-sm">
-                            <i class="fas fa-share"></i> Balas</a></div>
-                            </div>
-                        </div>
-                        `);
-                    },
-                    error: function() {
-                        alert('Data not inserted');
-                    }
-
-                });
-            } else {
-                alert('please check your input reply commment');
-            }
-
-            // getallcomment();
-        })
-
-        function getallcomment() {
-
-            // if (start > max) {
-            //     return;
-            // }
-            $.ajax({
-                url: '<?= base_url('post/all_comment/') . $post['id'] ?>',
-                method: 'POST',
-                datatype: 'JSON',
-                // data: {
-                //     start: start
-                // },
-                success: function(response) {
-                    // body...
-                    // console.log(response)
-                    var d = $.parseJSON(response);
-                    $(".usercomments").append(d);
-                    // getallComment((start + 20), max);
-                },
-                error: function() {
-                    // body...
-                    alert('Data not found');
-                }
-            });
-        }
-
-    })
-
-    function reply(caller) {
-        commentid = $(caller).attr('data-commentID');
-        $('#comment_id').val(commentid)
-        $(".replyrow").insertAfter($(caller));
-        $(".replyrow").show();
-    }
-</script>
+			// 			}
+			// 		},
+			// 		error: function(data) {
+			// 			console.log(data.responseText)
+			// 		}
+			// 	});
+			// });
+		});
+	</script>

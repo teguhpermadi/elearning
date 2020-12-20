@@ -79,78 +79,32 @@ class Post_model extends CI_Model
         return $this->db->get_where('users', array('id' => $id))->row_array();
     }
 
-    function all_comment($post_id)
-    {
-        $all_users = $this->db->select('post_comment.*, users.first_name')
-            ->from('post_comment')
-            ->where('post_comment.post_id', $post_id)
-            ->where('post_comment.parrent_id', 0)
-            ->join('users', 'post_comment.author_id = users.id')
-            ->order_by('post_comment.id', 'asc')
-            ->get();
-        return $all_users->result();
-    }
-
-    function count_comment($post_id)
-    {
-        $all_users = $this->db->select('post_comment.*')
-            ->from('post_comment')
-            ->where('post_comment.post_id', $post_id)
-            ->where('post_comment.parrent_id', 0)
-            ->order_by('post_comment.id', 'asc')
-            ->get();
-        return $all_users->num_rows();
-    }
-
-    function comment_replies($post_id, $comment_id)
-    {
-        $query = $this->db->select('*')
-            ->from('post_comment')
-            ->where('post_id', $post_id)
-            ->where('parrent_id', $comment_id)
-            ->join('users', 'post_comment.author_id = users.id')
-            ->get();
-
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return false;
-        }
-    }
-
-    function count_comment_replies($post_id, $comment_id)
-    {
-        $query = $this->db->select('*')
-            ->from('post_comment')
-            ->where('post_id', $post_id)
-            ->where('parrent_id', $comment_id)
-            ->get();
-
-        return $query->num_rows();
-    }
-
     function add_comment($params)
     {
         $this->db->insert('post_comment', $params);
+        return $this->db->insert_id();
 
-        if ($this->db->affected_rows() > 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
-    function affected_comment($user_id, $comment)
+    function load_comment($post_id)
     {
-        $one_post = $this->db->select('post_comment.*, users.first_name')
-            ->from('post_comment')
-            ->where('author_id', $user_id)
-            ->where('content', $comment)
-            ->join('users', 'users.id = post_comment.author_id')
-            ->order_by('id', 'DESC')
-            ->limit(1)
-            ->get();
-        return $one_post->row();
+        return $this->db->select('post_comment.*, users.first_name')
+        ->from('post_comment')
+        ->where('post_comment.post_id', $post_id)
+        ->where('post_comment.parrent_id', 0)
+        ->join('users', 'post_comment.author_id = users.id')
+        ->get()
+        ->result_array();
+    }
+
+    function load_reply($post_id, $parrent_id)
+    {
+        return $this->db->select('post_comment.*, users.first_name')
+        ->from('post_comment')
+        ->where('post_comment.post_id', $post_id)
+        ->where('post_comment.parrent_id', $parrent_id)
+        ->join('users', 'post_comment.author_id = users.id')
+        ->get();
     }
 
 }

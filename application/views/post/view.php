@@ -25,43 +25,27 @@
         <?= $post['content'] ?>
       </div>
       <div class="card-footer card-comments">
-        <!-- <div class="card-comment">
-          <img class="img-circle img-sm" src="<?= base_url('node_modules/admin-lte/dist/img/user3-128x128.jpg') ?>">
-          <div class="comment-text">
-            <span class="username">
-              Maria Gonzales
-              <span class="text-muted float-right">8:03 PM Today</span>
-            </span>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda excepturi vel aliquam obcaecati eius corporis laborum quisquam nobis doloribus nihil, incidunt alias recusandae vero vitae dolor inventore. Voluptatum, numquam aliquam.
-            <br>
-            <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Balas</button>
-          </div>
-        </div> -->
-        <div class="usercomments"></div>
-
-        <div class="row replyrow" style="display:none;">
-	      <div class="col-md-12">
-          <input type="hidden" name="comment_id" id="comment_id">
-          <input type="hidden" value="<?= $post['id'] ?>" id="post_id">
-	        <textarea id="replycomment" class="form-control" placeholder="please add comment" cols="30" rows="3" style="margin-top: 10px;"></textarea><br>
-	          <button class="btn-default btn float-right ml-3" onclick="$('.replyrow').hide();">close</button>
-	          <button class="btn-primary btn float-right ml-3" onclick="isreply=true;" id="addreply">reply</button>
-	      </div>
-	    </div>
-
+        <div id="display_comment"></div>
       </div>
       <div class="card-footer">
-        <img class="img-fluid img-circle img-sm" src="../dist/img/user4-128x128.jpg">
-        <!-- .img-push is used to add margin to elements next to floating images -->
-        <div class="img-push">
-          <!-- <input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment"> -->
-          <input type="hidden" value="<?= $post['id'] ?>" id="post_id">
-          <textarea class="form-control" rows="3" id="comment"></textarea>
-          <button class="btn btn-primary mt-1 float-right" id="addcomment">Add comment</button>
-        </div>
+        <form method="POST" id="form_comment">
+          <div class="form-group">
+          </div>
+          <div class="form-group">
+            <textarea name="content" id="content" class="form-control" placeholder="Tulis Komentar" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <input type="hidden" name="post_id" id="post_id" value="<?= $post['id'] ?>" />
+            <input type="hidden" name="author_id" id="author_id" value="<?= user_info()['id'] ?>" />
+            <input type="hidden" name="parrent_id" id="parrent_id" value="0" />
+            <input type="submit" name="submit" id="submit" class="btn btn-info" value="Kirim" />
+          </div>
+        </form>
       </div>
 
     </div>
+
+</div>
 
 </div>
 
