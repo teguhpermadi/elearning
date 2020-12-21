@@ -18,7 +18,7 @@
       <div class="card-header">
         <h3 class="card-title"> <?= $post['title'] ?> </h3>
         <span class="badge badge-info float-right">
-          <?= selisih_waktu($post['published_at'], null); ?> |
+          <?= time_elapsed_string($post['published_at'], null); ?> |
           <?= $post['published_at'] ?>
         </span>
       </div>

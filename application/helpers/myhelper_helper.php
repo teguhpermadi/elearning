@@ -79,28 +79,33 @@ function datetime_now()
     return date("Y-m-d\TH:i");
 }
 
-function selisih_waktu($awal, $akhir)
-{
-    if ($akhir == null) {
-        $waktu_akhir = date_create();
-    } else {
-        $waktu_akhir = date_create($akhir);
+function time_elapsed_string($datetime, $full = false) {
+    
+    date_default_timezone_set('Asia/Jakarta');
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $string = array(
+        'y' => 'tahun',
+        'm' => 'bulan',
+        'w' => 'minggu',
+        'd' => 'hari',
+        'h' => 'jam',
+        'i' => 'menit',
+        's' => 'detik',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? '' : '');
+        } else {
+            unset($string[$k]);
+        }
     }
 
-    $waktu_awal = date_create($awal);
-    $diff = date_diff($waktu_awal, $waktu_akhir);
-
-    if ($diff->y != 0) {
-        return $diff->y . ' tahun lalu';
-    } else if ($diff->m != 0) {
-        return $diff->m . ' bulan lalu';
-    } else if ($diff->d != 0) {
-        return $diff->d . ' hari lalu';
-    } else if ($diff->h != 0) {
-        return $diff->h . ' jam lalu';
-    } else if ($diff->i != 0) {
-        return $diff->i . ' menit lalu';
-    } else {
-        return $diff->s . ' detik lalu';
-    }
+    if (!$full) $string = array_slice($string, 0, 1);
+    return $string ? implode(', ', $string) . ' lalu' : 'just now';
 }

@@ -297,7 +297,7 @@ class Post extends CI_Controller
                     <div class="comment-text">
                         <span class="username">
                         ' . $comment['first_name'] . '
-                            <span class="text-muted float-right">' . selisih_waktu($comment['published_at'], null) . '</span>
+                            <span class="text-muted float-right">' . time_elapsed_string($comment['published_at'], null) . '</span>
                         </span>
                         ' . $comment['content'] . '
                     </div>
@@ -331,7 +331,7 @@ class Post extends CI_Controller
                                 <div class="comment-text">
                                     <span class="username">
                                     ' . $comment['first_name'] . '
-                                        <span class="text-muted float-right">' . selisih_waktu($comment['published_at'], null) . '</span>
+                                        <span class="text-muted float-right">' . time_elapsed_string($comment['published_at'], null) . '</span>
                                     </span>
                                     ' . $comment['content'] . '
                                 </div>
