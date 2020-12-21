@@ -301,8 +301,9 @@ class Post extends CI_Controller
                         </span>
                         ' . $comment['content'] . '
                     </div>
-                <button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '"><i class="fas fa-share"></i> Balas</button>
-                <div class="reply"></div>
+                <div class="reply">
+                <button type="button" class="btn btn-default btn-sm reply" id="'.$comment['id'].'" data-author="'.$comment['first_name'].'"><i class="fas fa-share"></i> Balas</button>
+                </div>
                 </div>
             ';
             $comment_html .= $this->load_reply($comment['post_id'], $comment['id'], $level);
@@ -337,12 +338,12 @@ class Post extends CI_Controller
                             ';
 
             if ($level < $max_level) {
-                $comment_html .= '<button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '"><i class="fas fa-share"></i> Balas</button>
-                                <div class="reply"></div>
+                $comment_html .= '<div class="reply">
+                                <button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '" data-author="'.$comment['first_name'].'"><i class="fas fa-share"></i> Balas</button>
+                                </div>
                                 </div>';
             } else {
                 $comment_html .= '
-                                <div class="reply"></div>
                                 </div>';
             }
             $comment_html .= $this->load_reply($comment['post_id'], $comment['id'], $next_level);
