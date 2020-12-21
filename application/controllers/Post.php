@@ -97,12 +97,13 @@ class Post extends CI_Controller
             $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
             $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
             $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
+            $data['js'] = $this->load->view('post/js_add', $data, true);
 
             $data['_view'] = 'post/add';
             $this->load->view('template/header');
             $this->load->view('template/sidebar');
             $this->load->view('post/add', $data);
-            $this->load->view('template/footer');
+            $this->load->view('template/footer', $data);
         }
     }
 
@@ -218,7 +219,7 @@ class Post extends CI_Controller
     function view($id)
     {
         $data['post'] = $this->Post_model->get_post($id);
-        $data['js'] = $this->load->view('post/js', $data, true);
+        $data['js'] = $this->load->view('post/js_view', $data, true);
         // var_dump($data);
         // die;
         $this->load->view('template/header');
