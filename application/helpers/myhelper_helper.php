@@ -78,3 +78,29 @@ function datetime_now()
     date_default_timezone_set('Asia/Jakarta');
     return date("Y-m-d\TH:i");
 }
+
+function selisih_waktu($awal, $akhir)
+{
+    if ($akhir == null) {
+        $waktu_akhir = date_create();
+    } else {
+        $waktu_akhir = date_create($akhir);
+    }
+
+    $waktu_awal = date_create($awal);
+    $diff = date_diff($waktu_awal, $waktu_akhir);
+
+    if ($diff->y != 0) {
+        return $diff->y . ' tahun lalu';
+    } else if ($diff->m != 0) {
+        return $diff->m . ' bulan lalu';
+    } else if ($diff->d != 0) {
+        return $diff->d . ' hari lalu';
+    } else if ($diff->h != 0) {
+        return $diff->h . ' jam lalu';
+    } else if ($diff->i != 0) {
+        return $diff->i . ' menit lalu';
+    } else {
+        return $diff->s . ' detik lalu';
+    }
+}

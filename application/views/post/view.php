@@ -18,7 +18,8 @@
       <div class="card-header">
         <h3 class="card-title"> <?= $post['title'] ?> </h3>
         <span class="badge badge-info float-right">
-          <?= $post['published_at'] ?>
+          <?= selisih_waktu($post['published_at'], null); ?>
+          <!-- <?= $post['published_at'] ?> -->
         </span>
       </div>
       <div class="card-body">
@@ -30,8 +31,6 @@
       <div class="card-footer">
         <form method="POST" id="form_comment">
           <div class="form-group">
-          </div>
-          <div class="form-group">
             <textarea name="content" id="content" class="form-control" placeholder="Tulis Komentar" rows="3"></textarea>
           </div>
           <div class="form-group">
@@ -41,6 +40,13 @@
             <input type="submit" name="submit" id="submit" class="btn btn-info" value="Kirim" />
           </div>
         </form>
+        <div class="row replyrow" style="display:none;">
+        <textarea name="content" id="content" class="form-control" placeholder="Tulis Komentar" rows="3"></textarea>
+            <input type="hidden" name="reply_post_id" id="reply_post_id" value="<?= $post['id'] ?>" />
+            <input type="hidden" name="reply_author_id" id="reply_author_id" value="<?= user_info()['id'] ?>" />
+            <input type="hidden" name="reply_parrent_id" id="reply_parrent_id" value="0" />
+            <input type="submit" name="reply_submit" id="reply_submit" class="btn btn-info" value="Kirim" />
+        </div>
       </div>
 
     </div>

@@ -41,7 +41,8 @@
                   <?= $post['title'] ?>
                 </h3>
                 <span class="badge badge-info float-right">
-                  <?= $post['published_at'] ?>
+                  <?= selisih_waktu($post['published_at'], null); ?>
+                  <!-- <?= $post['published_at'] ?> -->
                 </span>
               </div>
               <div class="card-body">

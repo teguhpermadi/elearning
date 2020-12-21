@@ -287,7 +287,7 @@ class Post extends CI_Controller
     {
         $comment_html = '';
         $all_comment = $this->Post_model->load_comment($post_id);
-$level = 1;
+        $level = 1;
 
         foreach ($all_comment as $comment) {
             $comment_html .= '
@@ -297,11 +297,12 @@ $level = 1;
                     <div class="comment-text">
                         <span class="username">
                         ' . $comment['first_name'] . '
-                            <span class="text-muted float-right">' . $comment['published_at'] . '</span>
+                            <span class="text-muted float-right">' . selisih_waktu($comment['published_at'], null) . '</span>
                         </span>
                         ' . $comment['content'] . '
                     </div>
                 <button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '"><i class="fas fa-share"></i> Balas</button>
+                <div class="reply"></div>
                 </div>
             ';
             $comment_html .= $this->load_reply($comment['post_id'], $comment['id'], $level);
@@ -329,17 +330,21 @@ $level = 1;
                                 <div class="comment-text">
                                     <span class="username">
                                     ' . $comment['first_name'] . '
-                                        <span class="text-muted float-right">' . $comment['published_at'] . '</span>
+                                        <span class="text-muted float-right">' . selisih_waktu($comment['published_at'], null) . '</span>
                                     </span>
                                     ' . $comment['content'] . '
                                 </div>
                             ';
 
-                        if($level < $max_level){
-                            $comment_html .= '<button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '"><i class="fas fa-share"></i> Balas</button></div>';
-                        } else {
-                            $comment_html .= '</div>';
-                        }
+            if ($level < $max_level) {
+                $comment_html .= '<button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '"><i class="fas fa-share"></i> Balas</button>
+                                <div class="reply"></div>
+                                </div>';
+            } else {
+                $comment_html .= '
+                                <div class="reply"></div>
+                                </div>';
+            }
             $comment_html .= $this->load_reply($comment['post_id'], $comment['id'], $next_level);
         }
 
