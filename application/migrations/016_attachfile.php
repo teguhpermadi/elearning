@@ -14,36 +14,21 @@ class Migration_attachfile extends CI_Migration
                 'unsigned' => TRUE,
                 'auto_increment' => TRUE
             ),
-            'author_id' => array(
-                'type' => 'BIGINT',
-                'constraint' => '255',
-            ),
             'post_id' => array(
-                'type' => 'BIGINT',
+                'type' => 'BIGINT',  
                 'constraint' => '255',
             ),
-            'published' => array(
-                'type' => 'TINYINT',
-                'constraint' => '1',
-            ),
-            'created_at' => array(
-                'type' => 'DATETIME',
-            ),
-            'updated_at' => array(
-                'type' => 'DATETIME',                
-            ),
-            'published_at' => array(
-                'type' => 'DATETIME',
-            ),
-            'file_name' => array(
-                'type' => 'VARCHAR',  
-                'constraint' => '255',              
+            'author_id' => array(
+                'type' => 'BIGINT',  
+                'constraint' => '255',
             ),
             'token' => array(
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              
             ),
-            
+            'created_at' => array(
+                'type' => 'DATETIME',
+            ),
         ));
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('attachfile');

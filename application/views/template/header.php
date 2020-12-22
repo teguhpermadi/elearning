@@ -30,6 +30,9 @@
   <!-- multiselect -->
   <link href="<?= base_url('assets/multiselect/css/multi-select.css') ?>" media="screen" rel="stylesheet" type="text/css">
   
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/dropzone/dropzone.min.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/dropzone/basic.min.css') ?>">
+<script type="text/javascript" src="<?php echo base_url('assets/dropzone/dropzone.min.js') ?>"></script>
 
 </head>
 

@@ -92,51 +92,25 @@ class Post extends CI_Controller
                 }
             }
 
-            // upload berkas jika ada
-            $count = count($_FILES['files']['name']);
+            // simpan data file yang di upload
+            $token = $this->input->post('token[]');
+            if($token)
+            {
+                foreach ($token as $value) {
+                    # code...
+                    $attachfile = [
+                        'post_id' => $post_id,
+                        'author_id' => user_info()['id'],
+                        'token' => $value,
+                        'created_at' => datetime_now(),
+                    ];
 
-            for ($i = 0; $i < $count; $i++) {
-
-                if (!empty($_FILES['files']['name'][$i])) {
-
-                    $_FILES['file']['name'] = $_FILES['files']['name'][$i];
-                    $_FILES['file']['type'] = $_FILES['files']['type'][$i];
-                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
-                    $_FILES['file']['error'] = $_FILES['files']['error'][$i];
-                    $_FILES['file']['size'] = $_FILES['files']['size'][$i];
-
-                    $config['upload_path'] = 'uploads/';
-                    $config['allowed_types'] = '*';
-                    $config['file_name'] = $_FILES['files']['name'][$i];
-
-                    $this->upload->initialize($config);
-                    // print_r($config);
-
-                    if ($this->upload->do_upload('file')) {
-                        $uploadData = $this->upload->data();
-                        $filename = $uploadData['file_name'];
-
-                        $data['totalFiles'][] = $filename;
-                        // print_r($uploadData);
-
-                        // masukkan data masing-masing file yang di upload ke database
-                        $datafile = [
-                            'author_id' => user_info()['id'],
-                            'post_id' => $post_id,
-                            'published' => 1,
-                            'uploaded_at' => datetime_now(),
-                            'file_name' => $filename,
-                        ];
-
-                        $this->Post_model->attachfiles($datafile);
-
-                    } else {
-                        $error = array('error' => $this->upload->display_errors());
-                        // print_r($error);
-                    }
+                    print_r($attachfile);
+                   $this->Post_model->attachfiles($attachfile);
                 }
             }
-            redirect('post/index');
+
+            // redirect('post/index');
         } else {
             $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
             $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
@@ -395,5 +369,41 @@ class Post extends CI_Controller
         }
 
         return $comment_html;
+    }
+
+    function upload_files()
+    {
+
+        $config['upload_path']   = 'uploads/';
+        $config['allowed_types'] = '*';
+        $config['overwrite'] = TRUE;
+        $config['remove_spaces'] = TRUE;
+        $this->upload->initialize($config);
+
+        if ($this->upload->do_upload('userfile')) {
+            $token = $this->input->post('token');
+            $file_name = $this->upload->data('file_name');
+            $this->db->insert('upload', array('file_name' => $file_name, 'token' => $token));
+        }
+    }
+
+    function delete_files()
+    {
+
+        $token = $this->input->post('token');
+        $query = $this->db->get_where('upload', array('token' => $token));
+
+        if ($query->num_rows() > 0) {
+
+            $data = $query->row();
+            $file_name = $data->file_name;
+
+
+            if (file_exists($file = FCPATH . 'uploads/' . $file_name)) {
+                unlink($file);
+            }
+        }
+        $this->db->delete('upload', array('token' => $token));
+        echo json_encode(array('deleted' => true));
     }
 }

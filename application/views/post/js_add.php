@@ -60,48 +60,47 @@
 				}
 			});
 		}
-
-		$.fn.fileUploader = function(filesToUpload) {
-			this.closest(".files").change(function(evt) {
-
-				for (var i = 0; i < evt.target.files.length; i++) {
-					filesToUpload.push(evt.target.files[i]);
-				};
-				var output = [];
-
-				for (var i = 0, f; f = evt.target.files[i]; i++) {
-					var removeLink = "<a class=\"removeFile\" href=\"#\" data-fileid=\"" + i + "\">Remove</a>";
-
-					output.push("<li><strong>", f.name, "</strong> - ",
-						f.size, " bytes. &nbsp; &nbsp; ", removeLink, "</li> ");
-				}
-
-				$(this).children(".fileList")
-					.append(output.join(""));
-			});
-		};
-
-		var filesToUpload = [];
-
-		$(document).on("click", ".removeFile", function(e) {
-			e.preventDefault();
-			var fileName = $(this).parent().children("strong").text();
-			// loop through the files array and check if the name of that file matches FileName
-			// and get the index of the match
-			for (i = 0; i < filesToUpload.length; ++i) {
-				if (filesToUpload[i].name == fileName) {
-					// console.log("match at: " + i);
-					// remove the one element at the index where we get a match
-					filesToUpload.splice(i, 1);
-				}
-			}
-			//console.log(filesToUpload);
-			// remove the <li> element of the removed file from the page DOM
-			$(this).parent().remove();
-		});
-
-
-		$("#files").fileUploader(filesToUpload);
-
 	})
+</script>
+
+<script>
+	Dropzone.autoDiscover = false;
+	var file = new Dropzone(".dropzone", {
+		url: "<?php echo base_url('post/upload_files') ?>",
+		// maxFilesize: 2,  // maximum size to uplaod 
+		method: "post",
+		// acceptedFiles:"image/*", // allow only images
+		paramName: "userfile",
+		// dictInvalidFileType:"Image files only allowed", // error message for other files on image only restriction 
+		addRemoveLinks: true,
+		autoProcessQueue: true
+	});
+
+
+	file.on("sending", function(a, b, c) {
+		a.token = Math.random();
+		c.append("token", a.token); //Random Token generated for every files 
+		$('.token').append('<input type="hidden" name="token[]" id="token" value="'+a.token+'">')
+	});
+
+
+	// delete on upload 
+
+	file.on("removedfile", function(a) {
+		var token = a.token;
+		$('#token').remove()
+		$.ajax({
+			type: "post",
+			data: {
+				token: token
+			},
+			url: "<?php echo base_url('post/delete_files') ?>",
+			cache: false,
+			dataType: 'json',
+			success: function(res) {
+				// alert('Selected file removed !');			
+			}
+
+		});
+	});
 </script>

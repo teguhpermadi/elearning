@@ -1,25 +1,3 @@
-<style>
-	.btn-file {
-		position: relative;
-		overflow: hidden;
-	}
-
-	.btn-file input[type=file] {
-		position: absolute;
-		top: 0;
-		right: 0;
-		min-width: 100%;
-		min-height: 100%;
-		font-size: 100px;
-		text-align: right;
-		filter: alpha(opacity=0);
-		opacity: 0;
-		outline: none;
-		background: white;
-		cursor: inherit;
-		display: block;
-	}
-</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -58,14 +36,15 @@
 								</div>
 							</div>
 						</div>
-						<div class="files col-md-12" id="files">
-							<label for="">Sisipkan Berkas</label>
-							<br>
-							<span class="btn btn-default btn-file">
-								Browse <input type="file" name="files[]" multiple="" />
-							</span>
-							<br>
-							<ul class="fileList"></ul>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="token"></div>
+								<div class="dropzone">
+									<div class="dz-message">
+										<h3> Drag and Drop your files here Or Click here to upload</h3>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
