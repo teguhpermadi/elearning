@@ -1,3 +1,25 @@
+<style>
+	.btn-file {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.btn-file input[type=file] {
+		position: absolute;
+		top: 0;
+		right: 0;
+		min-width: 100%;
+		min-height: 100%;
+		font-size: 100px;
+		text-align: right;
+		filter: alpha(opacity=0);
+		opacity: 0;
+		outline: none;
+		background: white;
+		cursor: inherit;
+		display: block;
+	}
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -13,7 +35,7 @@
 
 	<!-- Main content -->
 	<section class="content">
-		<?php echo form_open('post/add'); ?>
+		<?php echo form_open_multipart('post/add'); ?>
 		<div class="row">
 			<div class="col-md-8">
 				<div class="card">
@@ -27,12 +49,23 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<div class="col-md-12">
-							<label for="content" class="control-label"><span class="text-danger">*</span>Content</label>
-							<div class="form-group">
-								<textarea name="content" class="form-control summernote" id="content"><?php echo $this->input->post('content'); ?></textarea>
-								<span class="text-danger"><?php echo form_error('content'); ?></span>
+						<div class="row">
+							<div class="col-md-12">
+								<label for="content" class="control-label"><span class="text-danger">*</span>Content</label>
+								<div class="form-group">
+									<textarea name="content" class="form-control summernote" id="content"><?php echo $this->input->post('content'); ?></textarea>
+									<span class="text-danger"><?php echo form_error('content'); ?></span>
+								</div>
 							</div>
+						</div>
+						<div class="files col-md-12" id="files">
+							<label for="">Sisipkan Berkas</label>
+							<br>
+							<span class="btn btn-default btn-file">
+								Browse <input type="file" name="files[]" multiple="" />
+							</span>
+							<br>
+							<ul class="fileList"></ul>
 						</div>
 					</div>
 				</div>
@@ -78,7 +111,7 @@
 									?>
 								</select>
 								<span class="text-danger"><?php echo form_error('published'); ?></span>
-								
+
 							</div>
 						</div>
 						<!-- <div class="col-md-12">
@@ -155,11 +188,11 @@
 
 						</div>
 					</div>
-				<div class="card-footer">
-					<button type="submit" class="btn btn-primary">
-						Simpan
-					</button>
-				</div>
+					<div class="card-footer">
+						<button type="submit" class="btn btn-primary">
+							Simpan
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

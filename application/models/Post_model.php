@@ -107,4 +107,9 @@ class Post_model extends CI_Model
         ->get();
     }
 
+    function attachfiles($datafile){
+        $this->db->insert('attachfiles', $datafile);
+        return $this->db->insert_id();
+    }
+
 }

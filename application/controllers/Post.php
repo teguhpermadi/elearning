@@ -92,6 +92,50 @@ class Post extends CI_Controller
                 }
             }
 
+            // upload berkas jika ada
+            $count = count($_FILES['files']['name']);
+
+            for ($i = 0; $i < $count; $i++) {
+
+                if (!empty($_FILES['files']['name'][$i])) {
+
+                    $_FILES['file']['name'] = $_FILES['files']['name'][$i];
+                    $_FILES['file']['type'] = $_FILES['files']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+                    $_FILES['file']['error'] = $_FILES['files']['error'][$i];
+                    $_FILES['file']['size'] = $_FILES['files']['size'][$i];
+
+                    $config['upload_path'] = 'uploads/';
+                    $config['allowed_types'] = '*';
+                    $config['file_name'] = $_FILES['files']['name'][$i];
+
+                    $this->upload->initialize($config);
+                    // print_r($config);
+
+                    if ($this->upload->do_upload('file')) {
+                        $uploadData = $this->upload->data();
+                        $filename = $uploadData['file_name'];
+
+                        $data['totalFiles'][] = $filename;
+                        // print_r($uploadData);
+
+                        // masukkan data masing-masing file yang di upload ke database
+                        $datafile = [
+                            'author_id' => user_info()['id'],
+                            'post_id' => $post_id,
+                            'published' => 1,
+                            'uploaded_at' => datetime_now(),
+                            'file_name' => $filename,
+                        ];
+
+                        $this->Post_model->attachfiles($datafile);
+
+                    } else {
+                        $error = array('error' => $this->upload->display_errors());
+                        // print_r($error);
+                    }
+                }
+            }
             redirect('post/index');
         } else {
             $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
@@ -303,7 +347,7 @@ class Post extends CI_Controller
                         ' . $comment['content'] . '
                     </div>
                 <div class="reply">
-                <button type="button" class="btn btn-default btn-sm reply" id="'.$comment['id'].'" data-author="'.$comment['first_name'].'"><i class="fas fa-share"></i> Balas</button>
+                <button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '" data-author="' . $comment['first_name'] . '"><i class="fas fa-share"></i> Balas</button>
                 </div>
                 </div>
             ';
@@ -340,7 +384,7 @@ class Post extends CI_Controller
 
             if ($level < $max_level) {
                 $comment_html .= '<div class="reply">
-                                <button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '" data-author="'.$comment['first_name'].'"><i class="fas fa-share"></i> Balas</button>
+                                <button type="button" class="btn btn-default btn-sm reply" id="' . $comment['id'] . '" data-author="' . $comment['first_name'] . '"><i class="fas fa-share"></i> Balas</button>
                                 </div>
                                 </div>';
             } else {
