@@ -74,11 +74,11 @@
 							<label for="published" class="control-label">Published</label>
 							<div class="form-group">
 								<select name="published" class="form-control">
-									<option value="">select</option>
+									<!-- <option value="">select</option> -->
 									<?php
 									$published_values = array(
 										'1' => 'Terbit',
-										'2' => 'Terjadwal',
+										// '2' => 'Terjadwal',
 										'0' => 'Draf',
 									);
 
@@ -133,7 +133,9 @@
 						<div class="col-md-12">
 							<label for="published_at" class="control-label">Published At</label>
 							<div class="form-group">
-								<input type="datetime-local" name="published_at" value="<?php echo $this->input->post('published_at'); ?>" class="has-datetimepicker form-control" id="published_at" />
+								<?php $date = datetime_now(); ?>
+								<input type="datetime-local" name="published_at" value="<?= $date ?>" class="has-datetimepicker form-control" id="published_at" />
+								<!-- <input type="datetime-local" name="published_at" value="<?php echo $this->input->post('published_at'); ?>" class="has-datetimepicker form-control" id="published_at" /> -->
 								<span class="text-danger"><?php echo form_error('published_at'); ?></span>
 							</div>
 						</div>

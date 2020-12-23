@@ -22,8 +22,6 @@ class Migration_upload extends CI_Migration
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              
             ),
-            
-            
         ));
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('upload');

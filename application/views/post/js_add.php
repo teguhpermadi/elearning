@@ -25,7 +25,8 @@
 				onMediaDelete: function(target) {
 					deleteImage(target[0].src);
 				}
-			}
+			},
+			disableDragAndDrop:true,
 		});
 
 		function uploadImage(image) {

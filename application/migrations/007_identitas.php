@@ -6,17 +6,7 @@ class Migration_identitas extends CI_Migration
 {
     public function up()
     {
-        $this->dbforge->add_field(array(
-            'id' => array(
-                'type' => 'INT',
-                'constraint' => 5,
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
-            ),
-            'id_user' => array( // id ini digunakan sebagai reference pada tabel user
-                'type' => 'INT',
-                'constraint' => '255',
-            ),
+        $add_column = array(
             'nomor_induk' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
@@ -63,13 +53,13 @@ class Migration_identitas extends CI_Migration
                 'constraint' => '255',
             ),
 
-        ));
-        $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->create_table('identitas');
+        );
+
+       $this->dbforge->add_column('users', $add_column);
     }
 
     public function down()
     {
-        $this->dbforge->drop_table('identitas');
+        // $this->dbforge->drop_table('identitas');
     }
 }

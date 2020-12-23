@@ -250,7 +250,7 @@ class Post extends CI_Controller
     function upload_image()
     {
         if (isset($_FILES["image"]["name"])) {
-            $config['upload_path'] = 'uploads/posts/images/';
+            $config['upload_path'] = 'uploads/';
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
             $config['overwrite'] = TRUE;
             $config['remove_spaces'] = TRUE;
@@ -262,16 +262,16 @@ class Post extends CI_Controller
                 $data = $this->upload->data();
                 //Compress Image
                 $config['image_library'] = 'gd2';
-                $config['source_image'] = './uploads/posts/images/' . $data['file_name'];
+                $config['source_image'] = './uploads/' . $data['file_name'];
                 $config['create_thumb'] = FALSE;
                 $config['maintain_ratio'] = TRUE;
                 $config['quality'] = '60%';
                 $config['width'] = 800;
                 $config['height'] = 800;
-                $config['new_image'] = './uploads/posts/images/' . $data['file_name'];
+                $config['new_image'] = './uploads/' . $data['file_name'];
                 $this->load->library('image_lib', $config);
                 $this->image_lib->resize();
-                echo base_url() . 'uploads/posts/images/' . $data['file_name'];
+                echo base_url() . 'uploads/' . $data['file_name'];
             }
         }
     }
