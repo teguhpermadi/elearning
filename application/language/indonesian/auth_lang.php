@@ -43,6 +43,7 @@ $lang['index_active_link']       = 'Aktif';
 $lang['index_inactive_link']     = 'Tidak Aktif';
 $lang['index_create_user_link']  = 'Buat Pengguna baru';
 $lang['index_create_group_link'] = 'Buat grup baru';
+$lang['index_username_th']       = 'Username';
 
 // Deactivate User
 $lang['deactivate_heading']                  = 'Deaktivasi Pengguna';

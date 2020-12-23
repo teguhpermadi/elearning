@@ -79,7 +79,8 @@ class Migration_Install_ion_auth extends CI_Migration {
 			'email' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '254',
-				'unique' => TRUE
+				'unique'	 => TRUE,
+				'null'       => TRUE,
 			],
 			'activation_selector' => [
 				'type'       => 'VARCHAR',

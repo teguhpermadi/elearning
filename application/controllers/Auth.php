@@ -512,7 +512,7 @@ class Auth extends CI_Controller
 				'id' => 'identity',
 				'type' => 'text',
 				'class' => 'form-control',
-				'placeholder' => '',
+				'placeholder' => 'Username',
 				'value' => $this->form_validation->set_value('identity'),
 			];
 			$this->data['email'] = [
@@ -882,21 +882,23 @@ class Auth extends CI_Controller
 			$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory to identify the format');
 			$spreadsheet = IOFactory::load($inputFileName);
 			$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-			// baca data mulai dari baris ke dua
-			for ($i = 2; $i < count($sheetData); $i++) {
+			// print_r($sheetData);
+			// die;
+			// baca data mulai dari baris ke dua samapi ke baris terakhir
+			for ($i = 2; $i <= count($sheetData); $i++) {
 				# code...
 				// print_r($sheetData[$i]);
 				// pecah datanya pada masing-masing kolom
-				$identity = $sheetData[$i]['C'];
 				$email = $sheetData[$i]['C'];
-				$password = $sheetData[$i]['D'];
+				$identity = $sheetData[$i]['D'];
+				$password = $sheetData[$i]['E'];
 				$additional_data = [
 					'first_name' => $sheetData[$i]['A'],
 					'last_name' => $sheetData[$i]['B'],
-					'phone' => $sheetData[$i]['E'],
+					'phone' => $sheetData[$i]['F'],
 				];
 
-				$group = array($sheetData[$i]['F']);
+				$group = array($sheetData[$i]['G']);
 
 				$this->ion_auth->register($identity, $password, $email, $additional_data, $group);
 			}

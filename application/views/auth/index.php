@@ -44,6 +44,7 @@
 							<th><?php echo lang('index_fname_th'); ?></th>
 							<th><?php echo lang('index_lname_th'); ?></th>
 							<th><?php echo lang('index_email_th'); ?></th>
+							<th><?php echo lang('index_username_th'); ?></th>
 							<th><?php echo lang('index_status_th'); ?></th>
 							<th><?php echo lang('index_action_th'); ?></th>
 						</tr>
@@ -55,6 +56,7 @@
 								<td><?php echo htmlspecialchars($a->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
 								<td><?php echo htmlspecialchars($a->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
 								<td><?php echo htmlspecialchars($a->email, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo htmlspecialchars($a->username, ENT_QUOTES, 'UTF-8'); ?></td>
 								<td><?php echo ($a->active) ? anchor("auth/deactivate/" . $a->id, lang('index_active_link'), 'class="btn btn-info btn-sm"') : anchor("auth/activate/" . $a->id, lang('index_inactive_link'), 'class="btn btn-warning btn-sm"'); ?></td>
 								<td><?php echo anchor("auth/edit_user/" . $a->id, 'Edit', 'class="btn btn-secondary btn-sm"'); ?></td>
 							</tr>
@@ -78,6 +80,7 @@
 							<th><?php echo lang('index_fname_th'); ?></th>
 							<th><?php echo lang('index_lname_th'); ?></th>
 							<th><?php echo lang('index_email_th'); ?></th>
+							<th><?php echo lang('index_username_th'); ?></th>
 							<th><?php echo lang('index_status_th'); ?></th>
 							<th><?php echo lang('index_action_th'); ?></th>
 						</tr>
@@ -88,6 +91,7 @@
 								<td><?php echo htmlspecialchars($g->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
 								<td><?php echo htmlspecialchars($g->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
 								<td><?php echo htmlspecialchars($g->email, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo htmlspecialchars($g->username, ENT_QUOTES, 'UTF-8'); ?></td>
 								<td><?php echo ($g->active) ? anchor("auth/deactivate/" . $g->id, lang('index_active_link'), 'class="btn btn-info btn-sm"') : anchor("auth/activate/" . $g->id, lang('index_inactive_link'), 'class="btn btn-warning btn-sm"'); ?></td>
 								<td><?php echo anchor("auth/edit_user/" . $g->id, 'Edit', 'class="btn btn-secondary btn-sm"'); ?></td>
 							</tr>
@@ -108,6 +112,7 @@
 							<th><?php echo lang('index_fname_th'); ?></th>
 							<th><?php echo lang('index_lname_th'); ?></th>
 							<th><?php echo lang('index_email_th'); ?></th>
+							<th><?php echo lang('index_username_th'); ?></th>
 							<th><?php echo lang('index_status_th'); ?></th>
 							<th><?php echo lang('index_action_th'); ?></th>
 						</tr>
@@ -118,6 +123,7 @@
 								<td><?php echo htmlspecialchars($s->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
 								<td><?php echo htmlspecialchars($s->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
 								<td><?php echo htmlspecialchars($s->email, ENT_QUOTES, 'UTF-8'); ?></td>
+								<td><?php echo htmlspecialchars($s->username, ENT_QUOTES, 'UTF-8'); ?></td>
 								<td><?php echo ($s->active) ? anchor("auth/deactivate/" . $s->id, lang('index_active_link'), 'class="btn btn-info btn-sm"') : anchor("auth/activate/" . $s->id, lang('index_inactive_link'), 'class="btn btn-warning btn-sm"'); ?></td>
 								<td><?php echo anchor("auth/edit_user/" . $s->id, 'Edit', 'class="btn btn-secondary btn-sm"'); ?></td>
 							</tr>
