@@ -122,4 +122,11 @@ class Post_model extends CI_Model
         ->result_array();
     }
 
+    // dapatkan file yang sudah diupload user
+    function get_file()
+    {
+        $author_id = user_info()['id'];
+        return $this->db->get_where('upload', ['author_id' => $author_id])->result_array();
+    }
+
 }

@@ -114,6 +114,7 @@ class Post extends CI_Controller
             $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
             $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
             $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
+            $data['get_file'] = $this->Post_model->get_file();
             $data['js'] = $this->load->view('post/js_add', $data, true);
 
             $data['_view'] = 'post/add';
@@ -246,6 +247,7 @@ class Post extends CI_Controller
         // check if the post exists before trying to delete it
         if (isset($post['id'])) {
             $this->Post_model->delete_post($id);
+            $this->db->delete('attachfile', ['post_id' => $id]);
             redirect('post/index');
         } else
             show_error('The post you are trying to delete does not exist.');
@@ -254,6 +256,7 @@ class Post extends CI_Controller
     function view($id)
     {
         $data['post'] = $this->Post_model->get_post($id);
+        $data['attachfile'] = $this->Post_model->get_attachfile($id);
         $data['js'] = $this->load->view('post/js_view', $data, true);
         // var_dump($data);
         // die;
@@ -400,7 +403,7 @@ class Post extends CI_Controller
         if ($this->upload->do_upload('userfile')) {
             $token = $this->input->post('token');
             $file_name = $this->upload->data('file_name');
-            $this->db->insert('upload', array('file_name' => $file_name, 'token' => $token));
+            $this->db->insert('upload', ['file_name' => $file_name, 'token' => $token, 'author_id' => user_info()['id']]);
         }
     }
 
@@ -442,5 +445,11 @@ class Post extends CI_Controller
             unlink($file_name);
                 echo 'File Delete Successfully';
         }
+    }
+
+    function view_file($file_name)
+    {
+        $data['file_name'] = $file_name;
+        $this->load->view('post/view_pdf', $data);
     }
 }

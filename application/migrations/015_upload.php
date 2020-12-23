@@ -14,6 +14,10 @@ class Migration_upload extends CI_Migration
                 'unsigned' => TRUE,
                 'auto_increment' => TRUE
             ),
+            'author_id' => array(
+                'type' => 'BIGINT',  
+                'constraint' => '255',              
+            ),
             'file_name' => array(
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              

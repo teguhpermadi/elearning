@@ -24,6 +24,17 @@
       </div>
       <div class="card-body">
         <?= $post['content'] ?>
+        <?php
+        foreach ($attachfile as $file) :
+        ?>
+          <div class="alert alert-info pb-4" role="alert">
+            <?= $file['file_name'] ?>
+            <button onclick="window.location.href='<?= base_url('post/download_attachfile/').$file['file_name'] ?>'" class="btn btn-light ml-3 float-right">Download</button>
+            <button onclick="window.location.href='<?= base_url('post/view_file/').$file['file_name'] ?>'" class="btn btn-light float-right">Preview</button>
+          </div>
+        <?php
+        endforeach;
+        ?>
       </div>
       <div class="card-footer">
         <div class="default_replyrow">
