@@ -143,7 +143,7 @@
 							<label for="category_id" class="control-label"><span class="text-danger">*</span>Category</label>
 							<div class="form-group">
 								<select name="category_id" class="form-control">
-									<option value="">select category</option>
+									<!-- <option value="">select category</option> -->
 									<?php
 									foreach ($all_category as $category) {
 										$selected = ($category['id'] == $this->input->post('category_id')) ? ' selected="selected"' : "";

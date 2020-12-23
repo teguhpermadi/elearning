@@ -94,8 +94,7 @@ class Post extends CI_Controller
 
             // simpan data file yang di upload
             $token = $this->input->post('token[]');
-            if($token)
-            {
+            if ($token) {
                 foreach ($token as $value) {
                     # code...
                     $attachfile = [
@@ -105,12 +104,12 @@ class Post extends CI_Controller
                         'created_at' => datetime_now(),
                     ];
 
-                    print_r($attachfile);
-                   $this->Post_model->attachfiles($attachfile);
+                    // print_r($attachfile);
+                    $this->Post_model->attachfile($attachfile);
                 }
             }
 
-            // redirect('post/index');
+            redirect('post/index');
         } else {
             $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
             $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
@@ -134,7 +133,7 @@ class Post extends CI_Controller
         $data['post'] = $this->Post_model->get_post($id);
         $data['post_category'] = $this->Post_category_model->get_post_category_by_post_id($id);
         $data['post_tag'] = $this->Post_tag_model->get_post_tag_join_tag($id);
-
+        $data['attachfile'] = $this->Post_model->get_attachfile($id);
         // echo json_encode($data['post_tag']);
         // die;
 
@@ -198,9 +197,26 @@ class Post extends CI_Controller
 
                         $post_tag_id = $this->Post_tag_model->add_post_tag($post_tag);
                     }
-                } else {
-                    // hapus dulu semua tag yang terkait dengan post id
-                    $this->db->delete('post_tag', ['post_id' => $id]);
+                }
+
+                // simpan data file yang di upload
+                $token = $this->input->post('token[]');
+                // hapus dulu semua data attachfile terkait post ini
+                $this->db->delete('attachfile', ['post_id' => $id]);
+
+                if ($token) {
+                    foreach ($token as $value) {
+                        # code...
+                        $attachfile = [
+                            'post_id' => $id,
+                            'author_id' => user_info()['id'],
+                            'token' => $value,
+                            'created_at' => datetime_now(),
+                        ];
+
+                        // print_r($attachfile);
+                        $this->Post_model->attachfile($attachfile);
+                    }
                 }
 
                 redirect('post/index');
@@ -208,6 +224,7 @@ class Post extends CI_Controller
                 $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
                 $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
                 $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
+                $data['js'] = $this->load->view('post/js_add', $data, true);
 
                 $data['_view'] = 'post/edit';
                 $this->load->view('template/header');
@@ -405,5 +422,25 @@ class Post extends CI_Controller
         }
         $this->db->delete('upload', array('token' => $token));
         echo json_encode(array('deleted' => true));
+    }
+
+    function download_attachfile($file_name)
+    {
+        force_download('uploads/' . $file_name, NULL);
+    }
+
+    function delete_attachfile()
+    {
+        $token = $this->input->post('token');
+        $filename = $this->input->post('filename');
+        $this->db->delete('upload', ['token' => $token]);
+        $this->db->delete('attachfile', ['token' => $token]);
+
+        $file_name = 'uploads/' . $filename;
+
+        if (file_exists($file_name)) {
+            unlink($file_name);
+                echo 'File Delete Successfully';
+        }
     }
 }

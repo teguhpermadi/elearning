@@ -26,7 +26,7 @@
 					deleteImage(target[0].src);
 				}
 			},
-			disableDragAndDrop:true,
+			disableDragAndDrop: true,
 		});
 
 		function uploadImage(image) {
@@ -61,6 +61,24 @@
 				}
 			});
 		}
+
+		// jika alertnya di close maka hapus file dengan token ini
+		$('.myFile').on('closed.bs.alert', function() {
+			var filename = $(this).data('filename')
+			var token = $(this).data('token')
+			$.ajax({
+				data: {
+					filename: filename,
+					token: token,
+				},
+				type: "POST",
+				url: "<?php echo base_url('post/delete_attachfile') ?>",
+				cache: false,
+				success: function(response) {
+					console.log(response);
+				}
+			});
+		})
 	})
 </script>
 
@@ -81,7 +99,7 @@
 	file.on("sending", function(a, b, c) {
 		a.token = Math.random();
 		c.append("token", a.token); //Random Token generated for every files 
-		$('.token').append('<input type="hidden" name="token[]" id="token" value="'+a.token+'">')
+		$('.token').append('<input type="hidden" name="token[]" id="token" value="' + a.token + '">')
 	});
 
 

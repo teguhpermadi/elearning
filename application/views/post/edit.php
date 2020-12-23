@@ -27,11 +27,41 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<div class="col-md-12">
-							<label for="content" class="control-label"><span class="text-danger">*</span>Content</label>
-							<div class="form-group">
-								<textarea name="content" class="form-control summernote" id="content"><?php echo ($this->input->post('content') ? $this->input->post('content') : $post['content']); ?></textarea>
-								<span class="text-danger"><?php echo form_error('content'); ?></span>
+						<div class="row">
+							<div class="col-md-12">
+								<label for="content" class="control-label"><span class="text-danger">*</span>Content</label>
+								<div class="form-group">
+									<textarea name="content" class="form-control summernote" id="content"><?php echo ($this->input->post('content') ? $this->input->post('content') : $post['content']); ?></textarea>
+									<span class="text-danger"><?php echo form_error('content'); ?></span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<label for="">File disisipkan</label>
+								<?php
+								foreach ($attachfile as $at) :
+								?>
+									<div class="alert alert-info alert-dismissible fade show myFile" role="alert" data-token="<?= $at['token'] ?>" data-filename="<?= $at['file_name'] ?>">
+										<input type="hidden" name="token[]" value="<?= $at['token'] ?>">
+										<a href="<?= base_url('post/download_attachfile/').$at['file_name'] ?>"><strong><?= $at['file_name'] ?></strong></a>
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								<?php
+								endforeach;
+								?>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="token"></div>
+								<div class="dropzone">
+									<div class="dz-message">
+										<h3> Drag and Drop your files here Or Click here to upload</h3>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -147,7 +177,7 @@
 							<label for="tag_id" class="control-label">Tag</label>
 							<div class="form-group">
 								<?php
-								
+
 								foreach ($post_tag as $tag) {
 									$checked = ($tag['post_id'] == $post['id']) ? ' checked' : "";
 

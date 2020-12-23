@@ -107,9 +107,19 @@ class Post_model extends CI_Model
         ->get();
     }
 
-    function attachfiles($attachfile){
+    function attachfile($attachfile){
         $this->db->insert('attachfile', $attachfile);
         return $this->db->insert_id();
+    }
+
+    function get_attachfile($id)
+    {
+        return $this->db->select('attachfile.*, upload.file_name')
+        ->from('attachfile')
+        ->where('attachfile.post_id', $id)
+        ->join('upload', 'attachfile.token = upload.token')
+        ->get()
+        ->result_array();
     }
 
 }
