@@ -443,13 +443,8 @@ class Post extends CI_Controller
 
         if (file_exists($file_name)) {
             unlink($file_name);
-                echo 'File Delete Successfully';
+            echo 'File Delete Successfully';
         }
     }
 
-    function view_file($file_name)
-    {
-        $data['file_name'] = $file_name;
-        $this->load->view('post/view_pdf', $data);
-    }
 }

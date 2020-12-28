@@ -128,5 +128,6 @@ class Post_model extends CI_Model
         $author_id = user_info()['id'];
         return $this->db->get_where('upload', ['author_id' => $author_id])->result_array();
     }
+    
 
 }
