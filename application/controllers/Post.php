@@ -403,7 +403,13 @@ class Post extends CI_Controller
         if ($this->upload->do_upload('userfile')) {
             $token = $this->input->post('token');
             $file_name = $this->upload->data('file_name');
-            $this->db->insert('upload', ['file_name' => $file_name, 'token' => $token, 'author_id' => user_info()['id']]);
+            $file_extension = $this->upload->data('file_ext');
+            $this->db->insert('upload', [
+                'file_name' => $file_name,
+                'token' => $token, 
+                'author_id' => user_info()['id'],
+                'file_extension' => $file_extension,
+                ]);
         }
     }
 
@@ -427,10 +433,12 @@ class Post extends CI_Controller
         echo json_encode(array('deleted' => true));
     }
 
-    function download_attachfile($file_name)
-    {
-        force_download('uploads/' . $file_name, NULL);
-    }
+    // function download_attachfile($file_name)
+    // {
+    //     echo $file_name;
+    //     die;
+    //     force_download('uploads/' . $file_name, NULL);
+    // }
 
     function delete_attachfile()
     {
@@ -447,4 +455,24 @@ class Post extends CI_Controller
         }
     }
 
+    function download_file($token)
+    {
+        $file = $this->Post_model->read_file($token);
+        header("Content-type:application/".$file['file_extension']);
+        // It will be called downloaded.pdf
+        header("Content-Disposition:attachment; filename=" . $file['file_name']);
+        // The PDF source is in original.pdf
+        // header("Access-Control-Allow-Origin: *");
+        readfile('uploads/' . $file['file_name']);
+    }
+
+    function read_file($token)
+    {
+        $file = $this->Post_model->read_file($token);
+        header("Content-type:application/".$file['file_extension']);
+        header('Content-Description: inline; filename="' . $file['file_name'] . '"');
+        header('Content-Transfer-Encoding: binary');
+        header('Accept-Ranges: bytes');
+        @readfile('uploads/'.$file['file_name']);
+    }
 }

@@ -1,3 +1,8 @@
+<!-- jQuery  -->
+<script src="<?= base_url('assets/') ?>dflip/js/libs/jquery.min.js" type="text/javascript"></script>
+<!-- Flipbook main Js file -->
+<script src="<?= base_url('assets/') ?>dflip/js/dflip.min.js" type="text/javascript"></script>
+
 <script>
 	$(document).ready(function() {
 		//Mengirimkan Token Keamanan
@@ -57,30 +62,5 @@
 			$("#content").attr('placeholder', 'Tulis Komentar');
 
 		});
-
-		// $(document).on('click', '.delete', function() {
-		// 	var komentar_id = $(this).attr("id");
-		// 	$.ajax({
-		// 		url: "delete_komentar.php",
-		// 		method: "POST",
-		// 		data: {
-		// 			komentar_id: komentar_id
-		// 		},
-		// 		dataType: 'JSON',
-		// 		success: function(data) {
-		// 			if (data.status) {
-		// 				load_comment();
-		// 			} else {
-		// 				load_comment();
-
-		// 			}
-		// 		},
-		// 		error: function(data) {
-		// 			console.log(data.responseText)
-		// 		}
-		// 	});
-		// });
-
-		
 	});
 </script>

@@ -22,6 +22,10 @@ class Migration_upload extends CI_Migration
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              
             ),
+            'file_extension' => array(
+                'type' => 'VARCHAR',  
+                'constraint' => '255',              
+            ),
             'token' => array(
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              

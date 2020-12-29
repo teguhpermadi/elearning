@@ -114,7 +114,7 @@ class Post_model extends CI_Model
 
     function get_attachfile($id)
     {
-        return $this->db->select('attachfile.*, upload.file_name')
+        return $this->db->select('attachfile.*, upload.*')
         ->from('attachfile')
         ->where('attachfile.post_id', $id)
         ->join('upload', 'attachfile.token = upload.token')
@@ -127,6 +127,15 @@ class Post_model extends CI_Model
     {
         $author_id = user_info()['id'];
         return $this->db->get_where('upload', ['author_id' => $author_id])->result_array();
+    }
+
+    function read_file($token)
+    {
+        return $this->db->select('*')
+        ->from('upload')
+        ->where('token', $token)
+        ->get()
+        ->row_array();
     }
     
 

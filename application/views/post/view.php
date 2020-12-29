@@ -29,8 +29,16 @@
         ?>
           <div class="alert alert-info pb-4" role="alert">
             <?= $file['file_name'] ?>
-            <button onclick="window.location.href='<?= base_url('post/download_attachfile/').$file['file_name'] ?>'" class="btn btn-light ml-3 float-right">Download</button>
-            <button onclick="window.location.href='<?= base_url('post/view_file/').$file['file_name'] ?>'" class="btn btn-light float-right">Preview</button>
+            <button class="btn btn-light ml-3 float-right" onclick="window.location.href='<?= base_url('post/download_file/') . $file['token'] ?>'">Download</button>
+            
+            <!-- jika file pdf maka tampilkan -->
+            <?php if ($file['file_extension'] == '.pdf') { ?>
+              <div class="_df_button float-right" source="<?= base_url('post/read_file/') . $file['token'] ?>" id="df_manual_button">
+                Preview
+              </div>
+            <?php } ?>
+
+
           </div>
         <?php
         endforeach;

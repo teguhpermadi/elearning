@@ -29,11 +29,17 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- multiselect -->
   <link href="<?= base_url('assets/multiselect/css/multi-select.css') ?>" media="screen" rel="stylesheet" type="text/css">
-  
+
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/dropzone/dropzone.min.css') ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/dropzone/basic.min.css') ?>">
-<script type="text/javascript" src="<?php echo base_url('assets/dropzone/dropzone.min.js') ?>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js" integrity="sha512-rFun1mEMg3sNDcSjeGP35cLIycsS+og/QtN6WWnoSviHU9ykMLNQp7D1uuG1AzTV2w0VmyFVpszi2QJwiVW6oQ==" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/dropzone/basic.min.css') ?>">
+  <script type="text/javascript" src="<?php echo base_url('assets/dropzone/dropzone.min.js') ?>"></script>
+
+  <!-- dflip -->
+  <!-- Flipbook StyleSheet -->
+  <link href="<?= base_url('assets/') ?>dflip/css/dflip.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Icons Stylesheet -->
+  <link href="<?= base_url('assets/') ?>dflip/css/themify-icons.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

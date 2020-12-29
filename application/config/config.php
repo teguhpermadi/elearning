@@ -160,6 +160,7 @@ $config['composer_autoload'] = '/path/to/vendor/autoload.php';
 |
 */
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+// $config['permitted_uri_chars'] = '';
 
 /*
 |--------------------------------------------------------------------------
