@@ -1341,7 +1341,7 @@ section.linkAnnotation a .annotationLayer>a {
 	display: none !important
 }
 
-._df_button,
+/* ._df_button, */
 ._df_thumb,
 ._df_custom {
 	-webkit-box-sizing: border-box;
@@ -1352,7 +1352,7 @@ section.linkAnnotation a .annotationLayer>a {
 	cursor: pointer
 }
 
-._df_button {
+/* ._df_button {
 	padding: 5px 15px;
 	background: #0085ba;
 	color: white;
@@ -1365,7 +1365,7 @@ section.linkAnnotation a .annotationLayer>a {
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	white-space: nowrap
-}
+} */
 
 ._df_thumb {
 	border: 0;

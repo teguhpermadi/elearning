@@ -34,7 +34,9 @@
             <!-- jika file pdf maka tampilkan -->
             <?php if ($file['file_extension'] == '.pdf') { ?>
               <div class="_df_button float-right" source="<?= base_url('post/read_file/') . $file['token'] ?>" id="df_manual_button">
+              <div class="btn btn-light">
                 Preview
+              </div>  
               </div>
             <?php } ?>
 
