@@ -60,7 +60,27 @@
 					</div>
 					<div class="card-body">
 						<div class="col-md-12">
-							<label for="parrent_id" class="control-label">Sub Bab dari</label>
+							<label for="jenis" class="control-label">Jenis</label>
+							<div class="form-group">
+								<select name="jenis" class="form-control">
+									<!-- <option value="">select</option> -->
+									<?php
+									$jenis_values = array(
+										'materi' => 'Materi',
+										'tugas' => 'Tugas',
+									);
+
+									foreach ($jenis_values as $value => $display_text) {
+										// $selected = ($value == $this->input->post('published')) ? ' selected="selected"' : "";
+										$selected = '';
+										echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+									}
+									?>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label for="parrent_id" class="control-label">Sub dari</label>
 							<div class="form-group">
 								<select name="parrent_id" class="form-control">
 									<option value="">select post</option>
