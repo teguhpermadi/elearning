@@ -24,10 +24,10 @@
 						<tr>
 							<!-- <th>ID</th> -->
 							<!-- <th>Parrent Id</th> -->
-							<th>Published</th>
-							<th>Author Id</th>
+							<th>Status</th>
+							<!-- <th>Author Id</th> -->
 							<th>Title</th>
-							<!-- <th>Meta Title</th> -->
+							<th>Jenis</th>
 							<!-- <th>Slug</th> -->
 							<!-- <th>Summary</th> -->
 							<!-- <th>Created At</th> -->
@@ -60,16 +60,16 @@
 									?>
 
 								</td>
-								<td><?php
+								<!-- <td><?php
 									$user = $this->Post_model->get_user($p['author_id']);
 									echo $user['first_name'];
-									?></td>
+									?></td> -->
 								<td>
 									<a href="<?= base_url('post/view/') . $p['id'] ?>">
 										<?php echo $p['title']; ?>
 									</a>
 								</td>
-								<!-- <td><?php echo $p['meta_title']; ?></td> -->
+								<td><?php echo ($p['jenis'] == 'materi') ? '<i class="fas fa-book-reader"></i> Materi': '<i class="fas fa-pencil-alt"></i> Tugas'; ?></td>
 								<!-- <td><?php echo $p['slug']; ?></td> -->
 								<!-- <td><?php echo $p['summary']; ?></td> -->
 								<!-- <td><?php echo $p['created_at']; ?></td> -->

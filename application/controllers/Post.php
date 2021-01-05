@@ -52,7 +52,7 @@ class Post extends CI_Controller
                 'published' => $this->input->post('published'),
                 'author_id' => user_info()['id'],
                 'title' => $this->input->post('title'),
-                // 'meta_title' => $this->input->post('meta_title'),
+                'jenis' => $this->input->post('jenis'),
                 // 'slug' => $this->input->post('slug'),
                 // 'summary' => $this->input->post('summary'),
                 'created_at' => datetime_now(),
@@ -155,7 +155,7 @@ class Post extends CI_Controller
                     'published' => $this->input->post('published'),
                     'author_id' => user_info()['id'],
                     'title' => $this->input->post('title'),
-                    // 'meta_title' => $this->input->post('meta_title'),
+                    'jenis' => $this->input->post('jenis'),
                     // 'slug' => $this->input->post('slug'),
                     // 'summary' => $this->input->post('summary'),
                     // 'created_at' => $this->input->post('created_at'),
@@ -256,6 +256,8 @@ class Post extends CI_Controller
     function view($id)
     {
         $data['post'] = $this->Post_model->get_post($id);
+        $data['post_category'] = $this->Post_model->get_post_category($id);
+        $data['post_tag'] = $this->Post_model->get_post_tag($id);
         $data['attachfile'] = $this->Post_model->get_attachfile($id);
         $data['js'] = $this->load->view('post/js_view', $data, true);
         // var_dump($data);

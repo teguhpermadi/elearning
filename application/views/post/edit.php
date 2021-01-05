@@ -73,6 +73,26 @@
 						Pengaturan
 					</div>
 					<div class="card-body">
+					<div class="col-md-12">
+							<label for="jenis" class="control-label">Jenis</label>
+							<div class="form-group">
+								<select name="jenis" class="form-control">
+									<!-- <option value="">select</option> -->
+									<?php
+									$jenis_values = array(
+										'materi' => 'Materi',
+										'tugas' => 'Tugas',
+									);
+
+									foreach ($jenis_values as $value => $display_text) {
+										$selected = ($value == $post['jenis']) ? ' selected="selected"' : "";
+
+										echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+									}
+									?>
+								</select>
+							</div>
+						</div>
 						<div class="col-md-12">
 							<label for="parrent_id" class="control-label">Sub Bab dari</label>
 							<div class="form-group">
@@ -97,7 +117,7 @@
 									$published_values = array(
 										'0' => 'Draf',
 										'1' => 'Terbit',
-										'2' => 'Terjadwal',
+										// '2' => 'Terjadwal',
 									);
 
 									foreach ($published_values as $value => $display_text) {

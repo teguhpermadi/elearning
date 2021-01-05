@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Blank Page</h1>
+          <h1><?= $post_category['title'] ?></h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -20,6 +20,9 @@
         <span class="badge badge-info float-right">
           <?= time_elapsed_string($post['published_at'], null); ?> |
           <?= $post['published_at'] ?>
+          <?php foreach($post_tag as $tag) : ?>
+            | <?= $tag['title'] ?>
+            <?php endforeach ?>
         </span>
       </div>
       <div class="card-body">
@@ -50,7 +53,7 @@
         <div class="default_replyrow">
           <form method="POST" id="form_comment" class="mt-3 replyrow">
             <div class="form-group">
-              <textarea name="content" id="content" class="form-control" placeholder="Tulis Komentar" rows="1" required></textarea>
+              <input name="content" id="content" class="form-control" placeholder="Tulis Komentar" rows="1" required></input>
             </div>
             <div class="form-group">
               <input type="hidden" name="post_id" id="post_id" value="<?= $post['id'] ?>" />

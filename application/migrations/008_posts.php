@@ -26,7 +26,7 @@ class Migration_posts extends CI_Migration
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ),
-            'meta_title' => array(
+            'jenis' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ),

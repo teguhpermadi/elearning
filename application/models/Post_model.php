@@ -18,6 +18,22 @@ class Post_model extends CI_Model
     {
         return $this->db->get_where('posts', array('id' => $id))->row_array();
     }
+    function get_post_category($id)
+    {
+        return $this->db->select('*')
+        ->from('post_category')
+        ->where('post_id', $id)
+        ->join('category', 'category.id = post_category.category_id')
+        ->get()->row_array();
+    }
+    function get_post_tag($id)
+    {
+        return $this->db->select('*')
+        ->from('post_tag')
+        ->where('post_id', $id)
+        ->join('tag', 'tag.id = post_tag.tag_id')
+        ->get()->result_array();
+    }
 
     /*
      * Get all posts

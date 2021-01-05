@@ -50,8 +50,39 @@ class Materi_model extends CI_Model
         // return $this->db->last_query();
     }
 
-    function get_guru_by_mapel_and_kelas($id_mapel, $id_kelas)
+    function get_guru_by_mapel_kelas($id_mapel, $id_kelas)
     {
+        return $this->db->select('users.*')
+        ->from('pengajar')
+        ->where('id_mapel', $id_mapel)
+        ->where('id_kelas', $id_kelas)
+        ->join('users', 'users.id = pengajar.id_guru')
+        ->get()->row_array();
+    }
 
+    function count_materi_by_guru_mapel_kelas($id_guru, $id_mapel, $id_kelas)
+    {
+        return $this->db->select('*')
+        ->from('posts')
+        ->join('post_category', 'post_category.post_id = posts.id')
+        ->join('post_tag', 'post_tag.post_id = posts.id')
+        ->where('author_id', $id_guru)
+        ->where('jenis', 'materi')
+        ->where('post_category.category_id', $id_mapel)
+        ->where('post_tag.tag_id', $id_kelas)
+        ->get()->num_rows();
+    }
+
+    function count_tugas_by_guru_mapel_kelas($id_guru, $id_mapel, $id_kelas)
+    {
+        return $this->db->select('*')
+        ->from('posts')
+        ->join('post_category', 'post_category.post_id = posts.id')
+        ->join('post_tag', 'post_tag.post_id = posts.id')
+        ->where('author_id', $id_guru)
+        ->where('jenis', 'tugas')
+        ->where('post_category.category_id', $id_mapel)
+        ->where('post_tag.tag_id', $id_kelas)
+        ->get()->num_rows();
     }
 }
