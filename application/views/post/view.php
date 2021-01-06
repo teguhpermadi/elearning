@@ -87,13 +87,46 @@
           </div>
         </div>
 
+        <?php if (user_info()['role'] == 'siswa') : ?>
         <!-- tab kumpulkan tugas -->
         <div class="active tab-pane" id="kumpulkantugas">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="token">
+                </div>
+                <div class="dropzone">
+                  <div class="dz-message">
+                    <h3> Drag and Drop your files here Or Click here to upload</h3>
+                  </div>
+                </div>
+                <!-- Button cari dari repositori user -->
+                <!-- <button type="button" class="btn btn-secondary mt-3" data-toggle="modal" data-target="#exampleModal">
+                      Cari di penyimpanan anda
+                    </button> -->
+              </div>
+            </div>
+            <h4 class="mt-3">Tugas yang sudah dikumpulkan:</h4>
+            <?php foreach($myfile as $file): ?>
+            <div class="alert alert-light alert-dismissible fade show" role="alert">
+              <?= $file['file_name'] ?>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <?php endforeach ?>
+          </div>
         </div>
+        <?php endif ?>
 
+        <?php if (user_info()['role'] == 'guru') : ?>
         <!-- tab periksa tugas -->
         <div class="active tab-pane" id="periksatugas">
+        <?= var_dump($attachfile) ?>
+
         </div>
+        <?php endif ?>
+
       </div>
 
 

@@ -64,3 +64,50 @@
 		});
 	});
 </script>
+
+<!-- khusus user role siswa -->
+<?php if (user_info()['role'] == 'siswa') : ?>
+	<script>
+		Dropzone.autoDiscover = false;
+		var file = new Dropzone(".dropzone", {
+			url: "<?php echo base_url('materi/upload_files') ?>",
+			// maxFilesize: 2,  // maximum size to uplaod 
+			method: "post",
+			// acceptedFiles:"image/*", // allow only images
+			paramName: "userfile",
+			// dictInvalidFileType:"Image files only allowed", // error message for other files on image only restriction 
+			addRemoveLinks: true,
+			autoProcessQueue: true
+		});
+
+
+		file.on("sending", function(a, b, c) {
+			a.token = Math.random();
+			c.append("token", a.token); //Random Token generated for every files 
+			c.append('post_id', <?= $post['id'] ?>)
+			$('.token').append('<input type="hidden" name="token[]" id="token" value="' + a.token + '">')
+			$('.token').append('<input type="hidden" name="post_id[]" id="post_id" value="<?= $post['id'] ?>">')
+		});
+
+
+		// delete on upload 
+
+		file.on("removedfile", function(a) {
+			var token = a.token;
+			$('#token').remove()
+			$.ajax({
+				type: "post",
+				data: {
+					token: token
+				},
+				url: "<?php echo base_url('materi/delete_files') ?>",
+				cache: false,
+				dataType: 'json',
+				success: function(res) {
+					// alert('Selected file removed !');			
+				}
+
+			});
+		});
+	</script>
+<?php endif ?>

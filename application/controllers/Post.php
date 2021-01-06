@@ -259,6 +259,7 @@ class Post extends CI_Controller
         $data['post_category'] = $this->Post_model->get_post_category($id);
         $data['post_tag'] = $this->Post_model->get_post_tag($id);
         $data['attachfile'] = $this->Post_model->get_attachfile($id);
+        $data['myfile'] = $this->Post_model->get_myfile($id);
         $data['js'] = $this->load->view('post/js_view', $data, true);
         // var_dump($data);
         // die;

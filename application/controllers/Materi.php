@@ -26,7 +26,8 @@ class Materi extends CI_Controller
                 check_login();
                 $this->load->model('Materi_model');
                 $this->load->model('Mapel_model');
-                $this->load->model('Pengajar_model');
+				$this->load->model('Pengajar_model');
+				$this->load->library('upload');
         }
 
 	public function index()
@@ -61,5 +62,58 @@ class Materi extends CI_Controller
 		$this->load->view('template/sidebar');
 		$this->load->view('materi/view_mapel', $data);
 		$this->load->view('template/footer');
+	}
+	
+	function upload_files()
+    {
+        $config['upload_path']   = 'uploads/';
+        $config['allowed_types'] = '*';
+        $config['overwrite'] = TRUE;
+        $config['remove_spaces'] = TRUE;
+        $this->upload->initialize($config);
+
+        if ($this->upload->do_upload('userfile')) {
+            $token = $this->input->post('token');
+            $post_id = $this->input->post('post_id');
+            $file_name = $this->upload->data('file_name');
+			$file_extension = $this->upload->data('file_ext');
+			
+			// insert data ke tabel upload
+            $this->db->insert('upload', [
+                'file_name' => $file_name,
+                'token' => $token, 
+                'author_id' => user_info()['id'],
+                'file_extension' => $file_extension,
+				]);
+				
+			// insert data ke tabel attachfile
+			$this->db->insert('attachfile', [
+				'post_id' => $post_id,
+				'author_id' => user_info()['id'],
+				'token' => $token, 
+				'created_at' => datetime_now(),
+			]);
+        }
+    }
+
+    function delete_files()
+    {
+
+        $token = $this->input->post('token');
+        $query = $this->db->get_where('upload', array('token' => $token));
+
+        if ($query->num_rows() > 0) {
+
+            $data = $query->row();
+            $file_name = $data->file_name;
+
+
+            if (file_exists($file = FCPATH . 'uploads/' . $file_name)) {
+                unlink($file);
+            }
+        }
+        $this->db->delete('upload', array('token' => $token));
+        $this->db->delete('attachfile', array('token' => $token));
+        echo json_encode(array('deleted' => true));
     }
 }

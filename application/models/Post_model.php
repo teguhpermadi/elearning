@@ -138,6 +138,17 @@ class Post_model extends CI_Model
         ->result_array();
     }
 
+    function get_myfile($id)
+    {
+        return $this->db->select('attachfile.*, upload.*')
+        ->from('attachfile')
+        ->where('attachfile.post_id', $id)
+        // ->where('attachfile.author_id', user_info()['id'])
+        ->join('upload', 'attachfile.token = upload.token')
+        ->get()
+        ->result_array();
+    }
+
     // dapatkan file yang sudah diupload user
     function get_file()
     {
