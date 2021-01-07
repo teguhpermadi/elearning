@@ -62,12 +62,47 @@
 			$("#content").attr('placeholder', 'Tulis Komentar');
 
 		});
+
+
+		// $('.myFile').on('closed.bs.alert', function() {
+		// 	var filename = $(this).data('filename')
+		// 	var token = $(this).data('token')
+		// 	$.ajax({
+		// 		data: {
+		// 			filename: filename,
+		// 			token: token,
+		// 		},
+		// 		type: "POST",
+		// 		url: "<?php echo base_url('post/delete_attachfile') ?>",
+		// 		cache: false,
+		// 		success: function(response) {
+		// 			console.log(response);
+		// 		}
+		// 	});
+		// 	alert('tes')
+		// })
 	});
 </script>
 
 <!-- khusus user role siswa -->
 <?php if (user_info()['role'] == 'siswa') : ?>
-	<script>
+	<script type="text/javascript">
+		$('button.close').on('click', function() {
+			var filename = $(this).data('filename')
+			var token = $(this).data('token')
+			$.ajax({
+				data: {
+					filename: filename,
+					token: token,
+				},
+				type: "POST",
+				url: "<?php echo base_url('post/delete_attachfile') ?>",
+				cache: false,
+				success: function(response) {
+					console.log(response);
+				}
+			});
+		})
 		Dropzone.autoDiscover = false;
 		var file = new Dropzone(".dropzone", {
 			url: "<?php echo base_url('materi/upload_files') ?>",

@@ -21,18 +21,18 @@ class Post_model extends CI_Model
     function get_post_category($id)
     {
         return $this->db->select('*')
-        ->from('post_category')
-        ->where('post_id', $id)
-        ->join('category', 'category.id = post_category.category_id')
-        ->get()->row_array();
+            ->from('post_category')
+            ->where('post_id', $id)
+            ->join('category', 'category.id = post_category.category_id')
+            ->get()->row_array();
     }
     function get_post_tag($id)
     {
         return $this->db->select('*')
-        ->from('post_tag')
-        ->where('post_id', $id)
-        ->join('tag', 'tag.id = post_tag.tag_id')
-        ->get()->result_array();
+            ->from('post_tag')
+            ->where('post_id', $id)
+            ->join('tag', 'tag.id = post_tag.tag_id')
+            ->get()->result_array();
     }
 
     /*
@@ -99,31 +99,31 @@ class Post_model extends CI_Model
     {
         $this->db->insert('post_comment', $params);
         return $this->db->insert_id();
-
     }
 
     function load_comment($post_id)
     {
         return $this->db->select('post_comment.*, users.first_name')
-        ->from('post_comment')
-        ->where('post_comment.post_id', $post_id)
-        ->where('post_comment.parrent_id', 0)
-        ->join('users', 'post_comment.author_id = users.id')
-        ->get()
-        ->result_array();
+            ->from('post_comment')
+            ->where('post_comment.post_id', $post_id)
+            ->where('post_comment.parrent_id', 0)
+            ->join('users', 'post_comment.author_id = users.id')
+            ->get()
+            ->result_array();
     }
 
     function load_reply($post_id, $parrent_id)
     {
         return $this->db->select('post_comment.*, users.first_name')
-        ->from('post_comment')
-        ->where('post_comment.post_id', $post_id)
-        ->where('post_comment.parrent_id', $parrent_id)
-        ->join('users', 'post_comment.author_id = users.id')
-        ->get();
+            ->from('post_comment')
+            ->where('post_comment.post_id', $post_id)
+            ->where('post_comment.parrent_id', $parrent_id)
+            ->join('users', 'post_comment.author_id = users.id')
+            ->get();
     }
 
-    function attachfile($attachfile){
+    function attachfile($attachfile)
+    {
         $this->db->insert('attachfile', $attachfile);
         return $this->db->insert_id();
     }
@@ -131,22 +131,24 @@ class Post_model extends CI_Model
     function get_attachfile($id)
     {
         return $this->db->select('attachfile.*, upload.*')
-        ->from('attachfile')
-        ->where('attachfile.post_id', $id)
-        ->join('upload', 'attachfile.token = upload.token')
-        ->get()
-        ->result_array();
+            ->from('attachfile')
+            ->where('attachfile.post_id', $id)
+            ->where('attachfile.milik', 'guru')
+            ->join('upload', 'attachfile.token = upload.token')
+            ->get()
+            ->result_array();
     }
 
     function get_myfile($id)
     {
+        $user_id = user_info()['id'];
         return $this->db->select('attachfile.*, upload.*')
-        ->from('attachfile')
-        ->where('attachfile.post_id', $id)
-        // ->where('attachfile.author_id', user_info()['id'])
-        ->join('upload', 'attachfile.token = upload.token')
-        ->get()
-        ->result_array();
+            ->from('attachfile')
+            ->where('attachfile.post_id', $id)
+            ->where('attachfile.author_id', $user_id)
+            ->join('upload', 'attachfile.token = upload.token')
+            ->get()
+            ->result_array();
     }
 
     // dapatkan file yang sudah diupload user
@@ -159,11 +161,14 @@ class Post_model extends CI_Model
     function read_file($token)
     {
         return $this->db->select('*')
-        ->from('upload')
-        ->where('token', $token)
-        ->get()
-        ->row_array();
+            ->from('upload')
+            ->where('token', $token)
+            ->get()
+            ->row_array();
     }
-    
 
+    function get_filesiswa($id_siswa)
+    {
+        return $this->db->get_where('upload', ['author_id' => $id_siswa])->result_array();
+    }
 }

@@ -197,10 +197,9 @@
 							<label for="tag_id" class="control-label">Tag</label>
 							<div class="form-group">
 								<?php
-
-								foreach ($post_tag as $tag) {
-									$checked = ($tag['post_id'] == $post['id']) ? ' checked' : "";
-
+								foreach ($all_tag as $tag) {
+									$tag_id = $this->Post_tag_model->check_post_tag($post['id'], $tag['id']);
+									$checked = ($tag_id) ? ' checked' : "";
 									echo '<input type="checkbox" name="tag_id[]" value="' . $tag['id'] . '" ' . $checked . '/> ' . $tag['title'] . '<br>';
 								}
 								?>

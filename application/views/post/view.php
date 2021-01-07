@@ -5,7 +5,16 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1><?= $post_category['title'] ?></h1>
+          <h1><?= $post['title'] ?></h1>
+        </div>
+        <div class="col-md-6">
+          <span class="badge badge-info float-right">
+            <?= time_elapsed_string($post['published_at'], null); ?> |
+            <?= $post['published_at'] ?>
+            <?php foreach ($post_tag as $tag) : ?>
+              | <?= $tag['title'] ?>
+            <?php endforeach ?>
+          </span>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -14,34 +23,26 @@
   <!-- Main content -->
   <section class="content">
 
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"> <?= $post['title'] ?> </h3>
-        <span class="badge badge-info float-right">
-          <?= time_elapsed_string($post['published_at'], null); ?> |
-          <?= $post['published_at'] ?>
-          <?php foreach ($post_tag as $tag) : ?>
-            | <?= $tag['title'] ?>
-          <?php endforeach ?>
-        </span>
-        <br>
-        <ul class="nav nav-pills mt-3">
-          <li class="nav-item"><a class="nav-link active" href="#materi" data-toggle="tab">Materi</a></li>
-          <!-- jika guru -->
-          <?php if (user_info()['role'] == 'guru') : ?>
-            <li class="nav-item"><a class="nav-link" href="#periksatugas" data-toggle="tab">Periksan Tugas</a></li>
-          <?php endif ?>
-          <!-- jika siswa -->
-          <?php if (user_info()['role'] == 'siswa') : ?>
-            <li class="nav-item"><a class="nav-link" href="#kumpulkantugas" data-toggle="tab">Kumpulkan Tugas</a></li>
-          <?php endif ?>
-        </ul>
-      </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="materi-tab" data-toggle="tab" href="#materi" role="tab" aria-controls="materi" aria-selected="true">materi</a>
+      </li>
+      <?php if (user_info()['role'] == 'siswa' && $post['jenis'] == 'tugas') : ?>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="tugassaya-tab" data-toggle="tab" href="#tugassaya" role="tab" aria-controls="tugassaya" aria-selected="false">tugas saya</a>
+        </li>
+      <?php endif ?>
 
-      <!-- tab content -->
-      <div class="tab-content">
-        <!-- tab materi -->
-        <div class="active tab-pane" id="materi">
+      <?php if (user_info()['role'] == 'guru' && $post['jenis'] == 'tugas') : ?>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="periksatugas-tab" data-toggle="tab" href="#periksatugas" role="tab" aria-controls="periksatugas" aria-selected="false">periksa tugas</a>
+        </li>
+      <?php endif ?>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="materi" role="tabpanel" aria-labelledby="materi-tab">
+        <div class="card">
           <div class="card-body">
             <?= $post['content'] ?>
             <?php
@@ -86,50 +87,106 @@
             <div id="display_comment"></div>
           </div>
         </div>
+      </div>
 
-        <?php if (user_info()['role'] == 'siswa') : ?>
-        <!-- tab kumpulkan tugas -->
-        <div class="active tab-pane" id="kumpulkantugas">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="token">
-                </div>
-                <div class="dropzone">
-                  <div class="dz-message">
-                    <h3> Drag and Drop your files here Or Click here to upload</h3>
+      <?php if (user_info()['role'] == 'siswa' && $post['jenis'] == 'tugas') : ?>
+        <div class="tab-pane fade" id="tugassaya" role="tabpanel" aria-labelledby="tugassaya-tab">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="token">
                   </div>
-                </div>
-                <!-- Button cari dari repositori user -->
-                <!-- <button type="button" class="btn btn-secondary mt-3" data-toggle="modal" data-target="#exampleModal">
+                  <div class="dropzone">
+                    <div class="dz-message">
+                      <h3> Drag and Drop your files here Or Click here to upload</h3>
+                    </div>
+                  </div>
+                  <!-- Button cari dari repositori user -->
+                  <!-- <button type="button" class="btn btn-secondary mt-3" data-toggle="modal" data-target="#exampleModal">
                       Cari di penyimpanan anda
                     </button> -->
+                </div>
               </div>
+
+              <h4 class="mt-3">Tugas saya:</h4>
+              <?php foreach ($myfile as $file) : ?>
+                <div class="alert alert-light alert-dismissible fade show myFile" role="alert">
+                  <?= $file['file_name'] ?>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close" data-token="<?= $file['token'] ?>" data-filename="<?= $file['file_name'] ?>">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <?php endforeach ?>
             </div>
-            <h4 class="mt-3">Tugas yang sudah dikumpulkan:</h4>
-            <?php foreach($myfile as $file): ?>
-            <div class="alert alert-light alert-dismissible fade show" role="alert">
-              <?= $file['file_name'] ?>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+          </div>
+        </div>
+      <?php endif ?>
+
+      <?php if (user_info()['role'] == 'guru' && $post['jenis'] == 'tugas') : ?>
+        <div class="tab-pane fade" id="periksatugas" role="tabpanel" aria-labelledby="periksatugas-tab">
+          <div class="accordion" id="accordionExample">
+            <?php foreach ($post_tag as $tag) : ?>
+              <div class="card">
+                <div class="card-header" id="heading-<?= $tag['id'] ?>">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-<?= $tag['id'] ?>" aria-expanded="true" aria-controls="collapse-<?= $tag['id'] ?>">
+                      Tugas <?= $tag['title'] ?>
+                    </button>
+                  </h2>
+                </div>
+
+                <div id="collapse-<?= $tag['id'] ?>" class="collapse" aria-labelledby="heading-<?= $tag['id'] ?>" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="list-group" id="list-tab" role="tablist">
+                          <?php
+                          $all_siswa = $this->Rombel_model->get_siswa_by_kelas($tag['id']);
+                          foreach ($all_siswa as $siswa) :
+                          ?>
+                            <a class="list-group-item list-group-item-action" id="list-<?= $siswa['user_id'] ?>-list" data-toggle="list" href="#list-<?= $siswa['user_id'] ?>" role="tab" aria-controls="<?= $siswa['user_id'] ?>"><?= $siswa['first_name'] ?></a>
+                          <?php endforeach ?>
+                        </div>
+                      </div>
+
+                      <div class="col-md-9">
+                        <div class="tab-content" id="nav-tabContent">
+                          <?php
+                          $all_siswa = $this->Rombel_model->get_siswa_by_kelas($tag['id']);
+                          foreach ($all_siswa as $siswa) :
+                          ?>
+                            <div class="tab-pane fade show" id="list-<?= $siswa['user_id'] ?>" role="tabpanel" aria-labelledby="list-<?= $siswa['user_id'] ?>-list">
+                              <!-- dapatkan file tugas siswa -->
+                              <?php
+                              $all_file = $this->Post_model->get_filesiswa($siswa['user_id']);
+                              foreach ($all_file as $file) :
+                                // cek filenya
+                                if (!empty($file)) {
+                                  // jika sudah mengumpulkan
+
+                                } else {
+                                  // jika belum mengumpulkan 
+                                  
+                                }
+                              ?>
+
+
+                              <?php endforeach ?>
+                            </div>
+                          <?php endforeach ?>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             <?php endforeach ?>
           </div>
         </div>
-        <?php endif ?>
-
-        <?php if (user_info()['role'] == 'guru') : ?>
-        <!-- tab periksa tugas -->
-        <div class="active tab-pane" id="periksatugas">
-        <?= var_dump($attachfile) ?>
-
-        </div>
-        <?php endif ?>
-
-      </div>
-
-
+      <?php endif ?>
 
     </div>
 

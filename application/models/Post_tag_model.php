@@ -16,23 +16,12 @@ class Post_tag_model extends CI_Model
      */
     function get_post_tag($id)
     {
-        return $this->db->get_where('post_tag',array('id'=>$id))->row_array();
+        return $this->db->get_where('post_tag',array('post_id'=>$id))->row_array();
     }
 
-    function get_post_tag_join_tag($post_id)
+    function check_post_tag($post_id, $tag_id)
     {
-        $user_id = user_info()['id'];
-
-        return $this->db->select('post_tag.post_id, tag.id, tag.title')
-        ->from('post_tag')
-        ->join('tag', 'tag.id = post_tag.tag_id')
-        ->join('pengajar', 'pengajar.id_kelas = tag.id')
-        ->where('post_tag.post_id = '.$post_id)
-        ->order_by('tag.id', 'asc')
-        ->group_by('tag.title')
-        ->get()->result_array();
-
-        // return $this->db->last_query();
+        return $this->db->get_where('post_tag', ['post_id' => $post_id,'tag_id' => $tag_id])->result_array();
     }
 
     function get_post_tag_join_tag_by_post_id($post_id)

@@ -26,6 +26,10 @@ class Migration_attachfile extends CI_Migration
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              
             ),
+            'milik' => array(
+                'type' => 'VARCHAR',  
+                'constraint' => '255',              
+            ),
             'created_at' => array(
                 'type' => 'DATETIME',
             ),

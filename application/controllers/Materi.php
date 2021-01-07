@@ -83,7 +83,9 @@ class Materi extends CI_Controller
                 'file_name' => $file_name,
                 'token' => $token, 
                 'author_id' => user_info()['id'],
-                'file_extension' => $file_extension,
+				'file_extension' => $file_extension,
+				'milik' => user_info()['role'],
+				
 				]);
 				
 			// insert data ke tabel attachfile
@@ -92,6 +94,7 @@ class Materi extends CI_Controller
 				'author_id' => user_info()['id'],
 				'token' => $token, 
 				'created_at' => datetime_now(),
+				'milik' => user_info()['role'],
 			]);
         }
     }

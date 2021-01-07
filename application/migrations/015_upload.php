@@ -18,6 +18,10 @@ class Migration_upload extends CI_Migration
                 'type' => 'BIGINT',  
                 'constraint' => '255',              
             ),
+            'milik' => array(
+                'type' => 'VARCHAR',  
+                'constraint' => '255',              
+            ),
             'file_name' => array(
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              

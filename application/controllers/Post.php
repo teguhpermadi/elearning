@@ -14,6 +14,7 @@ class Post extends CI_Controller
         $this->load->model('Post_category_model');
         $this->load->model('Tag_model');
         $this->load->model('Post_tag_model');
+        $this->load->model('Rombel_model');
         check_login();
         $this->load->library('upload');
     }
@@ -102,6 +103,7 @@ class Post extends CI_Controller
                         'author_id' => user_info()['id'],
                         'token' => $value,
                         'created_at' => datetime_now(),
+                        'milik' => user_info()['role'],
                     ];
 
                     // print_r($attachfile);
@@ -133,10 +135,10 @@ class Post extends CI_Controller
         // check if the post exists before trying to edit it
         $data['post'] = $this->Post_model->get_post($id);
         $data['post_category'] = $this->Post_category_model->get_post_category_by_post_id($id);
-        $data['post_tag'] = $this->Post_tag_model->get_post_tag_join_tag($id);
-        $data['attachfile'] = $this->Post_model->get_attachfile($id);
+        // $data['post_tag'] = $this->Post_tag_model->get_post_tag_join_tag($id);
+        // $data['post_tag'] = $this->Post_tag_model->get_post_tag($id);
         // echo json_encode($data['post_tag']);
-        // die;
+        $data['attachfile'] = $this->Post_model->get_attachfile($id);
 
         if (isset($data['post']['id'])) {
             $this->load->library('form_validation');
@@ -213,6 +215,7 @@ class Post extends CI_Controller
                             'author_id' => user_info()['id'],
                             'token' => $value,
                             'created_at' => datetime_now(),
+                            'milik' => user_info()['role'],
                         ];
 
                         // print_r($attachfile);
@@ -225,6 +228,8 @@ class Post extends CI_Controller
                 $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
                 $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
                 $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
+                // echo json_encode($data['all_tag']);
+                // die;
                 $data['js'] = $this->load->view('post/js_add', $data, true);
 
                 $data['_view'] = 'post/edit';
@@ -412,6 +417,7 @@ class Post extends CI_Controller
                 'token' => $token, 
                 'author_id' => user_info()['id'],
                 'file_extension' => $file_extension,
+                'milik' => user_info()['role'],
                 ]);
         }
     }
