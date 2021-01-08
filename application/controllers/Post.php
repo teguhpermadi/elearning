@@ -414,11 +414,11 @@ class Post extends CI_Controller
             $file_extension = $this->upload->data('file_ext');
             $this->db->insert('upload', [
                 'file_name' => $file_name,
-                'token' => $token, 
+                'token' => $token,
                 'author_id' => user_info()['id'],
                 'file_extension' => $file_extension,
                 'milik' => user_info()['role'],
-                ]);
+            ]);
         }
     }
 
@@ -467,7 +467,7 @@ class Post extends CI_Controller
     function download_file($token)
     {
         $file = $this->Post_model->read_file($token);
-        header("Content-type:application/".$file['file_extension']);
+        header("Content-type:application/" . $file['file_extension']);
         // It will be called downloaded.pdf
         header("Content-Disposition:attachment; filename=" . $file['file_name']);
         // The PDF source is in original.pdf
@@ -478,10 +478,35 @@ class Post extends CI_Controller
     function read_file($token)
     {
         $file = $this->Post_model->read_file($token);
-        header("Content-type:application/".$file['file_extension']);
+        header("Content-type:application/" . $file['file_extension']);
         header('Content-Description: inline; filename="' . $file['file_name'] . '"');
         header('Content-Transfer-Encoding: binary');
         header('Accept-Ranges: bytes');
-        @readfile('uploads/'.$file['file_name']);
+        @readfile('uploads/' . $file['file_name']);
+    }
+
+    function get_filesiswa()
+    {
+        $siswa_id = $this->input->post('siswa_id');
+        $tag_id = $this->input->post('tag_id');
+        $post_id = $this->input->post('post_id');
+
+        $data = '';
+        $all_file = $this->Post_model->get_filesiswa($siswa_id);
+
+        $data .= '<div class="row">';
+        if ($all_file) {
+            foreach ($all_file as $file) {
+                $data .= '<a href="' . base_url('post/download_file/') . $file['token'] . '" class="btn btn-outline-info p-3 mr-3"><i class="fas fa-file fa-lg"></i><br>' . $file['file_name'] .'</a>';
+            }
+        } else {
+            $data .= '<div class="alert alert-warning" role="alert">
+                        <i class="fas fa-exclamation-triangle"></i> Belum mengumpulkan tugas
+                    </div>';
+        }
+        $data .= '</div>';
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
 }

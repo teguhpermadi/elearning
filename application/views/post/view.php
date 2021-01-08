@@ -42,7 +42,7 @@
 
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="materi" role="tabpanel" aria-labelledby="materi-tab">
-        <div class="card">
+        <div class="card mt-3">
           <div class="card-body">
             <?= $post['content'] ?>
             <?php
@@ -91,7 +91,7 @@
 
       <?php if (user_info()['role'] == 'siswa' && $post['jenis'] == 'tugas') : ?>
         <div class="tab-pane fade" id="tugassaya" role="tabpanel" aria-labelledby="tugassaya-tab">
-          <div class="card">
+          <div class="card mt-3">
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12">
@@ -111,7 +111,7 @@
 
               <h4 class="mt-3">Tugas saya:</h4>
               <?php foreach ($myfile as $file) : ?>
-                <div class="alert alert-light alert-dismissible fade show myFile" role="alert">
+                <div class="alert alert-info alert-dismissible fade show myFile" role="alert">
                   <?= $file['file_name'] ?>
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close" data-token="<?= $file['token'] ?>" data-filename="<?= $file['file_name'] ?>">
                     <span aria-hidden="true">&times;</span>
@@ -126,71 +126,58 @@
       <?php if (user_info()['role'] == 'guru' && $post['jenis'] == 'tugas') : ?>
         <div class="tab-pane fade" id="periksatugas" role="tabpanel" aria-labelledby="periksatugas-tab">
           <div class="accordion" id="accordionExample">
-            <?php foreach ($post_tag as $tag) : ?>
-              <div class="card">
-                <div class="card-header" id="heading-<?= $tag['id'] ?>">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-<?= $tag['id'] ?>" aria-expanded="true" aria-controls="collapse-<?= $tag['id'] ?>">
-                      Tugas <?= $tag['title'] ?>
-                    </button>
-                  </h2>
-                </div>
+            <!-- kasih margin top 3 -->
+            <div class="mt-3">
+              <!-- looping data tag postingan -->
+              <?php foreach ($post_tag as $tag) : ?>
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-<?= $tag['id'] ?>" aria-expanded="true" aria-controls="collapseOne">
+                        Lampiran Tugas Siswa <?= $tag['title'] ?>
+                      </button>
+                    </h2>
+                  </div>
 
-                <div id="collapse-<?= $tag['id'] ?>" class="collapse" aria-labelledby="heading-<?= $tag['id'] ?>" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <div class="list-group" id="list-tab" role="tablist">
-                          <?php
-                          $all_siswa = $this->Rombel_model->get_siswa_by_kelas($tag['id']);
-                          foreach ($all_siswa as $siswa) :
-                          ?>
-                            <a class="list-group-item list-group-item-action" id="list-<?= $siswa['user_id'] ?>-list" data-toggle="list" href="#list-<?= $siswa['user_id'] ?>" role="tab" aria-controls="<?= $siswa['user_id'] ?>"><?= $siswa['first_name'] ?></a>
-                          <?php endforeach ?>
+                  <div id="collapse-<?= $tag['id'] ?>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="list-group" id="list-tab" role="tablist">
+                            <!-- tampilkan siswa masing-masing kelas -->
+                            <?php
+
+                            $all_siswa = $this->Rombel_model->get_siswa_by_kelas($tag['id']);
+                            foreach ($all_siswa as $siswa) :
+                            ?>
+                              <a class="list-group-item list-group-item-action list-siswa" id="list-home-list" data-toggle="list" href="#list-<?= $tag['id'] ?>" role="tab" aria-controls="home" data-siswaid="<?= $siswa['user_id'] ?>" data-tagid="<?= $tag['id'] ?>"><?= $siswa['first_name'] ?></a>
+                            <?php endforeach ?>
+
+                          </div>
                         </div>
-                      </div>
-
-                      <div class="col-md-9">
-                        <div class="tab-content" id="nav-tabContent">
-                          <?php
-                          $all_siswa = $this->Rombel_model->get_siswa_by_kelas($tag['id']);
-                          foreach ($all_siswa as $siswa) :
-                          ?>
-                            <div class="tab-pane fade show" id="list-<?= $siswa['user_id'] ?>" role="tabpanel" aria-labelledby="list-<?= $siswa['user_id'] ?>-list">
-                              <!-- dapatkan file tugas siswa -->
-                              <?php
-                              $all_file = $this->Post_model->get_filesiswa($siswa['user_id']);
-                              foreach ($all_file as $file) :
-                                // cek filenya
-                                if (!empty($file)) {
-                                  // jika sudah mengumpulkan
-
-                                } else {
-                                  // jika belum mengumpulkan 
-                                  
-                                }
-                              ?>
-
-
-                              <?php endforeach ?>
+                        <div class="col-8">
+                          <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade lampiran-tugas" id="list-<?= $tag['id'] ?>" role="tabpanel" aria-labelledby="list-home-list">
                             </div>
-                          <?php endforeach ?>
 
+                          </div>
                         </div>
                       </div>
+
+
                     </div>
                   </div>
                 </div>
-              </div>
+                <!-- end looping -->
+              <?php endforeach ?>
+            </div>
 
-            <?php endforeach ?>
           </div>
+        <?php endif ?>
+
         </div>
-      <?php endif ?>
 
     </div>
-
-</div>
 
 </div>
 
