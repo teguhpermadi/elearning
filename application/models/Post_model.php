@@ -167,8 +167,8 @@ class Post_model extends CI_Model
             ->row_array();
     }
 
-    function get_filesiswa($id_siswa)
+    function get_filesiswa($id_siswa, $post_id)
     {
-        return $this->db->get_where('upload', ['author_id' => $id_siswa])->result_array();
+        return $this->db->get_where('attachfile', ['author_id' => $id_siswa, 'post_id' => $post_id])->result_array();
     }
 }

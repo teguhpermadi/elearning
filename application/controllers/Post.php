@@ -492,7 +492,7 @@ class Post extends CI_Controller
         $post_id = $this->input->post('post_id');
 
         $data = '';
-        $all_file = $this->Post_model->get_filesiswa($siswa_id);
+        $all_file = $this->Post_model->get_filesiswa($siswa_id, $post_id);
 
         $data .= '<div class="row">';
         if ($all_file) {
