@@ -205,7 +205,7 @@ class Post extends CI_Controller
                 // simpan data file yang di upload
                 $token = $this->input->post('token[]');
                 // hapus dulu semua data attachfile terkait post ini
-                $this->db->delete('attachfile', ['post_id' => $id]);
+                $this->db->delete('attachfile', ['post_id' => $id, 'milik' => 'guru']);
 
                 if ($token) {
                     foreach ($token as $value) {
