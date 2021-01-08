@@ -507,6 +507,6 @@ class Post extends CI_Controller
         $data .= '</div>';
 
         header('Content-Type: application/json');
-        echo json_encode($data);
+        echo json_encode($all_file);
     }
 }

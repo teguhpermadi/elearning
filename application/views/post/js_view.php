@@ -150,13 +150,6 @@
 
 <?php if (user_info()['role'] == 'guru') : ?>
 	<script>
-		//Mengirimkan Token Keamanan
-		$.ajaxSetup({
-			headers: {
-				'Csrf-Token': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-
 		$('.list-siswa').on('click', function() {
 			var siswa_id = $(this).data('siswaid')
 			var tag_id = $(this).data('tagid')
@@ -167,7 +160,7 @@
 				data: {
 					siswa_id: siswa_id,
 					tag_id: tag_id,
-					post_id: <?= $post['id'] ?>
+					post_id: '<?= $post['id'] ?>'
 				},
 				url: "<?php echo base_url('post/get_filesiswa') ?>",
 				cache: false,
@@ -175,7 +168,7 @@
 				success: function(data) {
 					// var d = $.parseJSON(data);
 					$('#list-'+tag_id).html(data);
-					// console.log(d);
+					console.log(data);
 				}
 
 			});
