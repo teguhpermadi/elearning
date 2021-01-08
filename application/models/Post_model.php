@@ -167,12 +167,15 @@ class Post_model extends CI_Model
             ->row_array();
     }
 
-    function get_filesiswa($id_siswa, $post_id)
+    function get_filesiswa($siswa_id, $post_id)
     {
-        return $this->db->select('*')
+        return $this->db->select('attachfile.*, upload.file_name')
         ->from('attachfile')
-        ->where('author_id',$id_siswa)
-        ->where('post_id', $post_id)
-        ->get()->result_array();
+        ->where('attachfile.author_id',$siswa_id)
+        ->where('attachfile.post_id', $post_id)
+        ->join('upload', 'upload.token = attachfile.token')
+        ->get()
+        ->result_array();
+        // return $this->db->last_query();
     }
 }

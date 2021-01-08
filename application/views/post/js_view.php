@@ -168,7 +168,7 @@
 				success: function(data) {
 					// var d = $.parseJSON(data);
 					$('#list-'+tag_id).html(data);
-					console.log(data);
+					// console.log(data);
 				}
 
 			});

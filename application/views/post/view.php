@@ -32,7 +32,6 @@
           <a class="nav-link" id="tugassaya-tab" data-toggle="tab" href="#tugassaya" role="tab" aria-controls="tugassaya" aria-selected="false">tugas saya</a>
         </li>
       <?php endif ?>
-
       <?php if (user_info()['role'] == 'guru' && $post['jenis'] == 'tugas') : ?>
         <li class="nav-item" role="presentation">
           <a class="nav-link" id="periksatugas-tab" data-toggle="tab" href="#periksatugas" role="tab" aria-controls="periksatugas" aria-selected="false">periksa tugas</a>
