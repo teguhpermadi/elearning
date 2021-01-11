@@ -42,26 +42,30 @@ class Migration_soal extends CI_Migration
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              
             ),
-            'opsi_a' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
-                'type' => 'VARCHAR',  
-                'constraint' => '255',      
+            'opsi' => array(
+                'type' => 'JSON',  
+                'default' => null,              
             ),
-            'opsi_b' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
-                'type' => 'VARCHAR',  
-                'constraint' => '255',      
-            ),
-            'opsi_c' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
-                'type' => 'VARCHAR',  
-                'constraint' => '255',      
-            ),
-            'opsi_d' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
-                'type' => 'VARCHAR',  
-                'constraint' => '255',      
-            ),
-            'opsi_e' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
-                'type' => 'VARCHAR',  
-                'constraint' => '255',      
-            ),
+            // 'opsi_a' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
+            //     'type' => 'VARCHAR',  
+            //     'constraint' => '255',      
+            // ),
+            // 'opsi_b' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
+            //     'type' => 'VARCHAR',  
+            //     'constraint' => '255',      
+            // ),
+            // 'opsi_c' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
+            //     'type' => 'VARCHAR',  
+            //     'constraint' => '255',      
+            // ),
+            // 'opsi_d' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
+            //     'type' => 'VARCHAR',  
+            //     'constraint' => '255',      
+            // ),
+            // 'opsi_e' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
+            //     'type' => 'VARCHAR',  
+            //     'constraint' => '255',      
+            // ),
             'petunjuk' => array( // opsional untuk menampilkan petunjuk dalam mengerjakan soal
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              

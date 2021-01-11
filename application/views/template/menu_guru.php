@@ -41,6 +41,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?= base_url('ujian') ?>" class="nav-link <?php if($this->uri->segment(1) == 'ujian') { echo 'active';}?>">
+                  <i class="fas fa-pencil-ruler nav-icon"></i>
+                  <p>Ujian</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?= base_url('category') ?>" class="nav-link <?php if($this->uri->segment(1) == 'category') { echo 'active';}?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kategori</p>
