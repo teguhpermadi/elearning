@@ -107,7 +107,7 @@ class Faker extends CI_Controller
         }
         
         echo json_encode($data);
-        // $this->db->insert_batch('soal', $data);
+        $this->db->insert_batch('soal', $data);
         // echo 'Faker soal Success';
     }
 

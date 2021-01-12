@@ -16,45 +16,63 @@
 
         <div class="row">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <input type="hidden" name="author_id">
-                        <input type="hidden" name="mapel_id">
-                        <input type="hidden" name="kelas_id">
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="skor" id="skor" placeholder="skor">
-                        </div>
-                        <div class="form-group">
-                            <textarea name="soal" class="form-control summernote" id="soal"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <select name="jenis_soal" class="form-control">
-                                <!-- <option value="">select</option> -->
-                                <?php
-                                $published_values = array(
-                                    'pilgan' => 'Pilihan Ganda',
-                                    // '2' => 'Terjadwal',
-                                    'isian' => 'Isian',
-                                );
+                <div id="reviewsoal">
+                    <div class="card card-primary card-outline direct-chat direct-chat-primary">
+                        <div class="card-header">
+                            <div class="card-tools">
+                                <span data-toggle="tooltip" title="3 New Messages" class="badge bg-primary">Jenis Soal</span>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Opsi Jawaban" data-widget="chat-pane-toggle">
+                                    <i class="fas fa-question-circle"></i>
+                                </button>
 
-                                foreach ($published_values as $value => $display_text) {
-                                    // $selected = ($value == $this->input->post('published')) ? ' selected="selected"' : "";
-                                    $selected = '';
-                                    echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                                }
-                                ?>
-                            </select>
+                            </div>
+                            <h3 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aut minima dicta nulla iusto impedit laboriosam at doloremque vel. Voluptate, sapiente laboriosam. Modi ipsa ad cum rerum suscipit cupiditate facilis.</h3>
+
                         </div>
-                        <div class="form-group">
-                        <textarea name="opsi[]" class="form-control summernote" id="opsi[]"></textarea>
+                        <!-- /.card-header -->
+                        <div class="card-body" style="display: block;">
+                            <!-- Conversations are loaded here -->
+                            <div class="direct-chat-messages">
+                                <ol>
+                                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, repellendus ducimus. Adipisci minima, iusto totam saepe quae dignissimos? Nam quidem tempore ea perferendis praesentium ad deleniti accusantium! Adipisci, quam nihil.</li>
+                                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, repellendus ducimus. Adipisci minima, iusto totam saepe quae dignissimos? Nam quidem tempore ea perferendis praesentium ad deleniti accusantium! Adipisci, quam nihil.</li>
+                                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, repellendus ducimus. Adipisci minima, iusto totam saepe quae dignissimos? Nam quidem tempore ea perferendis praesentium ad deleniti accusantium! Adipisci, quam nihil.</li>
+                                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, repellendus ducimus. Adipisci minima, iusto totam saepe quae dignissimos? Nam quidem tempore ea perferendis praesentium ad deleniti accusantium! Adipisci, quam nihil.</li>
+                                </ol>
+                            </div>
+                            <!--/.direct-chat-messages-->
+
+                            <!-- Petunjuk are loaded here -->
+                            <div class="direct-chat-contacts">
+                                petunjuk
+                                <br>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
+                            </div>
+                            <!-- /.petunjuk-chat-pane -->
+
                         </div>
-                        <button class="btn btn-primary">tambah pilihan</button>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary">Simpan soal</button>
+                        <!-- /.card-body -->
+                        <div class="card-footer" style="display: block;">
+                            <button class="btn btn-warning btn-sm">Edit</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-card-widget="remove">Hapus</button>
+                        </div>
+                        <!-- /.card-footer-->
                     </div>
                 </div>
-                <button class="btn btn-primary">Tambah Soal</button>
+                <hr>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#tambahSoal">Tambah Soal</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#sisipkanSoal">Sisipkan Soal</button>
             </div>
             <div class="col-md-4">
                 <!-- Default box -->
@@ -112,11 +130,70 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
+                        <div id="soalujian"></div>
                         <button type="button" class="btn btn-primary">Simpan</button>
                     </div>
                     <!-- /.card-footer-->
                 </div>
                 <!-- /.card -->
+            </div>
+        </div>
+
+        <!-- Tambah Soal Modal -->
+        <div class="modal fade" id="tambahSoal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Soal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sisipkan Soal Modal -->
+        <div class="modal fade" id="sisipkanSoal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Sisipkan Soal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped soal-datatable" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Soal</td>
+                                    <td>Jenis</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($get_soal as $soal) : ?>
+                                    <tr>
+                                        <td><input type="checkbox" class="checkbox-soal" name="soal_id[]" id="soal_id" value="<?= $soal['id'] ?>"></td>
+                                        <td><?php echo word_limiter($soal['soal'], 20); ?></td>
+                                        <td><?= $soal['jenis_soal'] ?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
             </div>
         </div>
 

@@ -28,6 +28,7 @@ class Ujian extends CI_Controller
         $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
         $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
         $data['js'] = $this->load->view('ujian/js_add', $data, true);
+        $data['get_soal'] = $this->Ujian_model->get_soal();
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -35,15 +36,13 @@ class Ujian extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function get_soal()
+
+    function load_soal()
     {
-        $author_id = user_info()['id'];
-        $category = 2;
-        $tag = 3;
-        $soal = $this->Ujian_model->get_soal($author_id, $category, $tag);
+        $id = $this->input->post('soal_id');
+        $soal = $this->Ujian_model->load_soal($id);
         echo json_encode($soal);
     }
-
     function get_ujian()
     {
         $ujian = $this->Ujian_model->get_ujian();

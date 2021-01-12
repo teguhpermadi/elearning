@@ -7,8 +7,9 @@ class Ujian_model extends CI_Model
         parent::__construct();
     }
 
-    function get_soal($author_id, $category,$tag)
+    function get_soal()
     {
+        $author_id = user_info()['id'];
         return $this->db->select('*')
         ->from('soal')
         ->where('soal.aktif', 1)
@@ -17,6 +18,10 @@ class Ujian_model extends CI_Model
         // ->where('soal.meta["tag"]', $tag)
         ->order_by('id', 'asc')
         ->get()->result_array();
+    }
+
+    function load_soal($id){
+        return $this->db->get_where('soal', ['id' => $id])->row_array();
     }
 
     function get_ujian()
