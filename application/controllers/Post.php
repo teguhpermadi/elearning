@@ -205,7 +205,7 @@ class Post extends CI_Controller
                 // simpan data file yang di upload
                 $token = $this->input->post('token[]');
                 // hapus dulu semua data attachfile terkait post ini
-                $this->db->delete('attachfile', ['post_id' => $id]);
+                $this->db->delete('attachfile', ['post_id' => $id, 'milik' => 'guru']);
 
                 if ($token) {
                     foreach ($token as $value) {
@@ -494,11 +494,25 @@ class Post extends CI_Controller
         $data = '';
         $all_file = $this->Post_model->get_filesiswa($siswa_id, $post_id);
 
-        $data .= '<div class="row">';
+        // tampung nilai tugas siswa
+        $data .= '
+                <div class="row">
+                <form action="" class="form-inline">
+                    <div class="form-group mx-sm-3">
+                    <input type="number" id="nilai" name="nilai" class="form-control" placeholder="nilai" min="0" max="100" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                </form>
+                </div>
+        ';
+
+        // tampung semua file lampiran tugas siswa
+        $data .= '<div class="row p-3">';
+
         if ($all_file) {
             foreach ($all_file as $file) {
-                $data .= '<a href="' . base_url('post/download_file/') . $file['token'] . '" class="btn btn-outline-info p-3 mr-3"><i class="fas fa-file fa-lg"></i><br>' . $file['file_name'] .'</a>';
-            }
+                $data .= '<a href="' . base_url('post/download_file/') . $file['token'] . '" class="btn btn-outline-info p-3 mr-3"><i class="fas fa-file fa-lg"></i><br>' . $file['file_name'] . '</a>';
+            };
         } else {
             $data .= '<div class="alert alert-warning" role="alert">
                         <i class="fas fa-exclamation-triangle"></i> Belum mengumpulkan tugas
@@ -507,6 +521,6 @@ class Post extends CI_Controller
         $data .= '</div>';
 
         header('Content-Type: application/json');
-        echo json_encode($all_file);
+        echo json_encode($data);
     }
 }
