@@ -9,16 +9,16 @@ class Faker extends CI_Controller
     {
         parent::__construct();
     }
-    
+
     public function index()
     {
 
         $faker = Faker\Factory::create();
         $faker->addProvider(new Bluemmb\Faker\PicsumPhotosProvider($faker));
-        
+
         $faker->seed(100);
         // $random_number_image = rand(0,1084);
-        for ($i=0; $i < 100; $i++) { 
+        for ($i = 0; $i < 100; $i++) {
             //     $url = $faker->imageUrl(100,100, $random_number_image + $i);
             # code...
             // echo $faker->title;
@@ -37,12 +37,12 @@ class Faker extends CI_Controller
         $faker = Faker\Factory::create();
         $faker->addProvider(new Bluemmb\Faker\PicsumPhotosProvider($faker));
         $faker->seed(10);
-        $random_number_image = rand(0,1084);
+        $random_number_image = rand(0, 1084);
 
         $data = [];
         // generate data faker
-        for ($i=0; $i < 10; $i++) { 
-            $url = $faker->imageUrl(100,100, $random_number_image);
+        for ($i = 0; $i < 10; $i++) {
+            $url = $faker->imageUrl(100, 100, $random_number_image);
             array_push($data, [
                 // isi data pada tabel guru
                 'first_name' => $faker->firstName,
@@ -63,49 +63,33 @@ class Faker extends CI_Controller
         $faker = Faker\Factory::create();
         $faker->seed(20);
         $data = [];
-        for ($i=0; $i < 20; $i++) { 
-            $jenis_soal = $faker->randomElement($array = array ('pilihan ganda','jawaban singkat'));
-            if($jenis_soal == 'pilihan ganda ')
-            {
-                $soal = [
-                    // isi data pada tabel guru
-                    'author_id' => $faker->numberBetween($min = 3, $max = 5),
-                    'mapel_id' => $faker->numberBetween($min = 1, $max = 3),
-                    'kelas_id' => $faker->numberBetween($min = 1, $max = 3),
-                    'created_at' => datetime_now(),
-                    'soal' => $faker->realText($maxNbChars = 200, $indexSize = 2),
-                    'jenis_soal' => $jenis_soal,
-                    'opsi_a' => $faker->words($nb = 3, $asText = false),
-                    'opsi_b' => $faker->words($nb = 3, $asText = false),
-                    'opsi_c' => $faker->words($nb = 3, $asText = false),
-                    'opsi_d' => $faker->words($nb = 3, $asText = false),
-                    'kunci' => $faker->randomElement($array = array ('a', 'b', 'c', 'd')),
-                    'petunjuk' => $faker->sentence($nbWords = 6, $variableNbWords = true),
-                    'pembahasan' => $faker->sentence($nbWords = 15, $variableNbWords = true),
-                    'skor' => $faker->numberBetween($min = 1, $max = 5),
-                    'aktif' => $faker->numberBetween($min = 0, $max = 1),
-                ];
-
-            } else {
-                $soal = [
-                    // isi data pada tabel guru
-                    'author_id' => $faker->numberBetween($min = 3, $max = 5),
-                    'mapel_id' => $faker->numberBetween($min = 1, $max = 3),
-                    'kelas_id' => $faker->numberBetween($min = 1, $max = 3),
-                    'created_at' => datetime_now(),
-                    'soal' => $faker->realText($maxNbChars = 200, $indexSize = 2),
-                    'jenis_soal' => $jenis_soal,
-                    'kunci' => $faker->sentence($nbWords = 3, $variableNbWords = true),
-                    'petunjuk' => $faker->sentence($nbWords = 6, $variableNbWords = true),
-                    'pembahasan' => $faker->sentence($nbWords = 15, $variableNbWords = true),
-                    'skor' => $faker->numberBetween($min = 1, $max = 5),
-                    'aktif' => $faker->numberBetween($min = 0, $max = 1),
-                ];
-            }
+        for ($i = 0; $i < 20; $i++) {
+            $soal = [
+                // isi data pada tabel guru
+                'author_id' => $faker->numberBetween($min = 3, $max = 5),
+                'mapel_id' => $faker->numberBetween($min = 1, $max = 3),
+                'kelas_id' => $faker->numberBetween($min = 1, $max = 3),
+                'created_at' => datetime_now(),
+                'soal' => $faker->realText($maxNbChars = 200, $indexSize = 2),
+                'jenis_soal' => 'pilihan ganda',
+                'opsi' => json_encode(
+                    [
+                        'opsi_a' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                        'opsi_b' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                        'opsi_c' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                        'opsi_d' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                    ]
+                ),
+                'kunci' => $faker->randomElement($array = array('a', 'b', 'c', 'd')),
+                'petunjuk' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                'pembahasan' => $faker->sentence($nbWords = 15, $variableNbWords = true),
+                'skor' => $faker->numberBetween($min = 1, $max = 5),
+                'aktif' => $faker->numberBetween($min = 0, $max = 1),
+            ];
+            
             array_push($data, $soal);
-
         }
-        
+
         echo json_encode($data);
         $this->db->insert_batch('soal', $data);
         // echo 'Faker soal Success';
@@ -116,15 +100,15 @@ class Faker extends CI_Controller
         $faker = Faker\Factory::create();
         $faker->seed(5);
         $data = [];
-        for ($i=0; $i < 5; $i++) { 
-            $soal_id = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
+        for ($i = 0; $i < 5; $i++) {
+            $soal_id = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
             $date = $faker->dateTimeBetween($startDate = 'now', $endDate = '+ 5 days', $timezone = 'Asia/Jakarta');
             array_push($data, [
                 'author_id' => $faker->numberBetween($min = 3, $max = 5),
                 'created_at' => datetime_now(),
                 'nama_ujian' => $faker->sentence($nbWords = 3, $variableNbWords = true),
                 'waktu_mulai' => datetime_now(),
-                'waktu_selesai'=> $date->format("Y-m-d\TH:m"),
+                'waktu_selesai' => $date->format("Y-m-d\TH:m"),
             ]);
         }
 

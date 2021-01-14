@@ -86,37 +86,63 @@
 				},
 				dataType: 'json',
 				success: function(data) {
-					// var obj = JSON.parse(data)
+					// var opsisoal = '<ul id="ul-' + data.id + '"></ul>'
+					// if (data.opsi != null) {
+					// jika opsi soal tidak null
+					// $.each(JSON.parse(data.opsi), function(idx, item) {
+					// $('#ul-'+data.id).append('<li?>'+item+'</li>')
+					// 	})
+					// } else {
+					// jika opsi soal null
+					// opsisoal = ''
+					// }
 					var card = `
-					<div class="card" id="cardsoal-">
+					<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-` + data.id + `">
                         <div class="card-header">
-                            <span class="badge badge-primary">Jenissoal</span>
-                        </div>
-                        <div class="card-body">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste eaque qui molestiae, pariatur recusandae eum voluptatem delectus. Quibusdam accusamus iure, autem dignissimos fugiat nobis magni quas laborum? Aut, praesentium assumenda?
-                            <ol>
-                                <li>asd</li>
-                                <li>asdas</li>
-                            </ol>
-                            <div class="alert alert-info" role="alert">
-                                Kunci
-                            </div>
-                            <div class="alert alert-secondary" role="alert">
-                                Petunjuk
-                            </div>
-                            <div class="callout callout-info mt-2">
-                                <h5>Pembahasan</h5>
-                                <p>Follow the steps to continue to payment.</p>
+                            <span data-toggle="tooltip" class="badge bg-primary">` + data.jenis_soal + `</span>
+                            <span data-toggle="tooltip" class="badge bg-primary">Skor ` + data.skor + `</span>
+                            <p>` + data.soal + `</p>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
+                                    <i class="fas fa-question-circle"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <button class="btn btn-warning btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Hapus</button>
+                        <div class="card-body" style="display: block;">
+						<div class="direct-chat-messages">
+								<div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
+								` + data.kunci + `
+								</div>
+								` + '<ol id="ul-' + data.id + '" type="A"></ol>' + `
+                            </div>
+                            <!-- Petunjuk are loaded here -->
+                            <div class="direct-chat-contacts bg-info ">
+                                <div class="p-3 bg-primary text-white">
+                                    <h3>Petunjuk</h3>
+                                    <p>` + data.petunjuk + `</p>
+                                </div>
+                                <div class="p-3 bg-info text-white">
+                                    <h3>Pembahasan</h3>
+                                    <p>` + data.pembahasan + `</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer" style="display: block;">
+                            <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editSoalModal">Edit</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-card-widget="remove">Hapus</button>
                         </div>
                     </div>
 					`
-					console.log(data)
+					// tambahkan cardnya
 					$('#reviewsoal').append(card)
+
+					// tambahkan pilihan gandanya
+					$.each(JSON.parse(data.opsi), function(idx, item) {
+						$('#ul-' + data.id).append('<li>' + item + '</li>')
+					})
+					// console.log(data)
 				},
 			});
 		}
@@ -124,6 +150,7 @@
 		if ($(this).is(":not(:checked)")) {
 			var id = $(this).attr('value')
 			$('#sisipkansoal-' + id).remove()
+			$('#card-soal-' + id).remove()
 		}
 	})
 </script>

@@ -1,3 +1,9 @@
+<style>
+    input[type=radio] {
+        transform: scale(2);
+    }
+
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -16,60 +22,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <div id="reviewsoal">
-                    <div class="card card-primary card-outline direct-chat direct-chat-primary">
-                        <div class="card-header">
-                            <div class="card-tools">
-                                <span data-toggle="tooltip" title="3 New Messages" class="badge bg-primary">Jenis Soal</span>
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Opsi Jawaban" data-widget="chat-pane-toggle">
-                                    <i class="fas fa-question-circle"></i>
-                                </button>
-
-                            </div>
-                            <h3 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aut minima dicta nulla iusto impedit laboriosam at doloremque vel. Voluptate, sapiente laboriosam. Modi ipsa ad cum rerum suscipit cupiditate facilis.</h3>
-
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body" style="display: block;">
-                            <!-- Conversations are loaded here -->
-                            <div class="direct-chat-messages">
-                                <ol>
-                                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, repellendus ducimus. Adipisci minima, iusto totam saepe quae dignissimos? Nam quidem tempore ea perferendis praesentium ad deleniti accusantium! Adipisci, quam nihil.</li>
-                                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, repellendus ducimus. Adipisci minima, iusto totam saepe quae dignissimos? Nam quidem tempore ea perferendis praesentium ad deleniti accusantium! Adipisci, quam nihil.</li>
-                                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, repellendus ducimus. Adipisci minima, iusto totam saepe quae dignissimos? Nam quidem tempore ea perferendis praesentium ad deleniti accusantium! Adipisci, quam nihil.</li>
-                                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, repellendus ducimus. Adipisci minima, iusto totam saepe quae dignissimos? Nam quidem tempore ea perferendis praesentium ad deleniti accusantium! Adipisci, quam nihil.</li>
-                                </ol>
-                            </div>
-                            <!--/.direct-chat-messages-->
-
-                            <!-- Petunjuk are loaded here -->
-                            <div class="direct-chat-contacts">
-                                petunjuk
-                                <br>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minus ex facilis vero. Beatae nisi aut laudantium aliquid eum quos ad architecto inventore, officia illo voluptatum omnis veritatis officiis id.
-                            </div>
-                            <!-- /.petunjuk-chat-pane -->
-
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer" style="display: block;">
-                            <button class="btn btn-warning btn-sm">Edit</button>
-                            <button type="button" class="btn btn-danger btn-sm" data-card-widget="remove">Hapus</button>
-                        </div>
-                        <!-- /.card-footer-->
-                    </div>
-                </div>
+                <div id="reviewsoal"></div>
                 <hr>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#tambahSoal">Tambah Soal</button>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#sisipkanSoal">Sisipkan Soal</button>
@@ -150,7 +103,103 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <form id="formTambahSoal">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Kategori</label>
+                                        <select name="mapelid" class="form-control">
+                                            <!-- <option value="">select category</option> -->
+                                            <?php
+                                            foreach ($all_category as $category) {
+                                                $selected = ($category['id'] == $this->input->post('category_id')) ? ' selected="selected"' : "";
+
+                                                echo '<option value="' . $category['id'] . '" ' . $selected . '>' . $category['title'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Kelas</label>
+                                        <select class="form-control" id="kelasid">
+                                            <?php
+                                            foreach ($all_tag as $tag) {
+                                                $checked = ($tag['id'] == $this->input->post('tag_id')) ? ' checked="checked"' : "";
+
+                                                echo '<option value="' . $tag['id'] . '">' . $tag['title'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Skor</label>
+                                        <input class="form-control" type="number" min=0 max=100>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Soal</label>
+                                <textarea class="form-control summernote" name="soal" id="soal"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect2">Jenis Soal</label>
+                                <select class="form-control" id="exampleFormControlSelect2">
+                                    <option>Pilihan Ganda</option>
+                                    <option>Isian</option>
+                                </select>
+                            </div>
+                            <label for="exampleFormControlTextarea1">Opsi Jawaban</label>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                    <div class="ml-3">
+                                        <label class="form-check-label summernote" for="exampleRadios1">
+                                            Default radio
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                    <div class="ml-3">
+                                        <label class="form-check-label summernote" for="exampleRadios1">
+                                            Default radio
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                    <div class="ml-3">
+                                        <label class="form-check-label summernote" for="exampleRadios1">
+                                            Default radio
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                    <div class="ml-3">
+                                        <label class="form-check-label summernote" for="exampleRadios1">
+                                            Default radio
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Kunci</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Petunjuk</label>
+                                <textarea class="summernote" name="" id="" rows="1"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Pembahasan</label>
+                                <textarea class="summernote" name="" id="" rows="1"></textarea>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -197,6 +246,26 @@
             </div>
         </div>
 
+        <!-- edit soal modal -->
+        <div class="modal fade" id="editSoalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Soal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </section>
     <!-- /.content -->
