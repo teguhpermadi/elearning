@@ -101,6 +101,24 @@
                                     echo '<textarea type="text" name="kunci" class="form-control summernote" id="kunci">'.$soal['kunci'].'</textarea>';
                                 } else {
                                     // jika tidak, maka itu soal pilihan ganda
+                                    $kunci_opsi_values = array(
+                                        'a' => 'A',
+                                        'b' => 'B',
+                                        'c' => 'C',
+                                        'd' => 'D',
+                                    );
+    
+                                    foreach ($kunci_opsi_values as $value => $display_text) {
+                                        $selected = ($value == $soal['kunci']) ? ' selected="selected"' : "";
+    
+                                        echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+                                    };
+
+                                    $html = '<div class="form-group" id="kunci_opsi">
+                                    <select name="kunci[]" class="form-control">
+                                    </select>
+                                </div>';
+
                                 };
                                 ?>
                                 
