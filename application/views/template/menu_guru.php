@@ -41,6 +41,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?= base_url('soal') ?>" class="nav-link <?php if($this->uri->segment(1) == 'soal') { echo 'active';}?>">
+                  <i class="fas fa-database nav-icon"></i>
+                  <p>Bank Soal</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?= base_url('ujian') ?>" class="nav-link <?php if($this->uri->segment(1) == 'ujian') { echo 'active';}?>">
                   <i class="fas fa-pencil-ruler nav-icon"></i>
                   <p>Ujian</p>

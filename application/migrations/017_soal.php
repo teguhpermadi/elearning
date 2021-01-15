@@ -23,8 +23,8 @@ class Migration_soal extends CI_Migration
                 'type' => 'BIGINT',  
                 'constraint' => '255',
             ),
-            'kelas_id' => array( // siapa pemilik soal ini
-                'type' => 'BIGINT',  
+            'tingkat' => array( // siapa pemilik soal ini
+                'type' => 'VARCHAR',  
                 'constraint' => '255',
             ),
             'created_at' => array( // kapan soal ini dibuat

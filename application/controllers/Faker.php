@@ -68,7 +68,7 @@ class Faker extends CI_Controller
                 // isi data pada tabel guru
                 'author_id' => $faker->numberBetween($min = 3, $max = 5),
                 'mapel_id' => $faker->numberBetween($min = 1, $max = 3),
-                'kelas_id' => $faker->numberBetween($min = 1, $max = 3),
+                'tingkat' => $faker->numberBetween($min = 7, $max = 9),
                 'created_at' => datetime_now(),
                 'soal' => $faker->realText($maxNbChars = 200, $indexSize = 2),
                 'jenis_soal' => 'pilihan ganda',
