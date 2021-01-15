@@ -12,7 +12,6 @@ class Ujian_model extends CI_Model
         $author_id = user_info()['id'];
         return $this->db->select('*')
         ->from('soal')
-        ->where('soal.aktif', 1)
         ->where('soal.author_id', $author_id)
         // ->where('soal.meta["category"]', $category)
         // ->where('soal.meta["tag"]', $tag)

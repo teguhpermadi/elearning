@@ -84,7 +84,6 @@ class Faker extends CI_Controller
                 'petunjuk' => $faker->sentence($nbWords = 6, $variableNbWords = true),
                 'pembahasan' => $faker->sentence($nbWords = 15, $variableNbWords = true),
                 'skor' => $faker->numberBetween($min = 1, $max = 5),
-                'aktif' => $faker->numberBetween($min = 0, $max = 1),
             ];
             
             array_push($data, $soal);

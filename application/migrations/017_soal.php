@@ -46,26 +46,6 @@ class Migration_soal extends CI_Migration
                 'type' => 'JSON',  
                 'default' => null,              
             ),
-            // 'opsi_a' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
-            //     'type' => 'VARCHAR',  
-            //     'constraint' => '255',      
-            // ),
-            // 'opsi_b' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
-            //     'type' => 'VARCHAR',  
-            //     'constraint' => '255',      
-            // ),
-            // 'opsi_c' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
-            //     'type' => 'VARCHAR',  
-            //     'constraint' => '255',      
-            // ),
-            // 'opsi_d' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
-            //     'type' => 'VARCHAR',  
-            //     'constraint' => '255',      
-            // ),
-            // 'opsi_e' => array( // khusus pilihan ganda gunakan kolom ini untuk menyimpan pilihannya
-            //     'type' => 'VARCHAR',  
-            //     'constraint' => '255',      
-            // ),
             'petunjuk' => array( // opsional untuk menampilkan petunjuk dalam mengerjakan soal
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              
@@ -77,10 +57,6 @@ class Migration_soal extends CI_Migration
             'pembahasan' => array( // opsional untuk menampilkan pembahasan dari soal ini
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              
-            ),
-            'aktif' => array( //soal aktif atau tidak
-                'type' => 'TINYINT',
-                'constraint' => '1',
             ),
         ));
         $this->dbforge->add_key('id', TRUE);

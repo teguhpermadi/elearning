@@ -1,12 +1,12 @@
 <script>
 	$(document).ready(function() {
-		// summernote
+		// summernote.
 		$('.summernote').summernote({
 			height: 150, //set editable area's height
 			codemirror: { // codemirror options
 				theme: 'monokai'
 			},
-			placeholder: 'Tulis konten disini',
+			placeholder: 'Tulis soal disini',
 			callbacks: {
 				onImageUpload: function(image) {
 					uploadImage(image[0]);
@@ -58,14 +58,29 @@
 			});
 		}
 
+		// setting awal
+		$('#col-opsi').show()
+		$('#kunci_isian').hide()
+		$('#kunci_opsi').show()
+
 		// ketika drodown jenis soal di ganti
 		$('#jenis_soal').change(function() {
 			var value = $(this).val()
 			if (value == 1) {
+				// opsi jawaban tampilkan
 				$('#col-opsi').show()
-			} else {
-				$('#col-opsi').hide()
+				// kunci isian sembunyikan
+				$('#kunci_isian').hide()
+				// kunci opsi show
+				$('#kunci_opsi').show()
 
+			} else {
+				// kunci isian show
+				$('#kunci_isian').show()
+				// opsi jawaban hide
+				$('#col-opsi').hide()
+				// kunci opsi hide
+				$('#kunci_opsi').hide()
 			}
 		})
 	})

@@ -29,7 +29,6 @@
               <!-- <th>Mapel Id</th> -->
               <th>Tingkat</th>
               <th>Jenis Soal</th>
-              <th>Status</th>
               <!-- <th>Author Id</th> -->
               <!-- <th>Created At</th> -->
               <th>Soal</th>
@@ -48,7 +47,6 @@
                 <!-- <td><?php echo $s['mapel_id']; ?></td> -->
                 <td><?php echo $s['tingkat']; ?></td>
                 <td><?php echo $s['jenis_soal']; ?></td>
-                <td><?php echo ($s['aktif'] == 1) ? '<span class="badge badge-primary">Aktif</span>' : '<span class="badge badge-secondary">Non Aktif</span>'; ?></td>
                 <!-- <td><?php echo $s['author_id']; ?></td> -->
                 <!-- <td><?php echo $s['created_at']; ?></td> -->
                 <td><?php echo word_limiter($s['soal'], 15); ?></td>

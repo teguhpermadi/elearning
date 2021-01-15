@@ -62,8 +62,7 @@
                         <div class="col-md-6">
                             <label for="jenis_soal" class="control-label">Jenis Soal</label>
                             <div class="form-group">
-                                <select name="jenis_soal" class="form-control">
-                                    <option value="">select</option>
+                                <select name="jenis_soal" class="form-control" disabled>
                                     <?php
                                     $jenis_soal_values = array(
                                         '1' => 'pilihan ganda',
@@ -80,89 +79,65 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="aktif" class="control-label">Aktif</label>
-                            <div class="form-group">
-                                <select name="aktif" class="form-control">
-                                    <option value="">select</option>
-                                    <?php
-                                    $aktif_values = array(
-                                        '1' => 'Aktif',
-                                        '0' => 'Non Aktif',
-                                    );
-
-                                    foreach ($aktif_values as $value => $display_text) {
-                                        $selected = ($value == $soal['aktif']) ? ' selected="selected"' : "";
-
-                                        echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="author_id" class="control-label">Author Id</label>
-                            <div class="form-group">
-                                <input type="text" name="author_id" value="<?php echo ($this->input->post('author_id') ? $this->input->post('author_id') : $soal['author_id']); ?>" class="form-control" id="author_id" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="created_at" class="control-label">Created At</label>
-                            <div class="form-group">
-                                <input type="text" name="created_at" value="<?php echo ($this->input->post('created_at') ? $this->input->post('created_at') : $soal['created_at']); ?>" class="has-datetimepicker form-control" id="created_at" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="soal" class="control-label"><span class="text-danger">*</span>Soal</label>
-                            <div class="form-group">
-                                <input type="text" name="soal" value="<?php echo ($this->input->post('soal') ? $this->input->post('soal') : $soal['soal']); ?>" class="form-control" id="soal" />
-                                <span class="text-danger"><?php echo form_error('soal'); ?></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="skor" class="control-label"><span class="text-danger">*</span>Skor</label>
+                            <label for="skor" class="control-label">Skor</label>
                             <div class="form-group">
                                 <input type="text" name="skor" value="<?php echo ($this->input->post('skor') ? $this->input->post('skor') : $soal['skor']); ?>" class="form-control" id="skor" />
-                                <span class="text-danger"><?php echo form_error('skor'); ?></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="petunjuk" class="control-label">Petunjuk</label>
+                        <div class="col-md-12">
+                            <label for="soal" class="control-label">Soal</label>
                             <div class="form-group">
-                                <input type="text" name="petunjuk" value="<?php echo ($this->input->post('petunjuk') ? $this->input->post('petunjuk') : $soal['petunjuk']); ?>" class="form-control" id="petunjuk" />
+                                <textarea type="text" name="soal" class="form-control summernote" id="soal"><?= $soal['soal'] ?></textarea>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="kunci" class="control-label"><span class="text-danger">*</span>Kunci</label>
+                        <div class="col-md-12">
+                            <label for="kunci" class="control-label">Kunci</label>
                             <div class="form-group">
-                                <input type="text" name="kunci" value="<?php echo ($this->input->post('kunci') ? $this->input->post('kunci') : $soal['kunci']); ?>" class="form-control" id="kunci" />
-                                <span class="text-danger"><?php echo form_error('kunci'); ?></span>
+                                <?php
+                                // hitung panjang kunci
+                                $strlen = strlen($soal['kunci']);
+                                if ($strlen > 1) {
+                                    // jika panjang kuncinya lebih dari 1 berarti itu soal isian
+                                    echo '<textarea type="text" name="kunci" class="form-control summernote" id="kunci">'.$soal['kunci'].'</textarea>';
+                                } else {
+                                    // jika tidak, maka itu soal pilihan ganda
+                                };
+                                ?>
+                                
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="pembahasan" class="control-label">Pembahasan</label>
-                            <div class="form-group">
-                                <input type="text" name="pembahasan" value="<?php echo ($this->input->post('pembahasan') ? $this->input->post('pembahasan') : $soal['pembahasan']); ?>" class="form-control" id="pembahasan" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="opsi" class="control-label">Opsi</label>
                             <div class="form-group">
                                 <textarea name="opsi" class="form-control" id="opsi"><?php echo ($this->input->post('opsi') ? $this->input->post('opsi') : $soal['opsi']); ?></textarea>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <label for="petunjuk" class="control-label">Petunjuk</label>
+                            <div class="form-group">
+                                <textarea type="text" name="petunjuk" class="form-control summernote" id="petunjuk"><?= $soal['petunjuk'] ?></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="pembahasan" class="control-label">Pembahasan</label>
+                            <div class="form-group">
+                                <textarea type="text" name="pembahasan" class="form-control summernote" id="pembahasan"><?= $soal['pembahasan'] ?></textarea>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <!-- /.card-body -->
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-check"></i> Save
-                    </button>
-                </div>
-                <!-- /.card-footer-->
-                <?php echo form_close(); ?>
             </div>
-            <!-- /.card -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+            <!-- /.card-footer-->
+            <?php echo form_close(); ?>
+        </div>
+        <!-- /.card -->
 
     </section>
     <!-- /.content -->

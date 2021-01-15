@@ -23,7 +23,7 @@ class Soal extends CI_Controller
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('soal/index', $data);
-        $this->load->view('template/footer', $data);
+        $this->load->view('template/footer');
     }
 
     /*
@@ -31,41 +31,59 @@ class Soal extends CI_Controller
      */
     function add()
     {
-        $this->load->library('form_validation');
+        if (isset($_POST) && count($_POST) > 0) {
+            $jenis_soal = $this->input->post('jenis_soal');
+            if ($jenis_soal == 1) {
+                // jika soal pilihan ganda
+                $params = array(
+                    'mapel_id' => $this->input->post('mapel_id'),
+                    'tingkat' => $this->input->post('tingkat'),
+                    'jenis_soal' => $this->input->post('jenis_soal'),
+                    'author_id' => user_info()['id'],
+                    'created_at' => datetime_now(),
+                    'soal' => $this->input->post('soal'),
+                    'skor' => $this->input->post('skor'),
+                    'petunjuk' => $this->input->post('petunjuk'),
+                    'kunci' => $this->input->post('kunci[1]'), // ambil array ke-1
+                    'pembahasan' => $this->input->post('pembahasan'),
+                    'opsi' => json_encode([
+                        'a' => $this->input->post('opsi[0]'),
+                        'b' => $this->input->post('opsi[1]'),
+                        'c' => $this->input->post('opsi[2]'),
+                        'd' => $this->input->post('opsi[3]'),
+                    ]),
+                );
+            } else {
+                // jika soal isian
+                $params = array(
+                    'mapel_id' => $this->input->post('mapel_id'),
+                    'tingkat' => $this->input->post('tingkat'),
+                    'jenis_soal' => $this->input->post('jenis_soal'),
+                    'author_id' => user_info()['id'],
+                    'created_at' => datetime_now(),
+                    'soal' => $this->input->post('soal'),
+                    'skor' => $this->input->post('skor'),
+                    'petunjuk' => $this->input->post('petunjuk'),
+                    'kunci' => $this->input->post('kunci[0]'), // ambil array ke-0
+                    'pembahasan' => $this->input->post('pembahasan'),
+                    'opsi' => null,
+                );
+            }
 
-        $this->form_validation->set_rules('soal', 'Soal', 'required');
-        $this->form_validation->set_rules('kunci', 'Kunci', 'required');
-        $this->form_validation->set_rules('skor', 'Skor', 'required');
-
-        if ($this->form_validation->run()) {
-            $params = array(
-                'mapel_id' => $this->input->post('mapel_id'),
-                'tingkat' => $this->input->post('tingkat'),
-                'jenis_soal' => $this->input->post('jenis_soal'),
-                'aktif' => 1,
-                'author_id' => user_info()['id'],
-                'created_at' => datetime_now(),
-                'soal' => $this->input->post('soal'),
-                'skor' => $this->input->post('skor'),
-                'petunjuk' => $this->input->post('petunjuk'),
-                'kunci' => $this->input->post('kunci[]'),
-                'pembahasan' => $this->input->post('pembahasan'),
-                // 'opsi' => $this->input->post('opsi[]'),
-            );
-
-            echo json_encode($params);
-            // $soal_id = $this->Soal_model->add_soal($params);
-            // redirect('soal/index');
+            $soal_id = $this->Soal_model->add_soal($params);
+            redirect('soal/index');
+            // header('Content-Type: application/json');
+            // echo json_encode($params);
         } else {
             $this->load->model('Mapel_model');
-            $data['all_mapel'] = $this->Soal_model->get_mapel();
+            $data['all_mapel'] = $this->Mapel_model->get_all_mapel();
             $data['js'] = $this->load->view('soal/js_add', $data, true);
 
             $data['_view'] = 'soal/add';
             $this->load->view('template/header');
             $this->load->view('template/sidebar');
             $this->load->view('soal/add', $data);
-            $this->load->view('template/footer', $data);
+            $this->load->view('template/footer');
         }
     }
 
@@ -78,20 +96,13 @@ class Soal extends CI_Controller
         $data['soal'] = $this->Soal_model->get_soal($id);
 
         if (isset($data['soal']['id'])) {
-            $this->load->library('form_validation');
-
-            $this->form_validation->set_rules('soal', 'Soal', 'required');
-            $this->form_validation->set_rules('kunci', 'Kunci', 'required');
-            $this->form_validation->set_rules('skor', 'Skor', 'required');
-
-            if ($this->form_validation->run()) {
+            if (isset($_POST) && count($_POST) > 0) {
                 $params = array(
                     'mapel_id' => $this->input->post('mapel_id'),
                     'tingkat' => $this->input->post('tingkat'),
                     'jenis_soal' => $this->input->post('jenis_soal'),
-                    'aktif' => $this->input->post('aktif'),
-                    'author_id' => $this->input->post('author_id'),
-                    'created_at' => $this->input->post('created_at'),
+                    'author_id' => user_info()['id'],
+                    'created_at' => datetime_now(),
                     'soal' => $this->input->post('soal'),
                     'skor' => $this->input->post('skor'),
                     'petunjuk' => $this->input->post('petunjuk'),
@@ -111,7 +122,7 @@ class Soal extends CI_Controller
                 $this->load->view('template/header');
                 $this->load->view('template/sidebar');
                 $this->load->view('soal/edit', $data);
-                $this->load->view('template/footer', $data);
+                $this->load->view('template/footer');
             }
         } else
             show_error('The soal you are trying to edit does not exist.');
