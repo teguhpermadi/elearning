@@ -16,13 +16,6 @@
 				}
 			},
 			disableDragAndDrop: true,
-			toolbar: [
-				// [groupName, [list of button]]
-				['style', ['bold', 'italic', 'underline', 'clear']],
-				['font', ['strikethrough', 'superscript', 'subscript']],
-				['fontsize', ['fontsize']],
-				['para', ['ul', 'ol', 'paragraph']],
-			]
 		});
 
 		function uploadImage(image) {

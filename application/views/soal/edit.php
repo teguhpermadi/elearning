@@ -61,8 +61,9 @@
                         </div>
                         <div class="col-md-6">
                             <label for="jenis_soal" class="control-label">Jenis Soal</label>
+                            <input type="hidden" name="jenis_soal" value="<?= $soal['jenis_soal'] ?>">
                             <div class="form-group">
-                                <select name="jenis_soal" class="form-control" disabled>
+                                <select class="form-control" disabled>
                                     <?php
                                     $jenis_soal_values = array(
                                         '1' => 'pilihan ganda',
@@ -94,9 +95,8 @@
                             <label for="kunci" class="control-label">Kunci</label>
                             <div class="form-group">
                                 <?php
-                                // hitung panjang kunci
-                                $strlen = strlen($soal['kunci']);
-                                if ($strlen > 1) {
+                                // cek jenis soal
+                                if ($soal['jenis_soal'] == 2) {
                                     // jika panjang kuncinya lebih dari 1 berarti itu soal isian
                                     echo '<textarea type="text" name="kunci" class="form-control summernote" id="kunci">'.$soal['kunci'].'</textarea>';
                                 } else {
@@ -107,17 +107,14 @@
                                         'c' => 'C',
                                         'd' => 'D',
                                     );
-    
+                                    echo '<select name="kunci" class="form-control">';
                                     foreach ($kunci_opsi_values as $value => $display_text) {
                                         $selected = ($value == $soal['kunci']) ? ' selected="selected"' : "";
     
                                         echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
                                     };
 
-                                    $html = '<div class="form-group" id="kunci_opsi">
-                                    <select name="kunci[]" class="form-control">
-                                    </select>
-                                </div>';
+                                    echo '</select>';
 
                                 };
                                 ?>
@@ -125,10 +122,31 @@
                             </div>
                         </div>
                         <div class="col-md-12">
+                        <?php
+                        if($soal['jenis_soal'] == 1 ):
+                            $obj = json_decode($soal['opsi']);
+                        ?>
                             <label for="opsi" class="control-label">Opsi</label>
-                            <div class="form-group">
-                                <textarea name="opsi" class="form-control" id="opsi"><?php echo ($this->input->post('opsi') ? $this->input->post('opsi') : $soal['opsi']); ?></textarea>
-                            </div>
+                        
+                            <table class="table table-striped">
+                            <tr>
+                                <td>A</td>
+                                <td><textarea name="opsi[]" id="kunci_opsi_a" class="form-control summernote" id="opsi"><?= $obj->{'a'} ?></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>B</td>
+                                <td><textarea name="opsi[]" id="kunci_opsi_b" class="form-control summernote" id="opsi"><?= $obj->{'b'} ?></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>C</td>
+                                <td><textarea name="opsi[]" id="kunci_opsi_c" class="form-control summernote" id="opsi"><?= $obj->{'c'} ?></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>D</td>
+                                <td><textarea name="opsi[]" id="kunci_opsi_d" class="form-control summernote" id="opsi"><?= $obj->{'d'} ?></textarea></td>
+                            </tr>
+                        </table>
+                        <?php endif ?>
                         </div>
                         <div class="col-md-12">
                             <label for="petunjuk" class="control-label">Petunjuk</label>

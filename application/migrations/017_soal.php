@@ -31,8 +31,7 @@ class Migration_soal extends CI_Migration
                 'type' => 'DATETIME',
             ),
             'soal' => array( // isi soal
-                'type' => 'VARCHAR',  
-                'constraint' => '255',              
+                'type' => 'TEXT',    
             ),
             'skor' => array( // skor soal
                 'type' => 'VARCHAR',  

@@ -16,7 +16,13 @@ class Soal_model extends CI_Model
      */
     function get_soal($id)
     {
-        return $this->db->get_where('soal',array('id'=>$id))->row_array();
+        // return $this->db->get_where('soal',array('id'=>$id))->row_array();
+        // return $this->db->select('*')
+        return $this->db->select('*')
+        ->from('soal')
+        ->where('id', $id)
+        ->get()
+        ->row_array();
     }
         
     /*

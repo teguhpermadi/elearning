@@ -71,13 +71,13 @@ class Faker extends CI_Controller
                 'tingkat' => $faker->numberBetween($min = 7, $max = 9),
                 'created_at' => datetime_now(),
                 'soal' => $faker->realText($maxNbChars = 200, $indexSize = 2),
-                'jenis_soal' => 'pilihan ganda',
+                'jenis_soal' => '1',
                 'opsi' => json_encode(
                     [
-                        'opsi_a' => $faker->sentence($nbWords = 6, $variableNbWords = true),
-                        'opsi_b' => $faker->sentence($nbWords = 6, $variableNbWords = true),
-                        'opsi_c' => $faker->sentence($nbWords = 6, $variableNbWords = true),
-                        'opsi_d' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                        'a' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                        'b' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                        'c' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                        'd' => $faker->sentence($nbWords = 6, $variableNbWords = true),
                     ]
                 ),
                 'kunci' => $faker->randomElement($array = array('a', 'b', 'c', 'd')),

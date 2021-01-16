@@ -94,22 +94,62 @@ class Soal extends CI_Controller
     {
         // check if the soal exists before trying to edit it
         $data['soal'] = $this->Soal_model->get_soal($id);
+        // echo json_encode($data['soal']);
 
+        // die;
         if (isset($data['soal']['id'])) {
             if (isset($_POST) && count($_POST) > 0) {
-                $params = array(
-                    'mapel_id' => $this->input->post('mapel_id'),
-                    'tingkat' => $this->input->post('tingkat'),
-                    'jenis_soal' => $this->input->post('jenis_soal'),
-                    'author_id' => user_info()['id'],
-                    'created_at' => datetime_now(),
-                    'soal' => $this->input->post('soal'),
-                    'skor' => $this->input->post('skor'),
-                    'petunjuk' => $this->input->post('petunjuk'),
-                    'kunci' => $this->input->post('kunci'),
-                    'pembahasan' => $this->input->post('pembahasan'),
-                    'opsi' => $this->input->post('opsi'),
-                );
+                $jenis_soal = $this->input->post('jenis_soal');
+                if ($jenis_soal == '1') {
+                    // jika soal pilihan ganda
+                    $params = array(
+                        'mapel_id' => $this->input->post('mapel_id'),
+                        'tingkat' => $this->input->post('tingkat'),
+                        // 'jenis_soal' => $this->input->post('jenis_soal'),
+                        // 'author_id' => user_info()['id'],
+                        // 'created_at' => datetime_now(),
+                        'soal' => $this->input->post('soal'),
+                        'skor' => $this->input->post('skor'),
+                        'petunjuk' => $this->input->post('petunjuk'),
+                        'kunci' => $this->input->post('kunci'),
+                        'pembahasan' => $this->input->post('pembahasan'),
+                        'opsi' => json_encode([
+                            'a' => $this->input->post('opsi[0]'),
+                            'b' => $this->input->post('opsi[1]'),
+                            'c' => $this->input->post('opsi[2]'),
+                            'd' => $this->input->post('opsi[3]'),
+                        ]),
+                    );
+                } else {
+                    // jika soal isian
+                    $params = array(
+                        'mapel_id' => $this->input->post('mapel_id'),
+                        'tingkat' => $this->input->post('tingkat'),
+                        // 'jenis_soal' => $this->input->post('jenis_soal'),
+                        // 'author_id' => user_info()['id'],
+                        // 'created_at' => datetime_now(),
+                        'soal' => $this->input->post('soal'),
+                        'skor' => $this->input->post('skor'),
+                        'petunjuk' => $this->input->post('petunjuk'),
+                        'kunci' => $this->input->post('kunci'),
+                        'pembahasan' => $this->input->post('pembahasan'),
+                        'opsi' => null,
+                    );
+                }
+
+                // $params = array(
+                //     'mapel_id' => $this->input->post('mapel_id'),
+                //     'tingkat' => $this->input->post('tingkat'),
+                //     // 'jenis_soal' => $this->input->post('jenis_soal'),
+                //     // 'author_id' => user_info()['id'],
+                //     // 'created_at' => datetime_now(),
+                //     'soal' => $this->input->post('soal'),
+                //     'skor' => $this->input->post('skor'),
+                //     'petunjuk' => $this->input->post('petunjuk'),
+                //     'kunci' => $this->input->post('kunci[0]'),
+                //     'pembahasan' => $this->input->post('pembahasan'),
+                //     'opsi' => $this->input->post('opsi'),
+                // );
 
                 $this->Soal_model->update_soal($id, $params);
                 redirect('soal/index');
@@ -142,4 +182,5 @@ class Soal extends CI_Controller
         } else
             show_error('The soal you are trying to delete does not exist.');
     }
+    
 }
