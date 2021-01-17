@@ -2,7 +2,6 @@
     input[type=radio] {
         transform: scale(2);
     }
-
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -29,183 +28,62 @@
             </div>
             <div class="col-md-4">
                 <!-- Default box -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Tambah Ujian</h3>
-                    </div>
-                    <div class="card-body">
-                        <label for="">Nama Ujian</label>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="nama_ujian" id="nama_ujian">
+                <form action="<?= base_url('ujian/save_ujian') ?>" method="POST">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Tambah Ujian</h3>
                         </div>
-                        <label for="">Kategori</label>
-                        <div class="form-group">
-                            <select name="category_id" class="form-control">
-                                <!-- <option value="">select category</option> -->
-                                <?php
-                                foreach ($all_category as $category) {
-                                    $selected = ($category['id'] == $this->input->post('category_id')) ? ' selected="selected"' : "";
-
-                                    echo '<option value="' . $category['id'] . '" ' . $selected . '>' . $category['title'] . '</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <label for="">Tag</label>
-                        <div class="form-group">
-                            <?php
-                            foreach ($all_tag as $tag) {
-                                $checked = ($tag['id'] == $this->input->post('tag_id')) ? ' checked="checked"' : "";
-
-                                echo '<input type="checkbox" name="tag_id[]" value="' . $tag['id'] . '" ' . $checked . '/> ' . $tag['title'] . '<br>';
-                            }
-                            ?>
-                        </div>
-                        <label for="published" class="control-label">Published</label>
-                        <div class="form-group">
-                            <select name="published" class="form-control">
-                                <!-- <option value="">select</option> -->
-                                <?php
-                                $published_values = array(
-                                    '1' => 'Terbit',
-                                    // '2' => 'Terjadwal',
-                                    '0' => 'Draf',
-                                );
-
-                                foreach ($published_values as $value => $display_text) {
-                                    // $selected = ($value == $this->input->post('published')) ? ' selected="selected"' : "";
-                                    $selected = '';
-                                    echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <div id="soalujian"></div>
-                        <button type="button" class="btn btn-primary">Simpan</button>
-                    </div>
-                    <!-- /.card-footer-->
-                </div>
-                <!-- /.card -->
-            </div>
-        </div>
-
-        <!-- Tambah Soal Modal -->
-        <div class="modal fade" id="tambahSoal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Soal</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formTambahSoal">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="">Kategori</label>
-                                        <select name="mapelid" class="form-control">
-                                            <!-- <option value="">select category</option> -->
-                                            <?php
-                                            foreach ($all_category as $category) {
-                                                $selected = ($category['id'] == $this->input->post('category_id')) ? ' selected="selected"' : "";
-
-                                                echo '<option value="' . $category['id'] . '" ' . $selected . '>' . $category['title'] . '</option>';
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Kelas</label>
-                                        <select class="form-control" id="kelasid">
-                                            <?php
-                                            foreach ($all_tag as $tag) {
-                                                $checked = ($tag['id'] == $this->input->post('tag_id')) ? ' checked="checked"' : "";
-
-                                                echo '<option value="' . $tag['id'] . '">' . $tag['title'] . '</option>';
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlInput1">Skor</label>
-                                        <input class="form-control" type="number" min=0 max=100>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="card-body">
+                            <label for="">Nama Ujian</label>
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">Soal</label>
-                                <textarea class="form-control summernote" name="soal" id="soal"></textarea>
+                                <input type="text" class="form-control" name="nama_ujian" id="nama_ujian" required>
                             </div>
+                            <label for="">Mata Pelajaran</label>
                             <div class="form-group">
-                                <label for="exampleFormControlSelect2">Jenis Soal</label>
-                                <select class="form-control" id="exampleFormControlSelect2">
-                                    <option>Pilihan Ganda</option>
-                                    <option>Isian</option>
+                                <select name="category_id" class="form-control" required>
+                                    <!-- <option value="">select category</option> -->
+                                    <?php
+                                    foreach ($all_category as $category) {
+                                        $selected = ($category['id'] == $this->input->post('category_id')) ? ' selected="selected"' : "";
+
+                                        echo '<option value="' . $category['id'] . '" ' . $selected . '>' . $category['title'] . '</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
-                            <label for="exampleFormControlTextarea1">Opsi Jawaban</label>
+                            <label for="">Kelas Tingkat</label>
                             <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                    <div class="ml-3">
-                                        <label class="form-check-label summernote" for="exampleRadios1">
-                                            Default radio
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                    <div class="ml-3">
-                                        <label class="form-check-label summernote" for="exampleRadios1">
-                                            Default radio
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                    <div class="ml-3">
-                                        <label class="form-check-label summernote" for="exampleRadios1">
-                                            Default radio
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                    <div class="ml-3">
-                                        <label class="form-check-label summernote" for="exampleRadios1">
-                                            Default radio
-                                        </label>
-                                    </div>
-                                </div>
+                                <select name="tingkat" class="form-control" required>
+                                    <?php
+                                    $tingkat_values = array(
+                                        '7' => '7',
+                                        '8' => '8',
+                                        '9' => '9',
+                                    );
+
+                                    foreach ($tingkat_values as $value => $display_text) {
+                                        $selected = ($value == $this->input->post('tingkat')) ? ' selected="selected"' : "";
+
+                                        echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Kunci</label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Petunjuk</label>
-                                <textarea class="summernote" name="" id="" rows="1"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Pembahasan</label>
-                                <textarea class="summernote" name="" id="" rows="1"></textarea>
-                            </div>
-                        </form>
+							<label for="published_at" class="control-label">Batas Ujian</label>
+							<div class="form-group">
+								<input type="datetime-local" name="waktu_selesai" class="has-datetimepicker form-control" />
+								<!-- <input type="datetime-local" name="published_at" value="<?php echo $this->input->post('published_at'); ?>" class="has-datetimepicker form-control" id="published_at" /> -->
+							</div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <div id="soalujian"></div>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                        <!-- /.card-footer-->
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
+                    <!-- /.card -->
+                </form>
             </div>
         </div>
 
@@ -245,6 +123,149 @@
                 </div>
             </div>
         </div>
+
+        <!-- Tambah Soal Modal -->
+        <div class="modal fade" id="tambahSoal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Soal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="formTambahSoal">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Mapel</label>
+                                        <select name="mapel_id" class="form-control">
+                                            <!-- <option value="">select category</option> -->
+                                            <?php
+                                            foreach ($all_category as $category) {
+                                                $selected = ($category['id'] == $this->input->post('category_id')) ? ' selected="selected"' : "";
+
+                                                echo '<option value="' . $category['id'] . '" ' . $selected . '>' . $category['title'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="tingkat" class="control-label">Tingkat</label>
+                                    <div class="form-group">
+                                        <select name="tingkat" class="form-control" required>
+                                            <?php
+                                            $tingkat_values = array(
+                                                '7' => '7',
+                                                '8' => '8',
+                                                '9' => '9',
+                                            );
+
+                                            foreach ($tingkat_values as $value => $display_text) {
+                                                $selected = ($value == $this->input->post('tingkat')) ? ' selected="selected"' : "";
+
+                                                echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Skor</label>
+                                        <input class="form-control" type="number" name="skor" min=0 max=100>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Soal</label>
+                                <textarea class="form-control summernote" name="soal" id="soal"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect2">Jenis Soal</label>
+                                <select name="jenis_soal" class="form-control" id="jenis_soal">
+                                    <?php
+                                    $jenis_soal_values = array(
+                                        '1' => 'pilihan ganda',
+                                        '2' => 'isian',
+                                    );
+
+                                    foreach ($jenis_soal_values as $value => $display_text) {
+                                        $selected = ($value == $this->input->post('jenis_soal')) ? ' selected="selected"' : "";
+
+                                        echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="kunci" class="control-label">Kunci</label>
+                                <div class="form-group" id="kunci_isian">
+                                    <textarea type="text" name="kunci[]" value="<?php echo $this->input->post('kunci'); ?>" class="form-control summernote"></textarea>
+                                </div>
+                                <div class="form-group" id="kunci_opsi">
+                                    <select name="kunci[]" class="form-control">
+                                        <?php
+                                        $kunci_opsi_values = array(
+                                            'a' => 'A',
+                                            'b' => 'B',
+                                            'c' => 'C',
+                                            'd' => 'D',
+                                        );
+
+                                        foreach ($kunci_opsi_values as $value => $display_text) {
+                                            $selected = ($value == $this->input->post('kunci')) ? ' selected="selected"' : "";
+
+                                            echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <div id="col-opsi">
+                                        <label for="opsi" class="control-label">Opsi</label>
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <td>A</td>
+                                                <td><textarea name="opsi[]" id="kunci_opsi_a" class="form-control summernote" id="opsi"><?php echo $this->input->post('opsi[]'); ?></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>B</td>
+                                                <td><textarea name="opsi[]" id="kunci_opsi_b" class="form-control summernote" id="opsi"><?php echo $this->input->post('opsi[]'); ?></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>C</td>
+                                                <td><textarea name="opsi[]" id="kunci_opsi_c" class="form-control summernote" id="opsi"><?php echo $this->input->post('opsi[]'); ?></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>D</td>
+                                                <td><textarea name="opsi[]" id="kunci_opsi_d" class="form-control summernote" id="opsi"><?php echo $this->input->post('opsi[]'); ?></textarea></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Petunjuk</label>
+                                    <textarea class="summernote" name="petunjuk" id="petunjuk" rows="1"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Pembahasan</label>
+                                    <textarea class="summernote" name="pembahasan" id="pembahasan" rows="1"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
 
         <!-- edit soal modal -->
         <div class="modal fade" id="editSoalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

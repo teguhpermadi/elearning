@@ -30,8 +30,15 @@ class Soal_model extends CI_Model
      */
     function get_all_soal()
     {
-        $this->db->order_by('id', 'desc');
-        return $this->db->get('soal')->result_array();
+        // $this->db->order_by('id', 'desc');
+        // return $this->db->get('soal')->result_array();
+        $user_id = user_info()['id'];
+        return $this->db->select('*')
+        ->from('soal')
+        ->where('author_id', $user_id)
+        ->order_by('id', 'desc')
+        ->get()
+        ->result_array();
     }
         
     /*

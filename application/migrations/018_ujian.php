@@ -25,8 +25,8 @@ class Migration_ujian extends CI_Migration
                 'type' => 'BIGINT',  
                 'constraint' => '255',
             ),
-            'kelas_id' => array( // siapa pemilik soal ini
-                'type' => 'BIGINT',  
+            'kelas_tingkat' => array( // siapa pemilik soal ini
+                'type' => 'VARCHAR',  
                 'constraint' => '255',
             ),
             'nama_ujian' => array(
@@ -37,15 +37,8 @@ class Migration_ujian extends CI_Migration
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              
             ),
-            'waktu_mulai' => array(
-                'type' => 'DATETIME',          
-            ),
             'waktu_selesai' => array(
                 'type' => 'DATETIME',          
-            ),
-            'aktif' => array(
-                'type' => 'TINYINT',
-                'constraint' => '1',    
             ),
         ));
         $this->dbforge->add_key('id', TRUE);

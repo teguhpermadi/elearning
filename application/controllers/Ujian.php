@@ -12,6 +12,8 @@ class Ujian extends CI_Controller
         $this->load->model('Ujian_model');
         $this->load->model('Category_model');
         $this->load->model('Tag_model');
+        $this->load->model('Soal_model');
+
         check_login();
     }
 
@@ -47,5 +49,66 @@ class Ujian extends CI_Controller
     {
         $ujian = $this->Ujian_model->get_ujian();
         echo json_encode($ujian);
+    }
+
+    function save_soal()
+    {
+        $jenis_soal = $this->input->post('jenis_soal');
+        if ($jenis_soal == 1) {
+            // jika soal pilihan ganda
+            $params = array(
+                'mapel_id' => $this->input->post('mapel_id'),
+                'tingkat' => $this->input->post('tingkat'),
+                'jenis_soal' => $this->input->post('jenis_soal'),
+                'author_id' => user_info()['id'],
+                'created_at' => datetime_now(),
+                'soal' => $this->input->post('soal'),
+                'skor' => $this->input->post('skor'),
+                'petunjuk' => $this->input->post('petunjuk'),
+                'kunci' => $this->input->post('kunci[1]'), // ambil array ke-1
+                'pembahasan' => $this->input->post('pembahasan'),
+                'opsi' => json_encode([
+                    'a' => $this->input->post('opsi[0]'),
+                    'b' => $this->input->post('opsi[1]'),
+                    'c' => $this->input->post('opsi[2]'),
+                    'd' => $this->input->post('opsi[3]'),
+                ]),
+            );
+        } else {
+            // jika soal isian
+            $params = array(
+                'mapel_id' => $this->input->post('mapel_id'),
+                'tingkat' => $this->input->post('tingkat'),
+                'jenis_soal' => $this->input->post('jenis_soal'),
+                'author_id' => user_info()['id'],
+                'created_at' => datetime_now(),
+                'soal' => $this->input->post('soal'),
+                'skor' => $this->input->post('skor'),
+                'petunjuk' => $this->input->post('petunjuk'),
+                'kunci' => $this->input->post('kunci[0]'), // ambil array ke-0
+                'pembahasan' => $this->input->post('pembahasan'),
+                'opsi' => null,
+            );
+        }
+
+        $soal_id = $this->Soal_model->add_soal($params);
+        // dapatkan soal dengan id yang baru saja ditambahkan
+        $soal = $this->Soal_model->get_soal($soal_id);
+        echo json_encode($soal);
+    }
+
+    function save_ujian()
+    {
+        $params = [
+            'author_id' => $this->input->post(''),
+            'created_at' => $this->input->post(''),
+            'mapel_id' => $this->input->post(''),
+            'kelas_id' => $this->input->post(''),
+            'nama_ujian' => $this->input->post(''),
+            'token' => $this->input->post(''),
+            'waktu_mulai' => $this->input->post(''),
+            'waktu_selesai' => $this->input->post(''),
+            'aktif' => '1',
+        ];
     }
 }

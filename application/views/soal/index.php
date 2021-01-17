@@ -27,7 +27,7 @@
             <tr>
               <!-- <th>ID</th> -->
               <!-- <th>Mapel Id</th> -->
-              <th>Tingkat</th>
+              <th>Kelas Tingkat</th>
               <th>Jenis Soal</th>
               <!-- <th>Author Id</th> -->
               <!-- <th>Created At</th> -->
@@ -46,7 +46,7 @@
                 <!-- <td><?php echo $s['id']; ?></td> -->
                 <!-- <td><?php echo $s['mapel_id']; ?></td> -->
                 <td><?php echo $s['tingkat']; ?></td>
-                <td><?php echo $s['jenis_soal']; ?></td>
+                <td><?php echo ($s['jenis_soal'] == '1') ? '<span class="badge badge-info">Pilihan Ganda</span>' : '<span class="badge badge-info">Isian</span>'; ?></td>
                 <!-- <td><?php echo $s['author_id']; ?></td> -->
                 <!-- <td><?php echo $s['created_at']; ?></td> -->
                 <td><?php echo word_limiter($s['soal'], 15); ?></td>

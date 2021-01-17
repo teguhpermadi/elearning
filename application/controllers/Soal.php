@@ -76,7 +76,9 @@ class Soal extends CI_Controller
             // echo json_encode($params);
         } else {
             $this->load->model('Mapel_model');
-            $data['all_mapel'] = $this->Mapel_model->get_all_mapel();
+            $this->load->model('Category_model');
+            $data['all_mapel'] = $this->Category_model->get_all_category_join_pengajar();
+            // $data['all_mapel'] = $this->Mapel_model->get_all_mapel();
             $data['js'] = $this->load->view('soal/js_add', $data, true);
 
             $data['_view'] = 'soal/add';

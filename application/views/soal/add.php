@@ -32,7 +32,7 @@
                                 foreach ($all_mapel as $mapel) {
                                     $selected = ($mapel['id'] == $this->input->post('mapel_id')) ? ' selected="selected"' : "";
 
-                                    echo '<option value="' . $mapel['id'] . '" ' . $selected . '>' . $mapel['nama'] . '</option>';
+                                    echo '<option value="' . $mapel['id'] . '" ' . $selected . '>' . $mapel['title'] . '</option>';
                                 }
                                 ?>
                             </select>

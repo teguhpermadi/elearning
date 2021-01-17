@@ -67,6 +67,11 @@
 			"dom": 'tp'
 		});
 
+		// setting awal
+		$('#col-opsi').show()
+		$('#kunci_isian').hide()
+		$('#kunci_opsi').show()
+
 	})
 </script>
 
@@ -96,10 +101,16 @@
 					// jika opsi soal null
 					// opsisoal = ''
 					// }
+					var jenis_soal
+					if (data.jenis_soal == 1) {
+						jenis_soal = 'Pilihan Ganda'
+					} else {
+						jenis_soal = 'Isian'
+					}
 					var card = `
 					<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-` + data.id + `">
                         <div class="card-header">
-                            <span data-toggle="tooltip" class="badge bg-primary">` + data.jenis_soal + `</span>
+                            <span data-toggle="tooltip" class="badge bg-primary">` + jenis_soal + `</span>
                             <span data-toggle="tooltip" class="badge bg-primary">Skor ` + data.skor + `</span>
                             <p>` + data.soal + `</p>
                             <div class="card-tools">
@@ -130,7 +141,6 @@
                             </div>
                         </div>
                         <div class="card-footer" style="display: block;">
-                            <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editSoalModal">Edit</button>
                             <button type="button" class="btn btn-danger btn-sm" data-card-widget="remove">Hapus</button>
                         </div>
                     </div>
@@ -152,5 +162,103 @@
 			$('#sisipkansoal-' + id).remove()
 			$('#card-soal-' + id).remove()
 		}
+
+
 	})
+
+	// ketika drodown jenis soal di ganti
+	$('#jenis_soal').change(function() {
+		var value = $(this).val()
+		if (value == 1) {
+			// opsi jawaban tampilkan
+			$('#col-opsi').show()
+			// kunci isian sembunyikan
+			$('#kunci_isian').hide()
+			// kunci opsi show
+			$('#kunci_opsi').show()
+
+		} else {
+			// kunci isian show
+			$('#kunci_isian').show()
+			// opsi jawaban hide
+			$('#col-opsi').hide()
+			// kunci opsi hide
+			$('#kunci_opsi').hide()
+		}
+	})
+
+	$('#formTambahSoal').on('submit', function(event) {
+		event.preventDefault();
+		$.ajax({
+			url: '<?= base_url('ujian/save_soal') ?>',
+			data: $(this).serialize(),
+			type: "POST",
+			success: function(data) {
+				// console.log(data)
+				// hide modal
+				$('#tambahSoal').modal('hide')
+				// parse datanya yang barusan di kirim
+				var obj = JSON.parse(data)
+				var jenis_soal
+				if (obj.jenis_soal == 1) {
+					jenis_soal = 'Pilihan Ganda'
+				} else {
+					jenis_soal = 'Isian'
+				}
+
+				var card = `
+					<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-` + obj.id + `">
+                        <div class="card-header">
+                            <span data-toggle="tooltip" class="badge bg-primary">` + jenis_soal + `</span>
+                            <span data-toggle="tooltip" class="badge bg-primary">Skor ` + obj.skor + `</span>
+                            <p>` + obj.soal + `</p>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
+                                    <i class="fas fa-question-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" style="display: block;">
+						<div class="direct-chat-messages">
+								<div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
+								` + obj.kunci + `
+								</div>
+								` + '<ol id="ul-' + obj.id + '" type="A"></ol>' + `
+                            </div>
+                            <!-- Petunjuk are loaded here -->
+                            <div class="direct-chat-contacts bg-info ">
+                                <div class="p-3 bg-primary text-white">
+                                    <h3>Petunjuk</h3>
+                                    <p>` + obj.petunjuk + `</p>
+                                </div>
+                                <div class="p-3 bg-info text-white">
+                                    <h3>Pembahasan</h3>
+                                    <p>` + obj.pembahasan + `</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer" style="display: block;">
+                            <button type="button" class="btn btn-danger btn-sm" data-card-widget="remove">Hapus</button>
+                        </div>
+                    </div>
+					`
+				// tambahkan cardnya
+				$('#reviewsoal').append(card)
+
+				// tambahkan pilihan gandanya
+				$.each(JSON.parse(obj.opsi), function(idx, item) {
+					$('#ul-' + obj.id).append('<li>' + item + '</li>')
+				})
+
+				var html = '<input type="hidden" value="' + obj.id + '" name="sisipkansoalid[]" id="sisipkansoal-' + obj.id + '">'
+				$('#soalujian').append(html)
+			},
+			error: function(err) {
+				console.log(err)
+			}
+		})
+	})
+
 </script>
