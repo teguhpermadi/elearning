@@ -38,7 +38,8 @@ class Migration_ujian extends CI_Migration
                 'constraint' => '255',              
             ),
             'waktu_selesai' => array(
-                'type' => 'DATETIME',          
+                'type' => 'DATETIME',  
+                'default' => null,        
             ),
         ));
         $this->dbforge->add_key('id', TRUE);

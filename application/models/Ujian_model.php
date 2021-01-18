@@ -29,4 +29,10 @@ class Ujian_model extends CI_Model
         ->from('ujian')
         ->get()->result_array();
     }
+
+    function save_ujian($params)
+    {
+        $this->db->insert('ujian',$params);
+        return $this->db->insert_id();
+    }
 }

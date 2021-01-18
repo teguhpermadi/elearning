@@ -254,11 +254,20 @@
 
 				var html = '<input type="hidden" value="' + obj.id + '" name="sisipkansoalid[]" id="sisipkansoal-' + obj.id + '">'
 				$('#soalujian').append(html)
+
+				// atur ulang formnya
+				$("select.dropdown").prop('selectedIndex', 0);
+				$('#skor').val('');
+				// setting awal
+				$('#col-opsi').show()
+				$('#kunci_isian').hide()
+				$('#kunci_opsi').show()
+				$(".summernote").summernote("code", "");
+
 			},
 			error: function(err) {
 				console.log(err)
 			}
 		})
 	})
-
 </script>

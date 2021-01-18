@@ -53,7 +53,7 @@
                             </div>
                             <label for="">Kelas Tingkat</label>
                             <div class="form-group">
-                                <select name="tingkat" class="form-control" required>
+                                <select name="kelas_tingkat" class="form-control" required>
                                     <?php
                                     $tingkat_values = array(
                                         '7' => '7',
@@ -111,7 +111,7 @@
                                     <tr>
                                         <td><input type="checkbox" class="checkbox-soal" name="soal_id[]" id="soal_id" value="<?= $soal['id'] ?>"></td>
                                         <td><?php echo word_limiter($soal['soal'], 20); ?></td>
-                                        <td><?= $soal['jenis_soal'] ?></td>
+                                        <td><?= ($soal['jenis_soal'] == 1) ? '<span class="badge badge-info">Pilihan Ganda</span>' : '<span class="badge badge-info">Isian</span>'?></td>
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>
@@ -140,7 +140,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Mapel</label>
-                                        <select name="mapel_id" class="form-control">
+                                        <select name="mapel_id" class="form-control dropdown" id="mapel_id">
                                             <!-- <option value="">select category</option> -->
                                             <?php
                                             foreach ($all_category as $category) {
@@ -155,7 +155,7 @@
                                 <div class="col-md-4">
                                     <label for="tingkat" class="control-label">Tingkat</label>
                                     <div class="form-group">
-                                        <select name="tingkat" class="form-control" required>
+                                        <select name="tingkat" id="tingkat" class="form-control dropdown">
                                             <?php
                                             $tingkat_values = array(
                                                 '7' => '7',
@@ -175,7 +175,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleFormControlInput1">Skor</label>
-                                        <input class="form-control" type="number" name="skor" min=0 max=100>
+                                        <input class="form-control" type="number" name="skor" id="skor" min=0 max=100>
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlSelect2">Jenis Soal</label>
-                                <select name="jenis_soal" class="form-control" id="jenis_soal">
+                                <select name="jenis_soal" class="form-control dropdown" id="jenis_soal">
                                     <?php
                                     $jenis_soal_values = array(
                                         '1' => 'pilihan ganda',
@@ -206,7 +206,7 @@
                                     <textarea type="text" name="kunci[]" value="<?php echo $this->input->post('kunci'); ?>" class="form-control summernote"></textarea>
                                 </div>
                                 <div class="form-group" id="kunci_opsi">
-                                    <select name="kunci[]" class="form-control">
+                                    <select name="kunci[]" class="form-control dropdown">
                                         <?php
                                         $kunci_opsi_values = array(
                                             'a' => 'A',
@@ -261,29 +261,6 @@
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                     </form>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- edit soal modal -->
-        <div class="modal fade" id="editSoalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Soal</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
                 </div>
             </div>
         </div>

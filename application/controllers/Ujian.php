@@ -100,15 +100,27 @@ class Ujian extends CI_Controller
     function save_ujian()
     {
         $params = [
-            'author_id' => $this->input->post(''),
-            'created_at' => $this->input->post(''),
-            'mapel_id' => $this->input->post(''),
-            'kelas_id' => $this->input->post(''),
-            'nama_ujian' => $this->input->post(''),
-            'token' => $this->input->post(''),
-            'waktu_mulai' => $this->input->post(''),
-            'waktu_selesai' => $this->input->post(''),
-            'aktif' => '1',
+            'author_id' => user_info()['id'],
+            'created_at' => datetime_now(),
+            'mapel_id' => $this->input->post('category_id'),
+            'kelas_tingkat' => $this->input->post('kelas_tingkat'),
+            'nama_ujian' => $this->input->post('nama_ujian'),
+            'token' => generateRandomString(),
+            'waktu_selesai' => $this->input->post('waktu_selesai'),
         ];
+
+        $ujian_id = $this->Ujian_model->save_ujian($params);
+        $sisipkansoalid = $this->input->post('sisipkansoalid[]');
+        $soalujian = [];
+
+        foreach ($sisipkansoalid as $key) {
+            array_push($soalujian, [
+                'soal_id' => $key,
+                'ujian_id' => $ujian_id,
+            ]);
+        }
+
+        $this->db->insert_batch('soal_ujian', $soalujian);
+        redirect('ujian');
     }
 }

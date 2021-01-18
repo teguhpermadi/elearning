@@ -6,7 +6,6 @@
 			codemirror: { // codemirror options
 				theme: 'monokai'
 			},
-			placeholder: 'Tulis soal disini',
 			callbacks: {
 				onImageUpload: function(image) {
 					uploadImage(image[0]);
