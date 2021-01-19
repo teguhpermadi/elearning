@@ -23,10 +23,13 @@ class Ujian_model extends CI_Model
         return $this->db->get_where('soal', ['id' => $id])->row_array();
     }
 
-    function get_ujian()
+    function get_all_ujian()
     {
-        return $this->db->select('*')
+        $author_id = user_info()['id'];
+        return $this->db->select('*, mapel.nama as nama_mapel')
         ->from('ujian')
+        ->where('author_id', $author_id)
+        ->join('mapel', 'mapel.id = ujian.mapel_id')
         ->get()->result_array();
     }
 
@@ -34,5 +37,31 @@ class Ujian_model extends CI_Model
     {
         $this->db->insert('ujian',$params);
         return $this->db->insert_id();
+    }
+
+    function count_soal($id)
+    {
+        $total = $this->db->get_where('soal_ujian', ['ujian_id' => $id])->num_rows();
+        $pilgan = $this->db->select('soal_ujian.*')->from('soal_ujian')->where('soal_ujian.ujian_id', $id)->where('soal.jenis_soal = 1')->join('soal', 'soal.id = soal_ujian.soal_id')->get()->num_rows();
+        $isian = $this->db->select('soal_ujian.*')->from('soal_ujian')->where('soal_ujian.ujian_id', $id)->where('soal.jenis_soal = 2')->join('soal', 'soal.id = soal_ujian.soal_id')->get()->num_rows();
+        return [
+            'total' => $total,
+            'pilgan' => $pilgan,
+            'isian' => $isian
+        ];
+    }
+
+    function get_ujian($id)
+    {
+        return $this->db->get_where('ujian', ['id' => $id])->row_array();
+    }
+
+    function get_soal_ujian($id)
+    {
+        return $this->db->select('soal.*')
+        ->from('soal_ujian')
+        ->where('soal_ujian.ujian_id', $id)
+        ->join('soal', 'soal.id = soal_ujian.soal_id')
+        ->get()->result_array();
     }
 }

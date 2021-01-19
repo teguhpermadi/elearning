@@ -58,7 +58,7 @@ class Faker extends CI_Controller
         echo 'Faker Guru Success';
     }
 
-    public function soal()
+    public function soal_pilgan()
     {
         $faker = Faker\Factory::create();
         $faker->seed(20);
@@ -93,6 +93,36 @@ class Faker extends CI_Controller
         $this->db->insert_batch('soal', $data);
         // echo 'Faker soal Success';
     }
+
+    public function soal_isian()
+    {
+        $faker = Faker\Factory::create();
+        $faker->seed(20);
+        $data = [];
+        for ($i = 0; $i < 20; $i++) {
+            $soal = [
+                // isi data pada tabel guru
+                'author_id' => $faker->numberBetween($min = 3, $max = 5),
+                'mapel_id' => $faker->numberBetween($min = 1, $max = 3),
+                'tingkat' => $faker->numberBetween($min = 7, $max = 9),
+                'created_at' => datetime_now(),
+                'soal' => $faker->realText($maxNbChars = 200, $indexSize = 2),
+                'jenis_soal' => '2',
+                'kunci' => $faker->realText($maxNbChars = 10, $indexSize = 2),
+                'petunjuk' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                'pembahasan' => $faker->sentence($nbWords = 15, $variableNbWords = true),
+                'skor' => $faker->numberBetween($min = 1, $max = 5),
+            ];
+            
+            array_push($data, $soal);
+        }
+
+        echo json_encode($data);
+        $this->db->insert_batch('soal', $data);
+        // echo 'Faker soal Success';
+    }
+
+
 
     public function ujian()
     {

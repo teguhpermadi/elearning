@@ -19,9 +19,11 @@ class Ujian extends CI_Controller
 
     function index()
     {
+        $data['all_ujian'] = $this->Ujian_model->get_all_ujian();
+
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('ujian/index');
+        $this->load->view('ujian/index', $data);
         $this->load->view('template/footer');
     }
 
@@ -122,5 +124,21 @@ class Ujian extends CI_Controller
 
         $this->db->insert_batch('soal_ujian', $soalujian);
         redirect('ujian');
+    }
+
+    function edit($id)
+    {
+        $data['ujian'] = $this->Ujian_model->get_ujian($id);
+        $data['soal_ujian'] = $this->Ujian_model->get_soal_ujian($id);
+        $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
+        $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
+        $data['js'] = $this->load->view('ujian/js_add', $data, true);
+        $data['get_soal'] = $this->Ujian_model->get_soal();
+
+        echo json_encode($data['ujian']);
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('ujian/edit', $data);
+        $this->load->view('template/footer');
     }
 }

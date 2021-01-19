@@ -27,25 +27,35 @@
                 <table class="table table-striped datatable">
                     <thead>
                         <tr>
-                            <td>Status</td>
                             <td>Nama Ujian</td>
-                            <td>Jenis</td>
                             <td>Published at</td>
+                            <td>Jumlah Soal</td>
                             <td>Kategori</td>
-                            <td>Tag</td>
+                            <td>Kelas Tingkat</td>
+                            <td>Batas Ujian</td>
                             <td>Actions</td>
                         </tr>
                     </thead>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                     <tbody>
+                    <?php foreach($all_ujian as $ujian): ?>
+                        <tr>
+                            <td><?= $ujian['nama_ujian'] ?></td>
+                            <td><?= $ujian['created_at']?></td>
+                            <td><?php
+                            $count = $this->Ujian_model->count_soal($ujian['id']);
+                            echo 'Total Soal: '.$count['total'].'<br>';
+                            echo 'Pilihan Ganda: '.$count['pilgan'].'<br>';
+                            echo 'Isian: '.$count['isian'];
+                            ?></td>
+                            <td><?= $ujian['nama_mapel']?></td>
+                            <td><?= $ujian['kelas_tingkat']?></td>
+                            <td><?= ($ujian['waktu_selesai'] == '0000-00-00 00:00:00') ? '<span class="badge badge-secondary">Tanpa Batas</span>' : '<span class="badge badge-info">'.$ujian['waktu_selesai'].'</span>'; ?></td>
+                            <td>
+                            <a class="btn btn-warning btn-sm" href="<?= base_url('ujian/edit/'.$ujian['id']) ?>">Edit</a>
+                            <a class="btn btn-danger btn-sm" href="<?= base_url('ujian/hapus/'.$ujian['id']) ?>">Hapus</a>
+                            </td>
+                        </tr>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
             </div>
