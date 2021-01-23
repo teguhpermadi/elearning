@@ -72,6 +72,8 @@
 		$('#kunci_isian').hide()
 		$('#kunci_opsi').show()
 
+		// semua card di setting collapse
+		// $('.direct-chat-primary').CardWidget('collapse')
 	})
 </script>
 
@@ -79,8 +81,8 @@
 	$(".checkbox-soal").on('click', function() {
 		if ($(this).is(":checked")) {
 			var id = $(this).attr('value')
-			var html = '<input type="hidden" value="' + id + '" name="sisipkansoalid[]" id="sisipkansoal-' + id + '">'
-			$('#soalujian').append(html)
+			// var html = '<input type="text" value="' + id + '" name="sisipkansoalid[]" id="sisipkansoalid-' + id + '">'
+			// $('#soalujian').append(html)
 
 			// load soal
 			$.ajax({
@@ -104,47 +106,88 @@
 					var jenis_soal
 					if (data.jenis_soal == 1) {
 						jenis_soal = 'Pilihan Ganda'
+						var card = `
+						<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-` + data.id + `" data-soalid="` + data.id + `">
+							<div class="card-header">
+							<input type="hidden" name="sisipkansoalid[]" value="` + data.id + `" id="sisipkansoalid-` + data.id + `">
+								<span data-toggle="tooltip" class="badge bg-primary">` + jenis_soal + `</span>
+								<span data-toggle="tooltip" class="badge bg-primary">Skor ` + data.skor + `</span>
+								<p>` + data.soal + `</p>
+								<div class="card-tools">
+									<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
+										<i class="fas fa-question-circle"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body" style="display: block;">
+							<div class="direct-chat-messages">
+									<div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
+									` + data.kunci + `
+									</div>
+									` + '<ol id="ul-' + data.id + '" type="A"></ol>' + `
+								</div>
+								<!-- Petunjuk are loaded here -->
+								<div class="direct-chat-contacts bg-info ">
+									<div class="p-3 bg-primary text-white">
+										<h3>Petunjuk</h3>
+										<p>` + data.petunjuk + `</p>
+									</div>
+									<div class="p-3 bg-info text-white">
+										<h3>Pembahasan</h3>
+										<p>` + data.pembahasan + `</p>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer" style="display: block;">
+								<button type="button" class="btn btn-danger btn-sm " data-card-widget="remove"  data-soalid="`+data.id+`">Hapus</button>
+							</div>
+						</div>
+						`
 					} else {
 						jenis_soal = 'Isian'
-					}
-					var card = `
-					<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-` + data.id + `">
-                        <div class="card-header">
-                            <span data-toggle="tooltip" class="badge bg-primary">` + jenis_soal + `</span>
-                            <span data-toggle="tooltip" class="badge bg-primary">Skor ` + data.skor + `</span>
-                            <p>` + data.soal + `</p>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
-                                    <i class="fas fa-question-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" style="display: block;">
-						<div class="direct-chat-messages">
-								<div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
-								` + data.kunci + `
+
+						var card = `
+						<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-` + data.id + `" data-soalid="` + data.id + `">
+							<div class="card-header">
+							<input type="hidden" name="sisipkansoalid[]" value="` + data.id + `" id="sisipkansoalid-` + data.id + `">
+								<span data-toggle="tooltip" class="badge bg-primary">` + jenis_soal + `</span>
+								<span data-toggle="tooltip" class="badge bg-primary">Skor ` + data.skor + `</span>
+								<p>` + data.soal + `</p>
+								<div class="card-tools">
+									<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
+										<i class="fas fa-question-circle"></i>
+									</button>
 								</div>
-								` + '<ol id="ul-' + data.id + '" type="A"></ol>' + `
-                            </div>
-                            <!-- Petunjuk are loaded here -->
-                            <div class="direct-chat-contacts bg-info ">
-                                <div class="p-3 bg-primary text-white">
-                                    <h3>Petunjuk</h3>
-                                    <p>` + data.petunjuk + `</p>
-                                </div>
-                                <div class="p-3 bg-info text-white">
-                                    <h3>Pembahasan</h3>
-                                    <p>` + data.pembahasan + `</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer" style="display: block;">
-                            <button type="button" class="btn btn-danger btn-sm" data-card-widget="remove">Hapus</button>
-                        </div>
-                    </div>
-					`
+							</div>
+							<div class="card-body" style="display: block;">
+							<div class="direct-chat-messages">
+									<div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
+									` + data.kunci + `
+									</div>
+									` + '<input type="text" class="form-control"value="kolom jawaban isian" readonly>' + `
+								</div>
+								<!-- Petunjuk are loaded here -->
+								<div class="direct-chat-contacts bg-info ">
+									<div class="p-3 bg-primary text-white">
+										<h3>Petunjuk</h3>
+										<p>` + data.petunjuk + `</p>
+									</div>
+									<div class="p-3 bg-info text-white">
+										<h3>Pembahasan</h3>
+										<p>` + data.pembahasan + `</p>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer" style="display: block;">
+								<button type="button" class="btn btn-danger btn-sm " data-card-widget="remove"  data-soalid="`+data.id+`">Hapus</button>
+							</div>
+						</div>
+						`
+					}
 					// tambahkan cardnya
 					$('#reviewsoal').append(card)
 
@@ -159,7 +202,7 @@
 
 		if ($(this).is(":not(:checked)")) {
 			var id = $(this).attr('value')
-			$('#sisipkansoal-' + id).remove()
+			$('#sisipkansoalid-' + id).remove()
 			$('#card-soal-' + id).remove()
 		}
 
@@ -202,48 +245,91 @@
 				var jenis_soal
 				if (obj.jenis_soal == 1) {
 					jenis_soal = 'Pilihan Ganda'
+					var card = `
+						<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-` + obj.id + `" data-soalid="` + obj.id + `">
+							<div class="card-header">
+							<input type="hidden" name="sisipkansoalid[]" value="` + obj.id + `" id="sisipkansoalid-` + obj.id + `">
+
+								<span data-toggle="tooltip" class="badge bg-primary">` + jenis_soal + `</span>
+								<span data-toggle="tooltip" class="badge bg-primary">Skor ` + obj.skor + `</span>
+								<p>` + obj.soal + `</p>
+								<div class="card-tools">
+									<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
+										<i class="fas fa-question-circle"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body" style="display: block;">
+							<div class="direct-chat-messages">
+									<div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
+									` + obj.kunci + `
+									</div>
+									` + '<ol id="ul-' + obj.id + '" type="A"></ol>' + `
+								</div>
+								<!-- Petunjuk are loaded here -->
+								<div class="direct-chat-contacts bg-info ">
+									<div class="p-3 bg-primary text-white">
+										<h3>Petunjuk</h3>
+										<p>` + obj.petunjuk + `</p>
+									</div>
+									<div class="p-3 bg-info text-white">
+										<h3>Pembahasan</h3>
+										<p>` + obj.pembahasan + `</p>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer" style="display: block;">
+								<button type="button" class="btn btn-danger btn-sm " data-card-widget="remove"  data-soalid="`+obj.id+`">Hapus</button>
+							</div>
+						</div>
+						`
 				} else {
 					jenis_soal = 'Isian'
+
+					var card = `
+						<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-` + obj.id + `" data-soalid="` + obj.id + `">
+							<div class="card-header">
+							<input type="hidden" name="sisipkansoalid[]" value="` + obj.id + `" id="sisipkansoalid-` + obj.id + `">
+
+								<span data-toggle="tooltip" class="badge bg-primary">` + jenis_soal + `</span>
+								<span data-toggle="tooltip" class="badge bg-primary">Skor ` + obj.skor + `</span>
+								<p>` + obj.soal + `</p>
+								<div class="card-tools">
+									<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
+										<i class="fas fa-question-circle"></i>
+									</button>
+								</div>
+							</div>
+							<div class="card-body" style="display: block;">
+							<div class="direct-chat-messages">
+									<div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
+									` + obj.kunci + `
+									</div>
+									` + '<input type="text" class="form-control"value="kolom jawaban isian" readonly>' + `
+								</div>
+								<!-- Petunjuk are loaded here -->
+								<div class="direct-chat-contacts bg-info ">
+									<div class="p-3 bg-primary text-white">
+										<h3>Petunjuk</h3>
+										<p>` + obj.petunjuk + `</p>
+									</div>
+									<div class="p-3 bg-info text-white">
+										<h3>Pembahasan</h3>
+										<p>` + obj.pembahasan + `</p>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer" style="display: block;">
+								<button type="button" class="btn btn-danger btn-sm " data-card-widget="remove" data-soalid="`+obj.id+`">Hapus</button>
+							</div>
+						</div>
+						`
 				}
 
-				var card = `
-					<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-` + obj.id + `">
-                        <div class="card-header">
-                            <span data-toggle="tooltip" class="badge bg-primary">` + jenis_soal + `</span>
-                            <span data-toggle="tooltip" class="badge bg-primary">Skor ` + obj.skor + `</span>
-                            <p>` + obj.soal + `</p>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
-                                    <i class="fas fa-question-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" style="display: block;">
-						<div class="direct-chat-messages">
-								<div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
-								` + obj.kunci + `
-								</div>
-								` + '<ol id="ul-' + obj.id + '" type="A"></ol>' + `
-                            </div>
-                            <!-- Petunjuk are loaded here -->
-                            <div class="direct-chat-contacts bg-info ">
-                                <div class="p-3 bg-primary text-white">
-                                    <h3>Petunjuk</h3>
-                                    <p>` + obj.petunjuk + `</p>
-                                </div>
-                                <div class="p-3 bg-info text-white">
-                                    <h3>Pembahasan</h3>
-                                    <p>` + obj.pembahasan + `</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer" style="display: block;">
-                            <button type="button" class="btn btn-danger btn-sm" data-card-widget="remove">Hapus</button>
-                        </div>
-                    </div>
-					`
 				// tambahkan cardnya
 				$('#reviewsoal').append(card)
 
@@ -252,8 +338,8 @@
 					$('#ul-' + obj.id).append('<li>' + item + '</li>')
 				})
 
-				var html = '<input type="hidden" value="' + obj.id + '" name="sisipkansoalid[]" id="sisipkansoal-' + obj.id + '">'
-				$('#soalujian').append(html)
+				// var html = '<input type="text" value="' + obj.id + '" name="sisipkansoalid[]" id="sisipkansoalid-' + obj.id + '">'
+				// $('#soalujian').append(html)
 
 				// atur ulang formnya
 				$("select.dropdown").prop('selectedIndex', 0);
@@ -269,5 +355,10 @@
 				console.log(err)
 			}
 		})
+	})
+
+	$('button.btn-danger').on('click', function(){
+		var soalid = $(this).data('soalid')
+		alert(soalid)
 	})
 </script>

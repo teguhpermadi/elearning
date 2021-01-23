@@ -19,71 +19,123 @@
     <!-- Main content -->
     <section class="content">
 
-        <div class="row">
-            <div class="col-md-8">
-                <div id="reviewsoal">
-                    <?php
-                    foreach ($soal_ujian as $soal) :
-                        // cek jenis soalnya
-                        if ($soal['jenis_soal'] = '2') {
-                            // jika jenis soal 1
+        <form action="<?= base_url('ujian/update_ujian') ?>" method="POST">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="reviewsoal">
+                        <?php
+                        foreach ($soal_ujian as $soal) :
+                            // cek jenis soalnya
+                            if ($soal['jenis_soal'] == '1') {
+                                // jika jenis soal 1
 
-                            // tampilkan pilihan ganda
-                            $html = '<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-' . $soal['id'] . '">
-                        <div class="card-header">
-                            <span data-toggle="tooltip" class="badge bg-primary">Pilihan Ganda</span>
-                            <span data-toggle="tooltip" class="badge bg-primary">Skor ' . $soal['skor'] . '</span>
-                            <p>' . $soal['soal'] . '</p>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
-                                    <i class="fas fa-question-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" style="display: block;">
-						<div class="direct-chat-messages">
-								<div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
-								' . $soal['kunci'] . '
-								</div>
-                                ' . '<ol id="ul-' . $soal['id'] . '" type="A">
-                                ' . $soal['opsi'] . '
-                                </ol>' . '
-                            </div>
-                            <!-- Petunjuk are loaded here -->
-                            <div class="direct-chat-contacts bg-info ">
-                                <div class="p-3 bg-primary text-white">
-                                    <h3>Petunjuk</h3>
-                                    <p>' . $soal['petunjuk'] . '</p>
-                                </div>
-                                <div class="p-3 bg-info text-white">
-                                    <h3>Pembahasan</h3>
-                                    <p>' . $soal['pembahasan'] . '</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer" style="display: block;">
-                            <button type="button" class="btn btn-danger btn-sm" data-card-widget="remove">Hapus</button>
-                        </div>
-                    </div>';
-                            echo $html;
-                        } else {
-                            // jika jenis soal 2
-                        }
-                    endforeach;
-                    ?>
+                                // tampilkan pilihan ganda
+                                $html = '<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-' . $soal['id'] . '">
+                                    <div class="card-header">
+                                    <input type="hidden" name="sisipkansoalid[]" value="' . $soal['id'] . '" id="sisipkansoalid-' . $soal['id'] . '">
+                                        <span data-toggle="tooltip" class="badge bg-primary">Pilihan Ganda</span>
+                                        <span data-toggle="tooltip" class="badge bg-primary">Skor ' . $soal['skor'] . '</span>
+                                        <p>' . $soal['soal'] . '</p>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
+                                                <i class="fas fa-question-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="display: block;">
+                                    <div class="direct-chat-messages">
+                                            <div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
+                                            ' . $soal['kunci'] . '
+                                            </div>';
+
+                                $html .= '<ol id="ul-' . $soal['id'] . '" type="A">';
+
+                                // pecah dulu opsinya
+                                $opsi = json_decode($soal['opsi']);
+                                foreach ($opsi as $key => $value) {
+                                    $html .= '<li>' . $value . '</li>';
+                                }
+                                $html  .= '</ol>';
+
+                                $html .= '</div>
+                                        <!-- Petunjuk are loaded here -->
+                                        <div class="direct-chat-contacts bg-info ">
+                                            <div class="p-3 bg-primary text-white">
+                                                <h3>Petunjuk</h3>
+                                                <p>' . $soal['petunjuk'] . '</p>
+                                            </div>
+                                            <div class="p-3 bg-info text-white">
+                                                <h3>Pembahasan</h3>
+                                                <p>' . $soal['pembahasan'] . '</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" style="display: block;">
+                                        <button type="button" class="btn btn-danger btn-sm" data-card-widget="remove" data-soalid="'.$soal['id'].'">Hapus</button>
+                                    </div>
+                                </div>';
+
+
+                                echo $html;
+                            } else {
+                                // jika jenis soal 2
+                                $html = '<div class="card card-primary card-outline direct-chat direct-chat-primary" id="card-soal-' . $soal['id'] . '">
+                                    <div class="card-header">
+                                <input type="hidden" name="sisipkansoalid[]" value="' . $soal['id'] . '" id="sisipkansoalid-' . $soal['id'] . '">
+                                        <span data-toggle="tooltip" class="badge bg-primary">Isian</span>
+                                        <span data-toggle="tooltip" class="badge bg-primary">Skor ' . $soal['skor'] . '</span>
+                                        <p>' . $soal['soal'] . '</p>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Jawaban"><i class="fas fa-minus"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Kunci dan Pembahasan" data-widget="chat-pane-toggle">
+                                                <i class="fas fa-question-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="display: block;">
+                                    <div class="direct-chat-messages">
+                                            <div class="alert alert-primary" role="alert"><i class="fas fa-key"></i> 
+                                            ' . $soal['kunci'] . '
+                                            </div>';
+                                $html .= '<input type="text" class="form-control"value="kolom jawaban isian" readonly>';
+                                $html .= '</div>
+                                        <!-- Petunjuk are loaded here -->
+                                        <div class="direct-chat-contacts bg-info ">
+                                            <div class="p-3 bg-primary text-white">
+                                                <h3>Petunjuk</h3>
+                                                <p>' . $soal['petunjuk'] . '</p>
+                                            </div>
+                                            <div class="p-3 bg-info text-white">
+                                                <h3>Pembahasan</h3>
+                                                <p>' . $soal['pembahasan'] . '</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" style="display: block;">
+                                        <button type="button" class="btn btn-danger btn-sm" data-card-widget="remove" data-soalid="'.$soal['id'].'">Hapus</button>
+                                    </div>
+                                </div>';
+
+
+                                echo $html;
+                            }
+                        endforeach;
+                        ?>
+                    </div>
+                    <hr>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahSoal">Tambah Soal</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sisipkanSoal">Sisipkan Soal</button>
+
                 </div>
-                <hr>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#tambahSoal">Tambah Soal</button>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#sisipkanSoal">Sisipkan Soal</button>
-            </div>
-            <div class="col-md-4">
-                <!-- Default box -->
-                <form action="<?= base_url('ujian/save_ujian') ?>" method="POST">
+                <div class="col-md-4">
+                    <!-- Default box -->
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Tambah Ujian</h3>
+                            <input type="hidden" name="ujian_id" value="<?= $ujian['id'] ?>">
                         </div>
                         <div class="card-body">
                             <label for="">Nama Ujian</label>
@@ -133,15 +185,14 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <div id="soalujian"></div>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                         <!-- /.card-footer-->
                     </div>
                     <!-- /.card -->
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
 
         <!-- Sisipkan Soal Modal -->
         <div class="modal fade" id="sisipkanSoal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

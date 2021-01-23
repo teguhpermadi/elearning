@@ -10,9 +10,10 @@ class Ujian_model extends CI_Model
     function get_soal()
     {
         $author_id = user_info()['id'];
-        return $this->db->select('*')
+        return $this->db->select('soal.*, mapel.nama as namamapel')
         ->from('soal')
         ->where('soal.author_id', $author_id)
+        ->join('mapel', 'mapel.id = soal.mapel_id')
         // ->where('soal.meta["category"]', $category)
         // ->where('soal.meta["tag"]', $tag)
         ->order_by('id', 'asc')
@@ -26,7 +27,7 @@ class Ujian_model extends CI_Model
     function get_all_ujian()
     {
         $author_id = user_info()['id'];
-        return $this->db->select('*, mapel.nama as nama_mapel')
+        return $this->db->select('ujian.*, mapel.nama as nama_mapel')
         ->from('ujian')
         ->where('author_id', $author_id)
         ->join('mapel', 'mapel.id = ujian.mapel_id')

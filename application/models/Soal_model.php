@@ -33,9 +33,10 @@ class Soal_model extends CI_Model
         // $this->db->order_by('id', 'desc');
         // return $this->db->get('soal')->result_array();
         $user_id = user_info()['id'];
-        return $this->db->select('*')
+        return $this->db->select('soal.*, mapel.nama as namamapel')
         ->from('soal')
         ->where('author_id', $user_id)
+        ->join('mapel', 'mapel.id = soal.mapel_id')
         ->order_by('id', 'desc')
         ->get()
         ->result_array();

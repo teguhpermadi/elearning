@@ -19,16 +19,17 @@
     <!-- Main content -->
     <section class="content">
 
-        <div class="row">
-            <div class="col-md-8">
-                <div id="reviewsoal"></div>
-                <hr>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#tambahSoal">Tambah Soal</button>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#sisipkanSoal">Sisipkan Soal</button>
-            </div>
-            <div class="col-md-4">
-                <!-- Default box -->
-                <form action="<?= base_url('ujian/save_ujian') ?>" method="POST">
+        <!-- awal form -->
+        <form action="<?= base_url('ujian/save_ujian') ?>" method="POST">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="reviewsoal"></div>
+                    <hr>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#tambahSoal">Tambah Soal</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#sisipkanSoal">Sisipkan Soal</button>
+                </div>
+                <div class="col-md-4">
+                    <!-- Default box -->
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Tambah Ujian</h3>
@@ -69,11 +70,11 @@
                                     ?>
                                 </select>
                             </div>
-							<label for="published_at" class="control-label">Batas Ujian</label>
-							<div class="form-group">
-								<input type="datetime-local" name="waktu_selesai" class="has-datetimepicker form-control" />
-								<!-- <input type="datetime-local" name="published_at" value="<?php echo $this->input->post('published_at'); ?>" class="has-datetimepicker form-control" id="published_at" /> -->
-							</div>
+                            <label for="published_at" class="control-label">Batas Ujian</label>
+                            <div class="form-group">
+                                <input type="datetime-local" name="waktu_selesai" class="has-datetimepicker form-control" />
+                                <!-- <input type="datetime-local" name="published_at" value="<?php echo $this->input->post('published_at'); ?>" class="has-datetimepicker form-control" id="published_at" /> -->
+                            </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
@@ -83,9 +84,10 @@
                         <!-- /.card-footer-->
                     </div>
                     <!-- /.card -->
-                </form>
+                </div>
             </div>
-        </div>
+            <!-- akhir form -->
+        </form>
 
         <!-- Sisipkan Soal Modal -->
         <div class="modal fade" id="sisipkanSoal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -104,6 +106,8 @@
                                     <td>#</td>
                                     <td>Soal</td>
                                     <td>Jenis</td>
+                                    <td>Tingkat</td>
+                                    <td>mapel</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,7 +115,9 @@
                                     <tr>
                                         <td><input type="checkbox" class="checkbox-soal" name="soal_id[]" id="soal_id" value="<?= $soal['id'] ?>"></td>
                                         <td><?php echo word_limiter($soal['soal'], 20); ?></td>
-                                        <td><?= ($soal['jenis_soal'] == 1) ? '<span class="badge badge-info">Pilihan Ganda</span>' : '<span class="badge badge-info">Isian</span>'?></td>
+                                        <td><?= ($soal['jenis_soal'] == 1) ? '<span class="badge badge-info">Pilihan Ganda</span>' : '<span class="badge badge-info">Isian</span>' ?></td>
+                                        <td><?= $soal['tingkat'] ?></td>
+                                        <td><?= $soal['namamapel'] ?></td>
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>

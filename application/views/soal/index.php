@@ -26,7 +26,7 @@
           <thead>
             <tr>
               <!-- <th>ID</th> -->
-              <!-- <th>Mapel Id</th> -->
+              <th>Mapel</th>
               <th>Kelas Tingkat</th>
               <th>Jenis Soal</th>
               <!-- <th>Author Id</th> -->
@@ -44,7 +44,7 @@
             <?php foreach ($soal as $s) { ?>
               <tr>
                 <!-- <td><?php echo $s['id']; ?></td> -->
-                <!-- <td><?php echo $s['mapel_id']; ?></td> -->
+                <td><?php echo $s['namamapel']; ?></td>
                 <td><?php echo $s['tingkat']; ?></td>
                 <td><?php echo ($s['jenis_soal'] == '1') ? '<span class="badge badge-info">Pilihan Ganda</span>' : '<span class="badge badge-info">Isian</span>'; ?></td>
                 <!-- <td><?php echo $s['author_id']; ?></td> -->

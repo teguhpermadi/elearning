@@ -18,7 +18,8 @@ class Soal extends CI_Controller
     function index()
     {
         $data['soal'] = $this->Soal_model->get_all_soal();
-
+// echo json_encode($data);
+// die;
         $data['_view'] = 'soal/index';
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
