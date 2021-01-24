@@ -7,13 +7,15 @@ class Ujian_model extends CI_Model
         parent::__construct();
     }
 
-    function get_soal()
+    function all_soal($tingkat, $mapel_id)
     {
         $author_id = user_info()['id'];
         return $this->db->select('soal.*, mapel.nama as namamapel')
         ->from('soal')
         ->where('soal.author_id', $author_id)
         ->join('mapel', 'mapel.id = soal.mapel_id')
+        ->where('soal.tingkat', $tingkat)
+        ->where('soal.mapel_id', $mapel_id)
         // ->where('soal.meta["category"]', $category)
         // ->where('soal.meta["tag"]', $tag)
         ->order_by('id', 'asc')
@@ -37,6 +39,12 @@ class Ujian_model extends CI_Model
     function save_ujian($params)
     {
         $this->db->insert('ujian',$params);
+        return $this->db->insert_id();
+    }
+
+    function add_soalujian($params)
+    {
+        $this->db->insert('soal_ujian',$params);
         return $this->db->insert_id();
     }
 
@@ -64,5 +72,11 @@ class Ujian_model extends CI_Model
         ->where('soal_ujian.ujian_id', $id)
         ->join('soal', 'soal.id = soal_ujian.soal_id')
         ->get()->result_array();
+    }
+
+    function update_ujian($id,$params)
+    {
+        $this->db->where('id',$id);
+        return $this->db->update('ujian',$params);
     }
 }

@@ -32,7 +32,6 @@ class Ujian extends CI_Controller
         $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
         $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
         $data['js'] = $this->load->view('ujian/js_add', $data, true);
-        $data['get_soal'] = $this->Ujian_model->get_soal();
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -47,6 +46,7 @@ class Ujian extends CI_Controller
         $soal = $this->Ujian_model->load_soal($id);
         echo json_encode($soal);
     }
+
     function get_ujian()
     {
         $ujian = $this->Ujian_model->get_ujian();
@@ -94,9 +94,7 @@ class Ujian extends CI_Controller
         }
 
         $soal_id = $this->Soal_model->add_soal($params);
-        // dapatkan soal dengan id yang baru saja ditambahkan
-        $soal = $this->Soal_model->get_soal($soal_id);
-        echo json_encode($soal);
+        echo json_encode($soal_id);
     }
 
     function save_ujian()
@@ -112,18 +110,52 @@ class Ujian extends CI_Controller
         ];
 
         $ujian_id = $this->Ujian_model->save_ujian($params);
-        $sisipkansoalid = $this->input->post('sisipkansoalid[]');
-        $soalujian = [];
+        redirect('ujian/soalujian/ujian_id-' . $ujian_id.'-tingkat-'.$params['kelas_tingkat'].'-mapel_id-'.$params['mapel_id']);
+    }
 
-        foreach ($sisipkansoalid as $key) {
-            array_push($soalujian, [
-                'soal_id' => $key,
-                'ujian_id' => $ujian_id,
-            ]);
-        }
+    function soalujian($url)
+    {
+        $url_params = explode('-', $url);
+        $ujian_id = $url_params[1];
+        $tingkat = $url_params[3];
+        $mapel_id = $url_params[5];
 
-        $this->db->insert_batch('soal_ujian', $soalujian);
-        redirect('ujian');
+        $data['ujian_id'] = $ujian_id;
+        $data['all_soalujian'] = $this->Ujian_model->get_soal_ujian($ujian_id);
+        $data['all_soal'] = $this->Ujian_model->all_soal($tingkat, $mapel_id);
+        $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
+        $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
+        $data['js'] = $this->load->view('ujian/js_soalujian', $data, true);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('ujian/soalujian', $data);
+        $this->load->view('template/footer');
+    }
+
+    function add_soalujian()
+    {
+        $params = [
+            'soal_id' => $this->input->post('soal_id'),
+            'ujian_id' => $this->input->post('ujian_id'),
+        ];
+
+        $soalujian_id = $this->Ujian_model->add_soalujian($params);
+        // tampilkan data soal yang ditambahkan
+        $data = [
+            'soalujian_id' => $soalujian_id,
+            'soal_id' => $this->input->post('soal_id'),
+            'ujian_id' => $this->input->post('ujian_id'),
+        ];
+
+        echo json_encode($data);
+    }
+
+    function delete_soalujian()
+    {
+        $soal_id = $this->input->post('soal_id');
+        $this->db->delete('soal_ujian', ['soal_id' => $soal_id]);
+        echo json_encode('deleted');
     }
 
     function edit($id)
@@ -133,7 +165,6 @@ class Ujian extends CI_Controller
         $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
         $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
         $data['js'] = $this->load->view('ujian/js_add', $data, true);
-        $data['get_soal'] = $this->Ujian_model->get_soal();
 
         // echo json_encode($data['ujian']);
         $this->load->view('template/header');
@@ -142,38 +173,28 @@ class Ujian extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function update_ujian()
+    function update_ujian($id)
     {
-        $ujian_id = $this->input->post('ujian_id');
- // hapus semua data soal ujian terlebih dahulu
- $this->db->delete('soal_ujian', array('ujian_id' => $ujian_id));
+       $params = [
+        // 'author_id' => user_info()['id'],
+        // 'created_at' => datetime_now(),
+        'mapel_id' => $this->input->post('category_id'),
+        'kelas_tingkat' => $this->input->post('kelas_tingkat'),
+        'nama_ujian' => $this->input->post('nama_ujian'),
+        // 'token' => generateRandomString(),
+        'waktu_selesai' => $this->input->post('waktu_selesai'),
+       ];
 
-        $params = [
-            // 'author_id' => user_info()['id'],
-            // 'created_at' => datetime_now(),
-            'mapel_id' => $this->input->post('category_id'),
-            'kelas_tingkat' => $this->input->post('kelas_tingkat'),
-            'nama_ujian' => $this->input->post('nama_ujian'),
-            // 'token' => generateRandomString(),
-            'waktu_selesai' => $this->input->post('waktu_selesai'),
-        ];
+       $this->Ujian_model->update_ujian($id, $params);
+       redirect('ujian/soalujian/ujian_id-' . $id.'-tingkat-'.$params['kelas_tingkat'].'-mapel_id-'.$params['mapel_id']);
 
-        // update data ujian
-        $this->db->where('id', $ujian_id);
-        $this->db->update('ujian', $params);
 
-        $sisipkansoalid = $this->input->post('sisipkansoalid[]');
-        $soalujian = [];
+    }
 
-        foreach ($sisipkansoalid as $key) {
-            array_push($soalujian, [
-                'soal_id' => $key,
-                'ujian_id' => $ujian_id,
-            ]);
-        }
-
-        // update dengan data soal yang baru
-        $this->db->insert_batch('soal_ujian', $soalujian);
+    function delete_ujian($id)
+    {
+        $this->db->delete('ujian', ['id' => $id]);
+        $this->db->delete('soal_ujian', ['ujian_id' => $id]);
         redirect('ujian');
     }
 }

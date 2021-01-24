@@ -52,7 +52,7 @@
                             <td><?= ($ujian['waktu_selesai'] == '0000-00-00 00:00:00') ? '<span class="badge badge-secondary">Tanpa Batas</span>' : '<span class="badge badge-info">'.$ujian['waktu_selesai'].'</span>'; ?></td>
                             <td>
                             <a class="btn btn-warning btn-sm" href="<?= base_url('ujian/edit/'.$ujian['id']) ?>">Edit</a>
-                            <a class="btn btn-danger btn-sm" href="<?= base_url('ujian/hapus/'.$ujian['id']) ?>">Hapus</a>
+                            <a class="btn btn-danger btn-sm" href="<?= base_url('ujian/delete_ujian/'.$ujian['id']) ?>">Hapus</a>
                             </td>
                         </tr>
                         <?php endforeach ?>
@@ -60,10 +60,6 @@
                 </table>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-                Footer
-            </div>
-            <!-- /.card-footer-->
         </div>
         <!-- /.card -->
 
