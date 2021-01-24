@@ -42,5 +42,6 @@
   <link href="<?= base_url('assets/') ?>dflip/css/themify-icons.min.css" rel="stylesheet" type="text/css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body  class="hold-transition layout-top-nav">
   <div class="wrapper">
+    

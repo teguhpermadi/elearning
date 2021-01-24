@@ -9,6 +9,8 @@ class Ujian extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+        $this->load->library('encryption');
         $this->load->model('Ujian_model');
         $this->load->model('Category_model');
         $this->load->model('Tag_model');
@@ -110,7 +112,7 @@ class Ujian extends CI_Controller
         ];
 
         $ujian_id = $this->Ujian_model->save_ujian($params);
-        redirect('ujian/soalujian/ujian_id-' . $ujian_id.'-tingkat-'.$params['kelas_tingkat'].'-mapel_id-'.$params['mapel_id']);
+        redirect('ujian/soalujian/ujian_id-' . $ujian_id . '-tingkat-' . $params['kelas_tingkat'] . '-mapel_id-' . $params['mapel_id']);
     }
 
     function soalujian($url)
@@ -175,20 +177,18 @@ class Ujian extends CI_Controller
 
     function update_ujian($id)
     {
-       $params = [
-        // 'author_id' => user_info()['id'],
-        // 'created_at' => datetime_now(),
-        'mapel_id' => $this->input->post('category_id'),
-        'kelas_tingkat' => $this->input->post('kelas_tingkat'),
-        'nama_ujian' => $this->input->post('nama_ujian'),
-        // 'token' => generateRandomString(),
-        'waktu_selesai' => $this->input->post('waktu_selesai'),
-       ];
+        $params = [
+            // 'author_id' => user_info()['id'],
+            // 'created_at' => datetime_now(),
+            'mapel_id' => $this->input->post('category_id'),
+            'kelas_tingkat' => $this->input->post('kelas_tingkat'),
+            'nama_ujian' => $this->input->post('nama_ujian'),
+            // 'token' => generateRandomString(),
+            'waktu_selesai' => $this->input->post('waktu_selesai'),
+        ];
 
-       $this->Ujian_model->update_ujian($id, $params);
-       redirect('ujian/soalujian/ujian_id-' . $id.'-tingkat-'.$params['kelas_tingkat'].'-mapel_id-'.$params['mapel_id']);
-
-
+        $this->Ujian_model->update_ujian($id, $params);
+        redirect('ujian/soalujian/ujian_id-' . $id . '-tingkat-' . $params['kelas_tingkat'] . '-mapel_id-' . $params['mapel_id']);
     }
 
     function delete_ujian($id)
@@ -196,5 +196,73 @@ class Ujian extends CI_Controller
         $this->db->delete('ujian', ['id' => $id]);
         $this->db->delete('soal_ujian', ['ujian_id' => $id]);
         redirect('ujian');
+    }
+
+    function view($id)
+    {
+        $data['ujian'] = $this->Ujian_model->get_ujian($id);
+        $data['all_category'] = $this->Category_model->get_all_category();
+        $data['js'] = $this->load->view('ujian/js_view', $data, true);
+
+        $this->load->view('template/top-nav/header');
+        $this->load->view('template/top-nav/nav');
+        $this->load->view('ujian/view_ujian', $data);
+        $this->load->view('template/footer');
+    }
+
+    function cektoken()
+    {
+        $ujian_id = $this->input->post('ujian_id');
+		$token = $this->input->post('token');
+		$cek = $this->Ujian_model->get_ujian($ujian_id);
+        
+        if(strtolower($token) == strtolower($cek['token'])){
+            $data = [
+                'status' => true,
+                'url_encrypted' => urlencode($this->encryption->encrypt($ujian_id)),
+            ];
+        } else {
+            $data = [
+                'status' => false,
+            ];
+        }
+		echo json_encode($data);
+    }
+
+    function do_ujian()
+    {
+        $key = $this->input->get('key', true);
+        $id  = $this->encryption->decrypt(rawurldecode($key));
+        
+        $data['ujian'] = $this->Ujian_model->get_ujian($id);
+        $data['all_soal'] = $this->Ujian_model->get_soal_ujian($id);
+        shuffle($data['all_soal']);
+        $data['soal_pertama'] = $data['all_soal'][0];
+        $data['js'] = $this->load->view('ujian/js_doujian', $data, true);
+        $data['tes'] = 'tes';
+
+        // acak dulu soalnya
+
+        // echo json_encode($data);
+        // die;
+        $this->load->view('template/top-nav/header');
+        $this->load->view('template/top-nav/nav');
+        $this->load->view('ujian/do_ujian', $data);
+        $this->load->view('template/footer');
+    }
+
+    function save_cache_jawab()
+    {
+        $soal_id = $this->input->post('soal_id');
+        $jawab = $this->input->post('jawab');
+        $this->cache->save($soal_id, $jawab);
+        echo json_encode('saved');
+    }
+
+    function get_cache_jawab()
+    {
+        $soal_id = $this->input->post('soal_id');
+        $jawaban = $this->cache->get($soal_id);
+        echo json_encode($jawaban);
     }
 }

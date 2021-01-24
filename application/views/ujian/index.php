@@ -33,6 +33,7 @@
                             <td>Kategori</td>
                             <td>Kelas Tingkat</td>
                             <td>Batas Ujian</td>
+                            <td>Token</td>
                             <td>Actions</td>
                         </tr>
                     </thead>
@@ -50,6 +51,7 @@
                             <td><?= $ujian['nama_mapel']?></td>
                             <td><?= $ujian['kelas_tingkat']?></td>
                             <td><?= ($ujian['waktu_selesai'] == '0000-00-00 00:00:00') ? '<span class="badge badge-secondary">Tanpa Batas</span>' : '<span class="badge badge-info">'.$ujian['waktu_selesai'].'</span>'; ?></td>
+                            <td><h4><span class="badge badge-primary"><?= $ujian['token'] ?></span></h4></td>
                             <td>
                             <a class="btn btn-warning btn-sm" href="<?= base_url('ujian/edit/'.$ujian['id']) ?>">Edit</a>
                             <a class="btn btn-danger btn-sm" href="<?= base_url('ujian/delete_ujian/'.$ujian['id']) ?>">Hapus</a>

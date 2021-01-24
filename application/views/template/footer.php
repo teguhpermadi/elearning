@@ -6,7 +6,7 @@
   </div>
 </footer>
 
-<!-- </div> -->
+</div>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
@@ -40,9 +40,9 @@
 <!-- AdminLTE App -->
 <script src="<?= base_url('node_modules/admin-lte/') ?>dist/js/adminlte.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?= base_url('node_modules/admin-lte/') ?>dist/js/pages/dashboard.js"></script>
+<!-- <script src="<?= base_url('node_modules/admin-lte/') ?>dist/js/pages/dashboard.js"></script> -->
 <!-- AdminLTE for demo purposes -->
-<script src="<?= base_url('node_modules/admin-lte/') ?>dist/js/demo.js"></script>
+<!-- <script src="<?= base_url('node_modules/admin-lte/') ?>dist/js/demo.js"></script> -->
 
 <!-- DataTables -->
 <script src="<?= base_url('node_modules/admin-lte/') ?>plugins/datatables/jquery.dataTables.min.js"></script>

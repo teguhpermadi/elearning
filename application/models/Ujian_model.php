@@ -67,10 +67,10 @@ class Ujian_model extends CI_Model
 
     function get_soal_ujian($id)
     {
-        return $this->db->select('soal.*')
+        return $this->db->select('*')
         ->from('soal_ujian')
         ->where('soal_ujian.ujian_id', $id)
-        ->join('soal', 'soal.id = soal_ujian.soal_id')
+        // ->join('soal', 'soal.id = soal_ujian.soal_id')
         ->get()->result_array();
     }
 
