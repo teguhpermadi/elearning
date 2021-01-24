@@ -22,7 +22,7 @@
                             Daftar Soal
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row" id="daftarSoal">
                                 <?php
                                 $no = 1;
                                 foreach ($all_soal as $soal) : ?>
@@ -43,9 +43,9 @@
                                 <div id="jawab"></div>
                             </div>
                             <div class="card-footer">
-                                <button class="btn btn-secondary">Kembali</button>
-                                <button class="btn btn-secondary">Lanjut</button>
-                                <button class="btn btn-danger">Selesai</button>
+                                <button type="button" class="btn btn-secondary" id="prev">Kembali</button>
+                                <button type="button" class="btn btn-secondary" id="next">Lanjut</button>
+                                <button type="button" class="btn btn-danger">Selesai</button>
                             </div>
                         </div>
                     </form>

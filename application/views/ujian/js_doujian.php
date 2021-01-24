@@ -12,6 +12,8 @@
                 return false;
             }
         });
+
+        
     })
 </script>
 <script>
@@ -97,4 +99,9 @@
             }
         })
     });
+
+    $('#next').on('click', function() {
+        // reference: https://stackoverflow.com/questions/9957227/jquery-click-next-button
+        // $(this).closest("tr").next().find("input:button").click();
+    })
 </script>
