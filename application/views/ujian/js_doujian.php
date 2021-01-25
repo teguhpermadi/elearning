@@ -13,7 +13,33 @@
             }
         });
 
-        
+        var array_soal = []
+        var i = 0;
+        <?php foreach ($all_soal as $soal) : ?>
+            // console.log('<?= $soal['soal_id'] ?>')
+            array_soal.push('<?= $soal['soal_id'] ?>')
+        <?php endforeach ?>
+
+        $('#next').on('click', function() {
+            i = i + 1; // increase i by one
+            i = i % array_soal.length; // if we've gone too high, start from `0` again
+            // return array_soal[i]; // give us back the item of where we are now
+            // console.log(array_soal[i].toString())
+            var next_id = array_soal[i].toString()
+            $('#soal-'+next_id).click()
+        })
+
+        $('#prev').on('click', function() {
+            if (i === 0) { // i would become 0
+                i = array_soal.length; // so put it at the other end of the array
+            }
+            i = i - 1; // decrease by one
+            // return array_soal[i]; // give us back the item of where we are now
+            // console.log(array_soal[i].toString())
+            var prev_id = array_soal[i].toString()
+            $('#soal-'+prev_id).click()
+
+        })
     })
 </script>
 <script>
@@ -31,7 +57,7 @@
                 // console.log(data)
                 // var jenis_soal
                 $('#soal').html(data.soal)
-                $('#soal').append('<input type="text" name="soal_id" value="' + soalid + '">')
+                $('#soal').append('<input type="hidden" name="soal_id" value="' + soalid + '">')
                 if (data.jenis_soal == '1') {
                     // pilihan ganda
                     $('#jawab').html('<div class="form-group">')
@@ -99,9 +125,4 @@
             }
         })
     });
-
-    $('#next').on('click', function() {
-        // reference: https://stackoverflow.com/questions/9957227/jquery-click-next-button
-        // $(this).closest("tr").next().find("input:button").click();
-    })
 </script>
