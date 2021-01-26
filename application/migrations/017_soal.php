@@ -34,8 +34,8 @@ class Migration_soal extends CI_Migration
                 'type' => 'TEXT',    
             ),
             'skor' => array( // skor soal
-                'type' => 'VARCHAR',  
-                'constraint' => '255',              
+                'type' => 'INT',  
+                'default' => 0,         
             ),
             'jenis_soal' => array( // pilihan ganda / jawaban singkat
                 'type' => 'VARCHAR',  

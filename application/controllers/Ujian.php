@@ -265,4 +265,44 @@ class Ujian extends CI_Controller
         $jawaban = $this->cache->get($soal_id);
         echo json_encode($jawaban);
     }
+
+    function koreksi_ujian()
+    {
+        $ujian_id = $this->input->post('ujian_id');
+        $data = $this->input->post('soal_id');
+        $nilai = 0;
+        $result = [];
+        $status = '';
+        // pecah data soal id nya untuk mendapatkan masing-masing jawaban yg sudah tersimpan di cache
+        foreach($data as $d){
+            $jawaban = $this->cache->get($d);
+            $soal = $this->Ujian_model->load_soal($d);
+            // var_dump($soal);
+            // koreksi soalnya
+            if($jawaban == $soal['kunci']){
+                $nilai = $nilai + $soal['skor'];
+                $status = 'benar';
+            } else {
+                $status = 'salah';
+            }
+
+            // push data masing-masing soal yang sudah dijawab
+            array_push($result, [
+                'soal_id' => $soal['id'],
+                'jawaban' => $jawaban,
+                'status' => $status,
+            ]);
+        }
+        $data = [
+            'siswa_id' => user_info()['id'],
+            'ujian_id' => $ujian_id,
+            'waktu_ujian' => datetime_now(),
+            'nilai' => $nilai,
+            'history' => json_encode($result),
+        ];
+
+        $this->db->insert('result_ujian', $data);
+        echo json_encode($data);
+
+    }
 }

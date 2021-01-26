@@ -1,3 +1,4 @@
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -23,6 +24,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row" id="daftarSoal">
+                                <input type="hidden" name="ujian_id" id="ujian_id" value="<?= $ujian['id'] ?>">
                                 <?php
                                 $no = 1;
                                 foreach ($all_soal as $soal) : ?>
@@ -31,6 +33,9 @@
                                     </div>
                                 <?php endforeach ?>
                             </div>
+                        </div>
+                        <div class="card-footer">
+                                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#selesaiUjian">Selesai</button>
                         </div>
                     </div>
                 </div>
@@ -42,11 +47,7 @@
                                 <hr>
                                 <div id="jawab"></div>
                             </div>
-                            <div class="card-footer">
-                                <button type="button" class="btn btn-secondary" id="prev">Kembali</button>
-                                <button type="button" class="btn btn-secondary" id="next">Lanjut</button>
-                                <button type="button" class="btn btn-danger">Selesai</button>
-                            </div>
+
                         </div>
                     </form>
                 </div>
@@ -56,4 +57,25 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="selesaiUjian" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Peringatan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Anda yakin ingin menyelesaikan ujian ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary" id="finish">Selesai</button>
+      </div>
+    </div>
+  </div>
 </div>

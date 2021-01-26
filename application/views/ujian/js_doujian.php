@@ -12,34 +12,6 @@
                 return false;
             }
         });
-
-        var array_soal = []
-        var i = 0;
-        <?php foreach ($all_soal as $soal) : ?>
-            // console.log('<?= $soal['soal_id'] ?>')
-            array_soal.push('<?= $soal['soal_id'] ?>')
-        <?php endforeach ?>
-
-        $('#next').on('click', function() {
-            i = i + 1; // increase i by one
-            i = i % array_soal.length; // if we've gone too high, start from `0` again
-            // return array_soal[i]; // give us back the item of where we are now
-            // console.log(array_soal[i].toString())
-            var next_id = array_soal[i].toString()
-            $('#soal-'+next_id).click()
-        })
-
-        $('#prev').on('click', function() {
-            if (i === 0) { // i would become 0
-                i = array_soal.length; // so put it at the other end of the array
-            }
-            i = i - 1; // decrease by one
-            // return array_soal[i]; // give us back the item of where we are now
-            // console.log(array_soal[i].toString())
-            var prev_id = array_soal[i].toString()
-            $('#soal-'+prev_id).click()
-
-        })
     })
 </script>
 <script>
@@ -57,6 +29,7 @@
                 // console.log(data)
                 // var jenis_soal
                 $('#soal').html(data.soal)
+                $('#soal').append(data.kunci)
                 $('#soal').append('<input type="hidden" name="soal_id" value="' + soalid + '">')
                 if (data.jenis_soal == '1') {
                     // pilihan ganda
@@ -117,7 +90,10 @@
             data: $(this).serialize(),
             dataType: 'json',
             success: function(data) {
-                console.log(data)
+                // console.log(data)
+                var soalid = $('input[name="soal_id"]').val()
+                $('#soal-' + soalid).addClass('bg-primary')
+                // console.log(soalid)
             },
             error: function(err) {
                 console.log(err)
@@ -125,4 +101,30 @@
             }
         })
     });
+
+    // ketika tombol finish di tekan artinya ujian telah benar-benar di selesaikan
+    $('#finish').on('click', function() {
+        var soalid = []
+        <?php foreach ($all_soal as $soal) : ?>
+            soalid.push('<?= $soal['soal_id'] ?>')
+        <?php endforeach ?>
+        $.ajax({
+            type: "POST",
+            url: '<?= base_url('ujian/koreksi_ujian') ?>',
+            data: {
+                soal_id : soalid,
+                ujian_id : $('#ujian_id').val()
+            },
+            dataType: 'json',
+            success: function(data) {
+                // console.log(data)
+                // console.log(soalid)
+                location.href = '<?= base_url() ?>'
+            },
+            error: function(err) {
+                console.log(err)
+
+            }
+        })
+    })
 </script>
