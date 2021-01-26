@@ -32,6 +32,7 @@
                             <td>Jumlah Soal</td>
                             <td>Kategori</td>
                             <td>Kelas Tingkat</td>
+                            <td>Durasi</td>
                             <td>Batas Ujian</td>
                             <td>Token</td>
                             <td>Actions</td>
@@ -50,6 +51,7 @@
                             ?></td>
                             <td><?= $ujian['nama_mapel']?></td>
                             <td><?= $ujian['kelas_tingkat']?></td>
+                            <td><?= $ujian['durasi']?></td>
                             <td><?= ($ujian['waktu_selesai'] == '0000-00-00 00:00:00') ? '<span class="badge badge-secondary">Tanpa Batas</span>' : '<span class="badge badge-info">'.$ujian['waktu_selesai'].'</span>'; ?></td>
                             <td><h4><span class="badge badge-primary"><?= $ujian['token'] ?></span></h4></td>
                             <td>

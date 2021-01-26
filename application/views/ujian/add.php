@@ -62,6 +62,10 @@
                         <input type="datetime-local" name="waktu_selesai" class="has-datetimepicker form-control" />
                         <!-- <input type="datetime-local" name="published_at" value="<?php echo $this->input->post('published_at'); ?>" class="has-datetimepicker form-control" id="published_at" /> -->
                     </div>
+                    <label for="">Durasi (menit)</label>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="durasi" id="durasi" min=0>
+                    </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

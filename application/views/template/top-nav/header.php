@@ -40,6 +40,9 @@
 
   <!-- Icons Stylesheet -->
   <link href="<?= base_url('assets/') ?>dflip/css/themify-icons.min.css" rel="stylesheet" type="text/css">
+
+  <!-- easytimer.js -->
+  <script src="lib/easytimer/dist/easytimer.min.js"></script>
 </head>
 
 <body  class="hold-transition layout-top-nav">

@@ -109,6 +109,7 @@ class Ujian extends CI_Controller
             'nama_ujian' => $this->input->post('nama_ujian'),
             'token' => generateRandomString(),
             'waktu_selesai' => $this->input->post('waktu_selesai'),
+            'durasi' => $this->input->post('durasi'),
         ];
 
         $ujian_id = $this->Ujian_model->save_ujian($params);
@@ -185,6 +186,7 @@ class Ujian extends CI_Controller
             'nama_ujian' => $this->input->post('nama_ujian'),
             // 'token' => generateRandomString(),
             'waktu_selesai' => $this->input->post('waktu_selesai'),
+            'durasi' => $this->input->post('durasi'),
         ];
 
         $this->Ujian_model->update_ujian($id, $params);

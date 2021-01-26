@@ -33,6 +33,10 @@ class Migration_ujian extends CI_Migration
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              
             ),
+            'durasi' => array(
+                'type' => 'VARCHAR',  
+                'constraint' => '255',              
+            ),
             'token' => array(
                 'type' => 'VARCHAR',  
                 'constraint' => '255',              
