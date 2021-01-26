@@ -1,3 +1,5 @@
+<!-- easytimer -->
+
 <script>
     $(document).ready(function() {
         // load soal pertama
@@ -12,9 +14,34 @@
                 return false;
             }
         });
+     
+        countdown()
+
     })
 </script>
 <script>
+    function countdown() {
+        var timer = new Timer();
+        timer.start({
+            countdown: true,
+            startValues: {
+                // seconds: 5
+                minutes: <?= $ujian['durasi'] ?>
+            }
+        });
+
+        $('#countdownExample .values').html(timer.getTimeValues().toString());
+
+        timer.addEventListener('secondsUpdated', function(e) {
+            $('#countdownExample .values').html(timer.getTimeValues().toString());
+        });
+
+        timer.addEventListener('targetAchieved', function(e) {
+            // $('#countdownExample .values').html('KABOOM!!');
+            $('#finish').click()
+        });
+    }
+
     function load_soal(soalid) {
         $.ajax({
             type: "POST",
@@ -112,8 +139,8 @@
             type: "POST",
             url: '<?= base_url('ujian/koreksi_ujian') ?>',
             data: {
-                soal_id : soalid,
-                ujian_id : $('#ujian_id').val()
+                soal_id: soalid,
+                ujian_id: $('#ujian_id').val()
             },
             dataType: 'json',
             success: function(data) {

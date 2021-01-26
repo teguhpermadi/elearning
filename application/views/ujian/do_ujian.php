@@ -35,13 +35,18 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#selesaiUjian">Selesai</button>
+                            <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#selesaiUjian">Selesai</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <form id="jawabanSoal">
                         <div class="card">
+                            <div class="card-header">
+                                <div id="countdownExample">
+                                    <div class="values"></div>
+                                </div>
+                            </div>
                             <div class="card-body">
                                 <div id="soal"></div>
                                 <hr>
@@ -61,21 +66,21 @@
 
 <!-- Modal -->
 <div class="modal fade" id="selesaiUjian" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Peringatan</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Anda yakin ingin menyelesaikan ujian ini?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="button" class="btn btn-primary" id="finish">Selesai</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Peringatan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Anda yakin ingin menyelesaikan ujian ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="finish">Selesai</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
