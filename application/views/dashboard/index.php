@@ -25,7 +25,7 @@
                 ?>
                 <img src="<?= base_url($logo) ?>" class="float-left mr-3" width="100px">
                 <h1 class="display-4">Selamat Datang</h1>
-                <p class="lead">Aplikasi E-Learning milik <span class="text-uppercase font-weight-bold"><?= $profil_sekolah['nama'] ?></span></p>
+                <p class="lead">Aplikasi E-Learning <span class="text-uppercase font-weight-bold"><?= $profil_sekolah['nama'] ?></span></p>
 
             </div>
         </div>
@@ -79,7 +79,30 @@
                         Postingan Terbaru
                     </div>
                     <div class="card-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem dolore delectus debitis aliquid veniam iste obcaecati eveniet suscipit ipsa, nesciunt maxime cupiditate sed reprehenderit quod fuga ipsum inventore incidunt nam.
+                        <table class="table table-striped datatable-posts">
+                            <thead>
+                                <tr>
+                                    <td style="width: 50%;">Judul</td>
+                                    <td>Kategori</td>
+                                    <td>Diposting</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($all_post as $post) : 
+                                    $date_now = strtotime(datetime_now());
+                                    $date_publish = strtotime($post['published_at']);
+
+                                    if ($date_publish <= $date_now) :
+                                    ?>
+                                    <tr>
+                                        <td><a href="<?= base_url('post/view/').$post['id'] ?>"><?= $post['title'] ?></a></td>
+                                        <td><?= $post['categorytitle'] ?></td>
+                                        <td><?= $post['published_at'] ?></td>
+                                    </tr>
+                                    <?php endif ?>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -89,21 +112,25 @@
                         Status User
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table class="table table-striped datatable-users">
                             <thead>
                                 <tr>
                                     <td>Nama User</td>
                                     <td>Login Terakhir</td>
                                     <td>Status</td>
+                                    <td>Chat</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                
-                                <?php foreach ($cek_login as $login) : ?>
+                                <?php
+                                date_default_timezone_set("Asia/jakarta");
+                                foreach ($cek_login as $login) : ?>
                                     <tr>
-                                        <td><?= $login['first_name'] . ' '.  $login['last_name']?></td>
-                                        <td><?= date("Y-m-d h:i:s a", $login['login_time']) ?></td>
+                                        <td><?= $login['first_name'] . ' ' .  $login['last_name'] ?></td>
+                                        <td><?= date("d-m-Y G:i:s", $login['login_time']) ?></td>
                                         <td><?= ($login['status'] == 'online') ? '<span class="badge badge-primary">Online</span>' : '<span class="badge badge-secondary">Offline</span>' ?></td>
+                                        <td><?= (strlen($login['phone']) > 4) ? '<a href="http://wa.me/' . $login['phone'] . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Chat</a>' : '' ?></td>
+
                                     </tr>
                                 <?php endforeach ?>
                             </tbody>

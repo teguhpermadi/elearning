@@ -36,7 +36,7 @@
 					<a href="<?= base_url('post/add') ?>" class="nav-link <?php if ($this->uri->segment(2) == 'add') {
 																				echo 'active';
 																			} ?>">
-						<i class="far fa-circle nav-icon"></i>
+						<i class="far fa-file nav-icon"></i>
 						<p>Tambah Baru</p>
 					</a>
 				</li>
@@ -44,7 +44,7 @@
 					<a href="<?= base_url('post') ?>" class="nav-link <?php if ($this->uri->segment(2) == 'post') {
 																			echo 'active';
 																		} ?>">
-						<i class="far fa-circle nav-icon"></i>
+						<i class="far fa-folder-open nav-icon"></i>
 						<p>Semua Postingan</p>
 					</a>
 				</li>
@@ -81,7 +81,7 @@
 					<a href="<?= base_url('soal') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'soal') {
 																			echo 'active';
 																		} ?>">
-						<i class="fas fa-database nav-icon"></i>
+						<i class="fas fa-pencil-ruler nav-icon"></i>
 						<p>Soal</p>
 					</a>
 				</li>

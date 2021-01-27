@@ -41,6 +41,8 @@
 
 	</section>
 
+	<?php if($profil_sekolah['id']) : ?>
+	
 	<!-- Main content -->
 	<section class="content">
 			<!-- Default box -->
@@ -110,5 +112,7 @@
 			<!-- /.card -->
 	</section>
 	<!-- /.content -->
+
+	<?php endif ?>
 </div>
 <!-- /.content-wrapper -->

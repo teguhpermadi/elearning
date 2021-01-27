@@ -66,7 +66,8 @@ class Faker extends CI_Controller
         for ($i = 0; $i < 20; $i++) {
             $soal = [
                 // isi data pada tabel guru
-                'author_id' => $faker->numberBetween($min = 3, $max = 5),
+                // 'author_id' => $faker->numberBetween($min = 2, $max = 4),
+                'author_id' => user_info()['id'],
                 'mapel_id' => $faker->numberBetween($min = 1, $max = 3),
                 'tingkat' => $faker->numberBetween($min = 7, $max = 9),
                 'created_at' => datetime_now(),
@@ -102,7 +103,8 @@ class Faker extends CI_Controller
         for ($i = 0; $i < 20; $i++) {
             $soal = [
                 // isi data pada tabel guru
-                'author_id' => $faker->numberBetween($min = 3, $max = 5),
+                // 'author_id' => $faker->numberBetween($min = 2, $max = 4),
+                'author_id' => user_info()['id'],
                 'mapel_id' => $faker->numberBetween($min = 1, $max = 3),
                 'tingkat' => $faker->numberBetween($min = 7, $max = 9),
                 'created_at' => datetime_now(),

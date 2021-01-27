@@ -18,6 +18,9 @@ class Dashboard extends CI_Controller
 		$data['count_mapel'] = $this->Dashboard_model->count_mapel();
 		$data['profil_sekolah'] = $this->Profil_sekolah_model->get_all_profil_sekolah();
 		$data['cek_login'] = $this->Dashboard_model->cek_login();
+		$data['all_post'] = $this->Dashboard_model->get_all_post();
+		$data['js'] = $this->load->view('dashboard/js_index', $data, true);
+
 
 		$this->load->view('template/header');
 		$this->load->view('template/sidebar');
