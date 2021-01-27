@@ -27,9 +27,11 @@ class Migration_result_ujian extends CI_Migration
             ),
             'jumlah_benar' => array(
                 'type' => 'VARCHAR',
+                'constraint' => '255',
             ),
             'jumlah_salah' => array(
                 'type' => 'VARCHAR',
+                'constraint' => '255',
             ),
             'nilai' => array(
                 'type' => 'INT',
