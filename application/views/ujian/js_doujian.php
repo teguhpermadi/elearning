@@ -1,5 +1,3 @@
-<!-- easytimer -->
-
 <script>
     $(document).ready(function() {
         // load soal pertama
@@ -25,7 +23,6 @@
         timer.start({
             countdown: true,
             startValues: {
-                // seconds: 5
                 minutes: <?= $ujian['durasi'] ?>
             }
         });
@@ -146,7 +143,7 @@
             success: function(data) {
                 // console.log(data)
                 // console.log(soalid)
-                location.href = '<?= base_url() ?>'
+                location.href = '<?= base_url('ujian/result_ujian/').$ujian['id'] ?>'
             },
             error: function(err) {
                 console.log(err)

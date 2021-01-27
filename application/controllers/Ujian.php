@@ -272,6 +272,8 @@ class Ujian extends CI_Controller
     {
         $ujian_id = $this->input->post('ujian_id');
         $data = $this->input->post('soal_id');
+        $jml_benar = 0;
+        $jml_salah = 0;
         $nilai = 0;
         $result = [];
         $status = '';
@@ -282,10 +284,12 @@ class Ujian extends CI_Controller
             // var_dump($soal);
             // koreksi soalnya
             if($jawaban == $soal['kunci']){
-                $nilai = $nilai + $soal['skor'];
+                $nilai =+ $soal['skor'];
                 $status = 'benar';
+                $jml_benar =+ 1;
             } else {
                 $status = 'salah';
+                $jml_salah =+ 1;
             }
 
             // push data masing-masing soal yang sudah dijawab
@@ -299,12 +303,26 @@ class Ujian extends CI_Controller
             'siswa_id' => user_info()['id'],
             'ujian_id' => $ujian_id,
             'waktu_ujian' => datetime_now(),
+            'jumlah_benar' => $jml_benar,
+            'jumlah_salah' => $jml_salah,
             'nilai' => $nilai,
             'history' => json_encode($result),
         ];
 
         $this->db->insert('result_ujian', $data);
         echo json_encode($data);
+    }
 
+    function result_ujian($ujian_id)
+    {
+        $data['ujian'] = $this->Ujian_model->get_ujian($ujian_id);
+        $data['result'] = $this->Ujian_model->get_result($ujian_id);
+        // $data['js'] = $this->load->view('ujian/js_add', $data, true);
+
+        // echo json_encode($data['ujian']);
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('ujian/result_ujian', $data);
+        $this->load->view('template/footer');
     }
 }

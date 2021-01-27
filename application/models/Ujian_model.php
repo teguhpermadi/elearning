@@ -79,4 +79,15 @@ class Ujian_model extends CI_Model
         $this->db->where('id',$id);
         return $this->db->update('ujian',$params);
     }
+
+    function get_result($ujian_id)
+    {
+        $siswa_id = user_info()['id'];
+        return $this->db->select('result_ujian.*, ujian.nama_ujian')
+        ->from('result_ujian')
+        ->where('result_ujian.ujian_id', $ujian_id)
+        ->where('result_ujian.siswa_id', $siswa_id)
+        ->join('ujian', 'ujian.id = result_ujian.ujian_id')
+        ->get()->row_array();
+    }
 }

@@ -3,7 +3,9 @@
 		<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 		<li class="nav-item">
-			<a href="<?= base_url('dashboard') ?>" class="nav-link <?php if($this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '') { echo 'active';}?>">
+			<a href="<?= base_url('dashboard') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '') {
+																		echo 'active';
+																	} ?>">
 				<i class="nav-icon fas fa-tachometer-alt"></i>
 				<p>
 					Dashboard
@@ -11,7 +13,9 @@
 			</a>
 		</li>
 		<li class="nav-item">
-			<a href="<?= base_url('profil_sekolah') ?>" class="nav-link <?php if($this->uri->segment(1) == 'profil_sekolah') { echo 'active';}?>">
+			<a href="<?= base_url('profil_sekolah') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'profil_sekolah') {
+																			echo 'active';
+																		} ?>">
 				<i class="nav-icon fas fa-school"></i>
 				<p>
 					Profil Sekolah
@@ -28,46 +32,73 @@
 				</p>
 			</a>
 			<ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?= base_url('post/add') ?>" class="nav-link <?php if($this->uri->segment(2) == 'add') { echo 'active';}?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Baru</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('post') ?>" class="nav-link <?php if($this->uri->segment(2) == 'post') { echo 'active';}?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Semua Postingan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('soal') ?>" class="nav-link <?php if($this->uri->segment(1) == 'soal') { echo 'active';}?>">
-                  <i class="fas fa-database nav-icon"></i>
-                  <p>Bank Soal</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('ujian') ?>" class="nav-link <?php if($this->uri->segment(1) == 'ujian') { echo 'active';}?>">
-                  <i class="fas fa-pencil-ruler nav-icon"></i>
-                  <p>Ujian</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('category') ?>" class="nav-link <?php if($this->uri->segment(1) == 'category') { echo 'active';}?>">
+				<li class="nav-item">
+					<a href="<?= base_url('post/add') ?>" class="nav-link <?php if ($this->uri->segment(2) == 'add') {
+																				echo 'active';
+																			} ?>">
+						<i class="far fa-circle nav-icon"></i>
+						<p>Tambah Baru</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<?= base_url('post') ?>" class="nav-link <?php if ($this->uri->segment(2) == 'post') {
+																			echo 'active';
+																		} ?>">
+						<i class="far fa-circle nav-icon"></i>
+						<p>Semua Postingan</p>
+					</a>
+				</li>
+
+				<!-- <li class="nav-item">
+                <a href="<?= base_url('category') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'category') {
+																			echo 'active';
+																		} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kategori</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('tag') ?>" class="nav-link <?php if($this->uri->segment(1) == 'tag') { echo 'active';}?>">
+                <a href="<?= base_url('tag') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'tag') {
+																		echo 'active';
+																	} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tag</p>
                 </a>
-              </li>
-            </ul>
+              </li> -->
+			</ul>
+
+		</li>
+		<li class="nav-item">
+			<a href="<?= base_url('materi') ?>" class="nav-link">
+				<i class="nav-icon fas fa-database"></i>
+				<p>
+					Bank Soal
+					<i class="right fas fa-angle-left"></i>
+				</p>
+			</a>
+			<ul class="nav nav-treeview">
+				<li class="nav-item">
+					<a href="<?= base_url('soal') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'soal') {
+																			echo 'active';
+																		} ?>">
+						<i class="fas fa-database nav-icon"></i>
+						<p>Soal</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<?= base_url('ujian') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'ujian') {
+																			echo 'active';
+																		} ?>">
+						<i class="fas fa-pencil-ruler nav-icon"></i>
+						<p>Ujian</p>
+					</a>
+				</li>
+			</ul>
 		</li>
 		<!-- <li class="nav-item">
-			<a href="<?= base_url('bank_soal') ?>" class="nav-link <?php if($this->uri->segment(1) == 'bank_soal') { echo 'active';}?>">
+			<a href="<?= base_url('bank_soal') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'bank_soal') {
+																		echo 'active';
+																	} ?>">
 				<i class="nav-icon fas fa-database"></i>
 				<p>
 					Bank Soal
@@ -75,7 +106,9 @@
 			</a>
 		</li>
 		<li class="nav-item">
-			<a href="<?= base_url('rekap_nilai') ?>" class="nav-link <?php if($this->uri->segment(1) == 'rekap_nilai') { echo 'active';}?>">
+			<a href="<?= base_url('rekap_nilai') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'rekap_nilai') {
+																			echo 'active';
+																		} ?>">
 				<i class="nav-icon fas fa-tasks"></i>
 				<p>
 					Rekap Nilai
@@ -83,7 +116,9 @@
 			</a>
 		</li>
 		<li class="nav-item">
-			<a href="<?= base_url('rekap_absensi') ?>" class="nav-link <?php if($this->uri->segment(1) == 'rekap_absensi') { echo 'active';}?>">
+			<a href="<?= base_url('rekap_absensi') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'rekap_absensi') {
+																			echo 'active';
+																		} ?>">
 				<i class="nav-icon fas fa-user-check"></i>
 				<p>
 					Rekap Absensi

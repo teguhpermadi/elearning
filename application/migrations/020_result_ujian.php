@@ -25,6 +25,12 @@ class Migration_result_ujian extends CI_Migration
             'waktu_ujian' => array(
                 'type' => 'DATETIME',
             ),
+            'jumlah_benar' => array(
+                'type' => 'VARCHAR',
+            ),
+            'jumlah_salah' => array(
+                'type' => 'VARCHAR',
+            ),
             'nilai' => array(
                 'type' => 'INT',
                 'default' => 0,
