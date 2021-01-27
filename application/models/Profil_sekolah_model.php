@@ -25,7 +25,7 @@ class Profil_sekolah_model extends CI_Model
     function get_all_profil_sekolah()
     {
         $this->db->order_by('id', 'desc');
-        return $this->db->get('profil_sekolah')->result_array();
+        return $this->db->get('profil_sekolah')->row_array();
     }
         
     /*

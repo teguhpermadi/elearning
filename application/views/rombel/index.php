@@ -44,7 +44,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h4><?= $k['nama'] ?>
+                            <h4>Kelas <?= $k['nama'] ?>
                             <span class="badge badge-info float-right"><?= $count ?> siswa</span>
                             </h4>
                         </div>
@@ -59,7 +59,7 @@
                             </ul>
                         </div>
                         <div class="card-footer">
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('rombel/edit/' . $k['id']) ?>">Edit</a>
+                            <a class="btn btn-primary" href="<?= base_url('rombel/edit/' . $k['id']) ?>">Edit</a>
                         </div>
                     </div>
                 </div>

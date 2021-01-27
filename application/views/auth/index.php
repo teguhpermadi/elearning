@@ -17,8 +17,8 @@
 			<div class="btn-group" role="group" aria-label="Basic example">
 				<a href="<?= base_url('auth/create_user') ?>" class="btn btn-primary">Tambah User</a>
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">Upload User</button>
-				<a href="<?= base_url('auth/create_group') ?>" class="btn btn-primary">Tambah Group</a>
-				<a href="#" class="btn btn-primary">Cetak User</a>
+				<!-- <a href="<?= base_url('auth/create_group') ?>" class="btn btn-primary">Tambah Group</a> -->
+				<!-- <a href="#" class="btn btn-primary">Cetak User</a> -->
 			</div>
 		</div>
 

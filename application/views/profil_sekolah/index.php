@@ -43,71 +43,71 @@
 
 	<!-- Main content -->
 	<section class="content">
-		<?php foreach ($profil_sekolah as $p) { ?>
 			<!-- Default box -->
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title text-uppercase font-weight-bold"><?php echo $p['nama']; ?></h3>
+					<h3 class="card-title text-uppercase font-weight-bold"><?php echo $profil_sekolah['nama']; ?></h3>
 				</div>
 				<div class="card-body">
 					<table class="table table-striped">
 						<tr>
 							<td>Jalan</td>
-							<td><?= $p['jalan'] ?></td>
+							<td><?= $profil_sekolah['jalan'] ?></td>
 						</tr>
 						<tr>
 							<td>Kelurahan</td>
-							<td><?= $p['kelurahan'] ?></td>
+							<td><?= $profil_sekolah['kelurahan'] ?></td>
 						</tr>
 						<tr>
 							<td>Kecamatan</td>
-							<td><?= $p['kecamatan'] ?></td>
+							<td><?= $profil_sekolah['kecamatan'] ?></td>
 						</tr>
 						<tr>
 							<td>Kota</td>
-							<td><?= $p['kota'] ?></td>
+							<td><?= $profil_sekolah['kota'] ?></td>
 						</tr>
 						<tr>
 							<td>Provinsi</td>
-							<td><?= $p['provinsi'] ?></td>
+							<td><?= $profil_sekolah['provinsi'] ?></td>
 						</tr>
 						<tr>
 							<td>Kode Pos</td>
-							<td><?= $p['kodepos'] ?></td>
+							<td><?= $profil_sekolah['kodepos'] ?></td>
 						</tr>
 						<tr>
 							<td>Telp</td>
-							<td><?= $p['telp'] ?></td>
+							<td><?= $profil_sekolah['telp'] ?></td>
 						</tr>
 						<tr>
 							<td>Email</td>
-							<td><?= $p['email'] ?></td>
+							<td><?= $profil_sekolah['email'] ?></td>
 						</tr>
 						<tr>
 							<td>Website</td>
-							<td><?= $p['website'] ?></td>
+							<td><?= $profil_sekolah['website'] ?></td>
 						</tr>
 						<tr>
 							<td>Logo</td>
 							<td>
-								<img src="<?= base_url('uploads/') . $p['logo'] ?>" class="img-thumbnail" style="height: 150px;">
+								<img src="<?= base_url('uploads/') . $profil_sekolah['logo'] ?>" class="img-thumbnail" style="height: 150px;">
 							</td>
 						</tr>
 						<tr>
 							<td>NPSN</td>
-							<td><?= $p['npsn'] ?></td>
+							<td><?= $profil_sekolah['npsn'] ?></td>
 						</tr>
 					</table>
 				</div>
 				<!-- /.card-body -->
+				<?php if(user_info()['role'] == 'admin'):?>
 				<div class="card-footer">
-					<a href="<?php echo site_url('profil_sekolah/edit/' . $p['id']); ?>" class="btn btn-info"><span class="fa fa-pencil"></span> Edit</a>
-					<a href="<?php echo site_url('profil_sekolah/remove/' . $p['id']); ?>" class="btn btn-danger"> Hapus</a>
+					<a href="<?php echo site_url('profil_sekolah/edit/' . $profil_sekolah['id']); ?>" class="btn btn-info"><span class="fa fa-pencil"></span> Edit</a>
+					<a href="<?php echo site_url('profil_sekolah/remove/' . $profil_sekolah['id']); ?>" class="btn btn-danger"> Hapus</a>
 				</div>
+				<?php endif ?>
 				<!-- /.card-footer-->
 			</div>
 			<!-- /.card -->
-		<?php } ?>
 	</section>
 	<!-- /.content -->
 </div>

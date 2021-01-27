@@ -33,8 +33,10 @@ function user_info()
         'active' => $user->active,
         'first_name' => $user->first_name,
         'last_name' => $user->last_name,
+        'full_name' => $user->first_name . ' ' .  $user->last_name,
         'company' => $user->company,
         'phone' => $user->phone,
+        'foto' => $user->foto,
     ];
 
     switch ($user_groups->name) {
@@ -79,8 +81,9 @@ function datetime_now()
     return date("Y-m-d\TH:i");
 }
 
-function time_elapsed_string($datetime, $full = false) {
-    
+function time_elapsed_string($datetime, $full = false)
+{
+
     date_default_timezone_set('Asia/Jakarta');
     $now = new DateTime;
     $ago = new DateTime($datetime);
@@ -110,7 +113,8 @@ function time_elapsed_string($datetime, $full = false) {
     return $string ? implode(', ', $string) . ' lalu' : 'baru saja';
 }
 
-function generateRandomString($length = 6) {
+function generateRandomString($length = 6)
+{
     $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';

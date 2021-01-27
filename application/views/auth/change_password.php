@@ -7,9 +7,11 @@
             <div class="card-body login-card-body">
                   <!-- <h1><?php echo lang('change_password_heading'); ?></h1> -->
                   <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
+                  <?php if($message) : ?>
                   <div class="alert alert-warning" role="alert">
                         <div id="infoMessage"><?php echo $message; ?></div>
                   </div>
+                  <?php endif ?>
 
                   <?php echo form_open("auth/change_password"); ?>
 

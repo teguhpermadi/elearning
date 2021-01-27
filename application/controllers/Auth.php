@@ -88,6 +88,27 @@ class Auth extends CI_Controller
 
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
 				//if the login is successful
+
+				// user long time
+				$user_id = user_info()['id'];
+				$check = $this->db->get_where('user_longtime', ['user_id' => $user_id])->num_rows();
+
+				if ($check > 0) {
+					$user_id = user_info()['id'];
+					$this->db->where('user_id', $user_id);
+					$this->db->update('user_longtime', [
+						'ip_address' => $this->input->ip_address(),
+						'login_time' => time(),
+						'status' => 'online',
+					]);
+				} else {
+					$this->db->insert('user_longtime', [
+						'user_id' => user_info()['id'],
+						'ip_address' => $this->input->ip_address(),
+						'login_time' => time(),
+						'status' => 'online',
+					]);
+				}
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				redirect('/', 'refresh');
@@ -131,6 +152,14 @@ class Auth extends CI_Controller
 	public function logout()
 	{
 		$this->data['title'] = "Logout";
+
+		// user long time
+		$user_id = user_info()['id'];
+		$this->db->where('user_id', $user_id);
+		$this->db->update('user_longtime', [
+			'logout_time' => time(),
+			'status' => 'offline'
+		]);
 
 		// log the user out
 		$this->ion_auth->logout();
@@ -602,9 +631,9 @@ class Auth extends CI_Controller
 
 		if (isset($_POST) && !empty($_POST)) {
 			// do we have a valid request?
-			if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id')) {
-				show_error($this->lang->line('error_csrf'));
-			}
+			// if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id')) {
+			// 	show_error($this->lang->line('error_csrf'));
+			// }
 
 			// update the password if it was posted
 			if ($this->input->post('password')) {
@@ -667,37 +696,51 @@ class Auth extends CI_Controller
 			'id'    => 'first_name',
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('first_name', $user->first_name),
+			'class' => 'form-control',
 		];
 		$this->data['last_name'] = [
 			'name'  => 'last_name',
 			'id'    => 'last_name',
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('last_name', $user->last_name),
+			'class' => 'form-control',
+
 		];
 		$this->data['company'] = [
 			'name'  => 'company',
 			'id'    => 'company',
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('company', $user->company),
+			'class' => 'form-control',
+
 		];
 		$this->data['phone'] = [
 			'name'  => 'phone',
 			'id'    => 'phone',
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('phone', $user->phone),
+			'class' => 'form-control',
+
 		];
 		$this->data['password'] = [
 			'name' => 'password',
 			'id'   => 'password',
-			'type' => 'password'
+			'type' => 'password',
+			'class' => 'form-control',
+
 		];
 		$this->data['password_confirm'] = [
 			'name' => 'password_confirm',
 			'id'   => 'password_confirm',
-			'type' => 'password'
+			'type' => 'password',
+			'class' => 'form-control',
+
 		];
 
+		$this->load->view('template/header');
+		$this->load->view('template/sidebar');
 		$this->_render_page('auth/edit_user', $this->data);
+		$this->load->view('template/footer');
 	}
 
 	/**

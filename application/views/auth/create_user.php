@@ -31,11 +31,9 @@
 
                         <div class="form-group">
                               <?php echo form_input($first_name); ?>
-
                         </div>
                         <div class="form-group">
                               <?php echo form_input($last_name); ?>
-
                         </div>
                         <div class="form-group">
                               <?php
@@ -51,23 +49,18 @@
                         </div>
                         <div class="form-group">
                               <?php echo form_input($company); ?>
-
                         </div>
                         <div class="form-group">
                               <?php echo form_input($email); ?>
-
                         </div>
                         <div class="form-group">
                               <?php echo form_input($phone); ?>
-
                         </div>
                         <div class="form-group">
                               <?php echo form_input($password); ?>
-
                         </div>
                         <div class="form-group">
                               <?php echo form_input($password_confirm); ?>
-
                         </div>
                         <div class="form-group">
                               <select class="custom-select" name="user_category">
