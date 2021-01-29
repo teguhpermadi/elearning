@@ -38,6 +38,14 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
+								<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ujianModal">Sisipkan Ujian</button>
+							</div>
+							<div class="col-md-12 mt-3">
+								<div id="previewSisipkanUjian"></div>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col-md-12">
 								<div class="token"></div>
 								<div class="dropzone">
 									<div class="dz-message">
@@ -50,6 +58,7 @@
 								</button> -->
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -194,6 +203,9 @@
 						</div>
 					</div>
 					<div class="card-footer">
+					<div id="sisipkanUjian">
+					
+					</div>
 						<button type="submit" class="btn btn-primary">
 							Simpan
 						</button>
@@ -201,32 +213,61 @@
 				</div>
 			</div>
 		</div>
+		<?php echo form_close(); ?>
 </div>
+
 <!-- Modal -->
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+<div class="modal fade" id="ujianModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">File milik Anda</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Daftar Ujian</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<?php foreach ($get_file as $file) : ?>
-						<input type="checkbox" name="token[]" value="<?= $file['token'] ?>">
-						<label for=""><?= $file['file_name'] ?></label>
-						<br>
-				<?php endforeach ?>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<td>Nama Ujian</td>
+							<td>Jumlah Soal</td>
+							<td>Kategori</td>
+							<td>Kelas Tingkat</td>
+							<td>Durasi</td>
+							<td>Batas Ujian</td>
+							<td>Action</td>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($all_ujian as $ujian) : ?>
+							<tr>
+								<td><?= $ujian['nama_ujian'] ?></td>
+								<td><?php
+									$count = $this->Ujian_model->count_soal($ujian['id']);
+									echo 'Total Soal: ' . $count['total'] . '<br>';
+									echo 'Pilihan Ganda: ' . $count['pilgan'] . '<br>';
+									echo 'Isian: ' . $count['isian'];
+									?></td>
+								<td><?= $ujian['nama_mapel'] ?></td>
+								<td><?= $ujian['kelas_tingkat'] ?></td>
+								<td><?= $ujian['durasi'] ?></td>
+								<td><?= ($ujian['waktu_selesai'] == '0000-00-00 00:00:00') ? '<span class="badge badge-secondary">Tanpa Batas</span>' : '<span class="badge badge-info">' . $ujian['waktu_selesai'] . '</span>'; ?></td>
+								<td>
+									<button type="button" class="btn btn-primary btn-sm btn-sisipkan" data-ujianid="<?= $ujian['id'] ?>" id="ujian-<?= $ujian['id'] ?>">Sisipkan</button>
+								</td>
+
+							</tr>
+						<?php endforeach ?>
+					</tbody>
+				</table>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Sisipkan</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
-</div> -->
-<?php echo form_close(); ?>
+</div>
 
 </section>
 <!-- /.content -->

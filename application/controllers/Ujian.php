@@ -48,6 +48,13 @@ class Ujian extends CI_Controller
         $soal = $this->Ujian_model->load_soal($id);
         echo json_encode($soal);
     }
+    
+    function load_ujian()
+    {
+        $id = $this->input->post('ujian_id');
+        $ujian = $this->Ujian_model->get_ujian($id);
+        echo json_encode($ujian);
+    }
 
     function get_ujian()
     {

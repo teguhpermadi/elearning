@@ -178,4 +178,14 @@ class Post_model extends CI_Model
         ->result_array();
         // return $this->db->last_query();
     }
+
+    function get_all_ujian($post_id)
+    {
+        return $this->db->select('ujian.*')
+        ->from('post_ujian')
+        ->where('post_ujian.post_id', $post_id)
+        ->join('ujian', 'ujian.id = post_ujian.ujian_id')
+        ->get()
+        ->result_array();
+    }
 }

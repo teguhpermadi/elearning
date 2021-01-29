@@ -361,4 +361,5 @@
 		var soalid = $(this).data('soalid')
 		alert(soalid)
 	})
+
 </script>

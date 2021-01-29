@@ -15,6 +15,7 @@ class Post extends CI_Controller
         $this->load->model('Tag_model');
         $this->load->model('Post_tag_model');
         $this->load->model('Rombel_model');
+        $this->load->model('Ujian_model');
         check_login();
         $this->load->library('upload');
     }
@@ -111,12 +112,26 @@ class Post extends CI_Controller
                 }
             }
 
+            // simpan data ujian yang disisipkan
+            $all_ujian = $this->input->post('sisipkanujian[]');
+            if ($all_ujian) {
+                foreach ($all_ujian as $ujian) {
+                    $ujian = [
+                        'post_id' => $post_id,
+                        'ujian_id' => $ujian
+                    ];
+
+                    $this->db->insert('post_ujian', $ujian);
+                }
+            }
+
             redirect('post/index');
         } else {
             $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
             $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
             $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
             $data['get_file'] = $this->Post_model->get_file();
+            $data['all_ujian'] = $this->Ujian_model->get_all_ujian();
             $data['js'] = $this->load->view('post/js_add', $data, true);
 
             $data['_view'] = 'post/add';
@@ -135,6 +150,7 @@ class Post extends CI_Controller
         // check if the post exists before trying to edit it
         $data['post'] = $this->Post_model->get_post($id);
         $data['post_category'] = $this->Post_category_model->get_post_category_by_post_id($id);
+        $data['this_ujian'] = $this->Post_model->get_all_ujian($id);
         // $data['post_tag'] = $this->Post_tag_model->get_post_tag_join_tag($id);
         // $data['post_tag'] = $this->Post_tag_model->get_post_tag($id);
         // echo json_encode($data['post_tag']);
@@ -223,11 +239,29 @@ class Post extends CI_Controller
                     }
                 }
 
+                // hapus dulu semua data ujian yang ada di post ini
+                $this->db->delete('post_ujian', ['post_id' => $id]);
+
+                // simpan data ujian yang disisipkan
+                $all_ujian = $this->input->post('sisipkanujian[]');
+                if ($all_ujian) {
+                    foreach ($all_ujian as $ujian) {
+                        $ujian = [
+                            'post_id' => $id,
+                            'ujian_id' => $ujian
+                        ];
+
+                        $this->db->insert('post_ujian', $ujian);
+                    }
+                }
+
                 redirect('post/index');
             } else {
                 $data['all_posts'] = $this->Post_model->get_all_posts_by_user_id();
                 $data['all_category'] = $this->Category_model->get_all_category_join_pengajar();
                 $data['all_tag'] = $this->Tag_model->get_all_tag_join_pengajar();
+                $data['all_ujian'] = $this->Ujian_model->get_all_ujian();
+
                 // echo json_encode($data['all_tag']);
                 // die;
                 $data['js'] = $this->load->view('post/js_add', $data, true);
@@ -253,6 +287,7 @@ class Post extends CI_Controller
         if (isset($post['id'])) {
             $this->Post_model->delete_post($id);
             $this->db->delete('attachfile', ['post_id' => $id]);
+            $this->db->delete('post_ujian', ['post_id' => $id]);
             redirect('post/index');
         } else
             show_error('The post you are trying to delete does not exist.');

@@ -79,6 +79,7 @@
 				}
 			});
 		})
+
 	})
 </script>
 
@@ -122,4 +123,46 @@
 
 		});
 	});
+
+
+	// ketika tombol sisipkan
+	$('.btn-sisipkan').on('click', function() {
+		var ujianid = $(this).data('ujianid')
+		// disable tombolnya untuk mencegah menyisipkan soal ganda
+		$(this).attr('disabled', true);
+		$.ajax({
+			type: "post",
+			data: {
+				ujian_id: ujianid
+			},
+			url: "<?php echo base_url('ujian/load_ujian') ?>",
+			cache: false,
+			dataType: 'json',
+			success: function(data) {
+				// console.log(data)
+				var html = `<div class="alert alert-warning alert-dismissible fade show alert-ujian" role="alert" id="alert-` + data.id + `">
+							<strong>Nama:</strong> ` + data.nama_ujian + `<br>
+							<strong>Kelas tingkat:</strong> ` + data.kelas_tingkat + `<br>
+							<strong>Waktu selesai:</strong> ` + data.waktu_selesai + `<br>
+							<strong>Token:</strong> ` + data.token + `
+							<button type="button" class="close" aria-label="Close" onclick="deleteUjian(` + data.id + `)">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							</div>`
+				$('#previewSisipkanUjian').append(html)
+
+				var input = `<input type="hidden" name="sisipkanujian[]" value="`+data.id+`" id="sisipkanujian-`+data.id+`">`
+				$('#sisipkanUjian').append(input)
+
+		
+			}
+		});
+	})
+
+	function deleteUjian(ujianid)
+	{
+		$('#alert-'+ujianid).alert('close')	
+		$('#sisipkanujian-'+ujianid).remove()
+		$('#ujian-'+ujianid).attr('disabled', false);
+	}
 </script>
