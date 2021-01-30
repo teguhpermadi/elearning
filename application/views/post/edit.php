@@ -46,7 +46,7 @@
 										<div class="alert alert-warning alert-dismissible fade show alert-ujian" role="alert" id="alert-<?= $ujian['id'] ?>">
 											<strong>Nama:</strong> <?= $ujian['nama_ujian'] ?><br>
 											<strong>Kelas tingkat:</strong> <?= $ujian['kelas_tingkat'] ?><br>
-											<strong>Waktu selesai:</strong> <?= $ujian['waktu_selesai'] ?><br>
+											<strong>Batas mengikuti ujian:</strong> <?= $ujian['waktu_selesai'] ?><br>
 											<strong>Token:</strong> <?= $ujian['token'] ?>
 											<button type="button" class="close" aria-label="Close" onclick="deleteUjian(<?= $ujian['id'] ?>)">
 												<span aria-hidden="true">&times;</span>

@@ -44,24 +44,44 @@
         <div class="card mt-3">
           <div class="card-body">
             <?= $post['content'] ?>
+            <!-- jika ada ujian yang disisipak di postingan ini -->
+            <?php foreach ($this_ujian as $ujian) : ?>
+              <div class="card card-outline card-info">
+                <div class="card-header">
+                  <h4><?= $ujian['nama_ujian'] ?></h4>
+                </div>
+                <div class="card-body">
+                  <strong>Kelas tingkat:</strong> <?= $ujian['kelas_tingkat'] ?><br>
+                  <strong>Batas mengikuti ujian:</strong> <?= $ujian['waktu_selesai'] ?><br>
+                  <strong>Token:</strong> <span class="badge badge-warning"><?= $ujian['token'] ?></span> <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Catat token ini!</span>
+                </div>
+                <div class="card-footer">
+                  <a href="<?= base_url('ujian/view/') . $ujian['id'] ?>" class="btn btn-info">Ikuti Ujian</a>
+                </div>
+              </div>
+            <?php endforeach ?>
+
+            <!-- jika ada file yang disisipkan di postingan ini -->
             <?php
             foreach ($attachfile as $file) :
             ?>
-              <div class="callout callout-info pb-4">
-                <?= $file['file_name'] ?>
-                <button class="btn btn-info ml-3 float-right" onclick="window.location.href='<?= base_url('post/download_file/') . $file['token'] ?>'">Download</button>
-
-                <!-- jika file pdf maka tampilkan -->
-                <?php if ($file['file_extension'] == '.pdf') { ?>
-                  <div class="_df_button float-right" source="<?= base_url('post/read_file/') . $file['token'] ?>" id="df_manual_button">
-                    <div class="btn btn-info">
-                      Baca Online
+              <div class="card card-outline card-info">
+                <div class="card-body">
+                  <?= $file['file_name'] ?>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-info float-left mr-3" onclick="window.location.href='<?= base_url('post/download_file/') . $file['token'] ?>'">Download</button>
+                  <!-- jika file pdf maka tampilkan -->
+                  <?php if ($file['file_extension'] == '.pdf') : ?>
+                    <div class="_df_button" source="<?= base_url('post/read_file/') . $file['token'] ?>" id="df_manual_button">
+                      <div class="btn btn-info">
+                        Baca Online
+                      </div>
                     </div>
-                  </div>
-                <?php } ?>
-
-
+                  <?php endif ?>
+                </div>
               </div>
+
             <?php
             endforeach;
             ?>

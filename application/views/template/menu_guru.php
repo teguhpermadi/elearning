@@ -23,53 +23,32 @@
 			</a>
 		</li>
 		<li class="nav-header">Menu Guru</li>
-		<li class="nav-item menu-open">
-			<a href="<?= base_url('materi') ?>" class="nav-link">
+		<li class="nav-item <?= ($this->uri->segment(1) == 'post' || $this->uri->segment(1) == 'post/add') ? 'menu-open' : ''; ?>">
+			<a href="#" class="nav-link">
 				<i class="nav-icon fas fa-book"></i>
 				<p>
-					Materi
+					Postingan
 					<i class="right fas fa-angle-left"></i>
 				</p>
 			</a>
 			<ul class="nav nav-treeview">
 				<li class="nav-item">
-					<a href="<?= base_url('post/add') ?>" class="nav-link <?php if ($this->uri->segment(2) == 'add') {
-																				echo 'active';
-																			} ?>">
+					<a href="<?= base_url('post/add') ?>" class="nav-link <?= ($this->uri->segment(1) == 'post' && $this->uri->segment(2) == 'add') ? 'active' : ''; ?>">
 						<i class="far fa-file nav-icon"></i>
 						<p>Tambah Baru</p>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="<?= base_url('post') ?>" class="nav-link <?php if ($this->uri->segment(2) == 'post') {
-																			echo 'active';
-																		} ?>">
+					<a href="<?= base_url('post') ?>" class="nav-link <?= ($this->uri->segment(1) == 'post' && $this->uri->segment(2) == '')? 'active' : ''; ?>">
 						<i class="far fa-folder-open nav-icon"></i>
 						<p>Semua Postingan</p>
 					</a>
 				</li>
-
-				<!-- <li class="nav-item">
-                <a href="<?= base_url('category') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'category') {
-																			echo 'active';
-																		} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kategori</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('tag') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'tag') {
-																		echo 'active';
-																	} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tag</p>
-                </a>
-              </li> -->
 			</ul>
 
 		</li>
-		<li class="nav-item">
-			<a href="<?= base_url('materi') ?>" class="nav-link">
+		<li class="nav-item  <?= ($this->uri->segment(1) == 'soal' || $this->uri->segment(1) == 'ujian') ? 'menu-open' : ''; ?>">
+			<a  href="#" class="nav-link">
 				<i class="nav-icon fas fa-database"></i>
 				<p>
 					Bank Soal
@@ -78,17 +57,13 @@
 			</a>
 			<ul class="nav nav-treeview">
 				<li class="nav-item">
-					<a href="<?= base_url('soal') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'soal') {
-																			echo 'active';
-																		} ?>">
+					<a href="<?= base_url('soal') ?>" class="nav-link <?= ($this->uri->segment(1) == 'soal') ? 'active' : ''; ?>">
 						<i class="fas fa-pencil-ruler nav-icon"></i>
 						<p>Soal</p>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="<?= base_url('ujian') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'ujian') {
-																			echo 'active';
-																		} ?>">
+					<a href="<?= base_url('ujian') ?>" class="nav-link <?= ($this->uri->segment(1) == 'ujian') ? 'active' : ''; ?>">
 						<i class="fas fa-pencil-ruler nav-icon"></i>
 						<p>Ujian</p>
 					</a>

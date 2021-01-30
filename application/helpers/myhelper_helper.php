@@ -37,6 +37,9 @@ function user_info()
         'company' => $user->company,
         'phone' => $user->phone,
         'foto' => $user->foto,
+        'nomor_induk' => $user->nomor_induk,
+        'tempat_lahir' => $user->tempat_lahir,
+        'tanggal_lahir' => $user->tanggal_lahir,
     ];
 
     switch ($user_groups->name) {

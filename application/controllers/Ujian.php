@@ -48,7 +48,7 @@ class Ujian extends CI_Controller
         $soal = $this->Ujian_model->load_soal($id);
         echo json_encode($soal);
     }
-    
+
     function load_ujian()
     {
         $id = $this->input->post('ujian_id');
@@ -222,10 +222,10 @@ class Ujian extends CI_Controller
     function cektoken()
     {
         $ujian_id = $this->input->post('ujian_id');
-		$token = $this->input->post('token');
-		$cek = $this->Ujian_model->get_ujian($ujian_id);
-        
-        if(strtolower($token) == strtolower($cek['token'])){
+        $token = $this->input->post('token');
+        $cek = $this->Ujian_model->get_ujian($ujian_id);
+
+        if (strtolower($token) == strtolower($cek['token'])) {
             $data = [
                 'status' => true,
                 'url_encrypted' => urlencode($this->encryption->encrypt($ujian_id)),
@@ -235,23 +235,22 @@ class Ujian extends CI_Controller
                 'status' => false,
             ];
         }
-		echo json_encode($data);
+        echo json_encode($data);
     }
 
     function do_ujian()
     {
         $key = $this->input->get('key', true);
         $id  = $this->encryption->decrypt(rawurldecode($key));
-        
+
         $data['ujian'] = $this->Ujian_model->get_ujian($id);
         $data['all_soal'] = $this->Ujian_model->get_soal_ujian($id);
+        // acak dulu soalnya
         shuffle($data['all_soal']);
         $data['soal_pertama'] = $data['all_soal'][0];
         $data['js'] = $this->load->view('ujian/js_doujian', $data, true);
-        $data['tes'] = 'tes';
-
-        // acak dulu soalnya
-
+        // cache waktu mulai
+        $this->cache->save('waktu_mulai', datetime_now());
         // echo json_encode($data);
         // die;
         $this->load->view('template/top-nav/header');
@@ -277,26 +276,29 @@ class Ujian extends CI_Controller
 
     function koreksi_ujian()
     {
+        $user_id = user_info()['id'];
         $ujian_id = $this->input->post('ujian_id');
         $data = $this->input->post('soal_id');
+        $waktu_mulai = $this->cache->get('waktu_mulai');
+
         $jml_benar = 0;
         $jml_salah = 0;
         $nilai = 0;
         $result = [];
         $status = '';
         // pecah data soal id nya untuk mendapatkan masing-masing jawaban yg sudah tersimpan di cache
-        foreach($data as $d){
+        foreach ($data as $d) {
             $jawaban = $this->cache->get($d);
             $soal = $this->Ujian_model->load_soal($d);
             // var_dump($soal);
             // koreksi soalnya
-            if($jawaban == $soal['kunci']){
-                $nilai =+ $soal['skor'];
+            if ($jawaban == $soal['kunci']) {
+                $nilai = +$soal['skor'];
                 $status = 'benar';
-                $jml_benar =+ 1;
+                $jml_benar = $jml_benar + 1;
             } else {
                 $status = 'salah';
-                $jml_salah =+ 1;
+                $jml_salah = $jml_salah + 1;
             }
 
             // push data masing-masing soal yang sudah dijawab
@@ -307,20 +309,33 @@ class Ujian extends CI_Controller
             ]);
         }
         $data = [
-            'siswa_id' => user_info()['id'],
+            'siswa_id' => $user_id,
             'ujian_id' => $ujian_id,
-            'waktu_ujian' => datetime_now(),
+            'waktu_mulai' => $waktu_mulai,
+            'waktu_selesai' => datetime_now(),
             'jumlah_benar' => $jml_benar,
             'jumlah_salah' => $jml_salah,
             'nilai' => $nilai,
             'history' => json_encode($result),
         ];
 
-        $this->db->insert('result_ujian', $data);
+        $check = $this->db->get_where('result_ujian', ['ujian_id' => $ujian_id, 'siswa_id' => $user_id])->num_rows();
+
+        if ($check > 0) {
+            // jika user sudah pernah mengikuti ujian ini
+            // update data ujiannya
+            $this->db->where('ujian_id', $ujian_id);
+            $this->db->where('siswa_id', $user_id);
+            $this->db->update('ujian', $data);
+        } else {
+            // jika user belum pernah mengikuti ujian ini
+            // tambahkan baru data ujiannya
+            $this->db->insert('result_ujian', $data);
+        }
         echo json_encode($data);
     }
 
-    function result_ujian($ujian_id)
+    function result_ujian_siswa($ujian_id)
     {
         $data['ujian'] = $this->Ujian_model->get_ujian($ujian_id);
         $data['result'] = $this->Ujian_model->get_result($ujian_id);
@@ -329,7 +344,12 @@ class Ujian extends CI_Controller
         // echo json_encode($data['ujian']);
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('ujian/result_ujian', $data);
+        $this->load->view('ujian/result_ujian_siswa', $data);
         $this->load->view('template/footer');
+    }
+
+    function result_ujian_guru($ujian_id)
+    {
+        
     }
 }

@@ -22,8 +22,24 @@
                             Identitas Siswa
                         </div>
                         <div class="card-body">
+                            <div class="text-center">
+                                <?php
+                                if (user_info()['foto'] != null) {
+                                    $foto = base_url('uploads/') . $user['foto'];
+                                } else {
+                                    $foto = base_url('assets/images/avatar_default.png');
+                                }
+                                ?>
+                                <img class="profile-user-img img-fluid img-circle" src="<?= $foto ?>" alt="User profile picture">
+                            </div>
                             <label for="">Nama Lengkap</label>
                             <input type="text" class="form-control" value="<?= user_info()['first_name'] . ' ' . user_info()['last_name'] ?>" readonly>
+                            <label for="">Nomor Induk</label>
+                            <input type="text" class="form-control" value="<?= user_info()['nomor_induk'] ?>" readonly>
+                            <label for="">Tempat Lahir</label>
+                            <input type="text" class="form-control" value="<?= user_info()['tempat_lahir'] ?>" readonly>
+                            <label for="">Tanggal Lahir</label>
+                            <input type="date" class="form-control" value="<?= user_info()['tanggal_lahir'] ?>" readonly>
                         </div>
                     </div>
                 </div>

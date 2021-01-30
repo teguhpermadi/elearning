@@ -22,7 +22,10 @@ class Migration_result_ujian extends CI_Migration
                 'type' => 'BIGINT',  
                 'constraint' => '255',
             ),
-            'waktu_ujian' => array(
+            'waktu_mulai' => array(
+                'type' => 'DATETIME',
+            ),
+            'waktu_selesai' => array(
                 'type' => 'DATETIME',
             ),
             'jumlah_benar' => array(

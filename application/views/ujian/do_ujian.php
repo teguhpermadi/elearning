@@ -43,8 +43,8 @@
                     <form id="jawabanSoal">
                         <div class="card">
                             <div class="card-header">
-                                <div id="countdownExample">
-                                    <div class="values"></div>
+                                <div class="badge badge-primary" id="countdownExample">
+                                    <h5><div class="values"></div></h5>
                                 </div>
                             </div>
                             <div class="card-body">

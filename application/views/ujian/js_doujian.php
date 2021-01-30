@@ -141,9 +141,9 @@
             },
             dataType: 'json',
             success: function(data) {
-                // console.log(data)
+                console.log(data)
                 // console.log(soalid)
-                location.href = '<?= base_url('ujian/result_ujian/').$ujian['id'] ?>'
+                location.href = '<?= base_url('ujian/result_ujian_siswa/').$ujian['id'] ?>'
             },
             error: function(err) {
                 console.log(err)
