@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Pantau Ujian</h1>
+                    <h1>Pantau Ujian Real Time</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -23,14 +23,16 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <td>Nomor Induk</td>
                             <td>Nama Siswa</td>
                             <td>Progres</td>
                             <td>Waktu Mulai</td>
-                            <td>Waktu Selesai</td>
-                            <td>Durasi Mengerjakan</td>
+                            <td>Status</td>
+                            <td>Nilai</td>
                         </tr>
                     </thead>
+                    <tbody id="tbody-monitor">
+
+                    </tbody>
                 </table>
             </div>
             <!-- /.card-body -->

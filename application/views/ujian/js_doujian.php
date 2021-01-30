@@ -12,7 +12,7 @@
                 return false;
             }
         });
-     
+
         countdown()
 
     })
@@ -114,10 +114,11 @@
             data: $(this).serialize(),
             dataType: 'json',
             success: function(data) {
-                // console.log(data)
+                console.log(data)
                 var soalid = $('input[name="soal_id"]').val()
                 $('#soal-' + soalid).addClass('bg-primary')
                 // console.log(soalid)
+                updateProgress()
             },
             error: function(err) {
                 console.log(err)
@@ -143,7 +144,8 @@
             success: function(data) {
                 console.log(data)
                 // console.log(soalid)
-                location.href = '<?= base_url('ujian/result_ujian_siswa/').$ujian['id'] ?>'
+                endUjian(data)
+                location.href = '<?= base_url('ujian/result_ujian_siswa/') . $ujian['id'] ?>'
             },
             error: function(err) {
                 console.log(err)
@@ -151,4 +153,37 @@
             }
         })
     })
+
+    startUjian()
+
+    function startUjian()
+    {
+        var database = firebase.database();
+        var id_siswa = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/id_siswa');
+        var nama_siswa = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/nama_siswa');
+        var waktu_mulai = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/waktu_mulai');
+        var status = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/status');
+        waktu_mulai.set('<?= datetime_now() ?>')
+        nama_siswa.set('<?= user_info()['full_name'] ?>')
+        nama_id_siswasiswa.set('<?= user_info()['id'] ?>')
+        status.set('Sedang Mengerjakan')
+    }
+
+    function updateProgress() {
+        // Gets the number of elements with class yourClass
+        var numItems = $('.bg-primary').length
+        var database = firebase.database();
+        var jawab = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/ujian_progres');
+        jawab.set(numItems)
+    }
+
+    function endUjian(data)
+    {
+        var waktu_selesai= firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/waktu_mulai');
+        var status = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/status');
+        var nilai = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/nilai');
+        waktu_selesai.set('<?= datetime_now() ?>')
+        status.set('Selesai Mengerjakan')
+        nilai.set(data.nilai)
+    }
 </script>

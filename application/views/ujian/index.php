@@ -41,7 +41,7 @@
                     <tbody>
                     <?php foreach($all_ujian as $ujian): ?>
                         <tr>
-                            <td><a href="<?= base_url('ujian/view/').$ujian['id'] ?>"><?= $ujian['nama_ujian'] ?></a></td>
+                            <td><a href="<?= base_url('ujian/monitoring/').$ujian['id'] ?>"><?= $ujian['nama_ujian'] ?></a></td>
                             <td><?= $ujian['created_at']?></td>
                             <td><?php
                             $count = $this->Ujian_model->count_soal($ujian['id']);

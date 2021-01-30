@@ -116,13 +116,13 @@
                             <thead>
                                 <tr>
                                     <td>Nama User</td>
-                                    <td>Login Terakhir</td>
                                     <td>Status</td>
-                                    <td>Chat</td>
+                                    <td>Whatsapp</td>
+                                    <!-- <td>Chat</td> -->
                                 </tr>
                             </thead>
-                            <tbody>
-                                <?php
+                            <tbody id="tbody-users">
+                                <!-- <?php
                                 date_default_timezone_set("Asia/jakarta");
                                 foreach ($cek_login as $login) : ?>
                                     <tr>
@@ -132,7 +132,7 @@
                                         <td><?= (strlen($login['phone']) > 4) ? '<a href="http://wa.me/' . $login['phone'] . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Chat</a>' : '' ?></td>
 
                                     </tr>
-                                <?php endforeach ?>
+                                <?php endforeach ?> -->
                             </tbody>
                         </table>
                     </div>

@@ -264,7 +264,7 @@ class Ujian extends CI_Controller
         $soal_id = $this->input->post('soal_id');
         $jawab = $this->input->post('jawab');
         $this->cache->save($soal_id, $jawab);
-        echo json_encode('saved');
+        echo json_encode([$soal_id => $jawab]);
     }
 
     function get_cache_jawab()
@@ -319,14 +319,13 @@ class Ujian extends CI_Controller
             'history' => json_encode($result),
         ];
 
-        $check = $this->db->get_where('result_ujian', ['ujian_id' => $ujian_id, 'siswa_id' => $user_id])->num_rows();
+        $check = $this->db->get_where('result_ujian', ['ujian_id' => $ujian_id, 'siswa_id' => $user_id])->row_array();
 
-        if ($check > 0) {
+        if (count($check) > 0) {
             // jika user sudah pernah mengikuti ujian ini
             // update data ujiannya
-            $this->db->where('ujian_id', $ujian_id);
-            $this->db->where('siswa_id', $user_id);
-            $this->db->update('ujian', $data);
+            $this->db->where('id', $check['id']);
+            $this->db->update('result_ujian', $data);
         } else {
             // jika user belum pernah mengikuti ujian ini
             // tambahkan baru data ujiannya
@@ -348,8 +347,14 @@ class Ujian extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function result_ujian_guru($ujian_id)
+    function monitoring($ujian_id)
     {
-        
+        $data['ujian'] = $this->Ujian_model->get_ujian($ujian_id);
+        $data['js'] = $this->load->view('ujian/js_monitoring', $data, true);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('ujian/monitoring', $data);
+        $this->load->view('template/footer');
     }
 }
