@@ -169,7 +169,7 @@
                             $all_siswa = $this->Rombel_model->get_siswa_by_kelas($tag['id']);
                             foreach ($all_siswa as $siswa) :
                             ?>
-                              <a class="list-group-item list-group-item-action list-siswa" id="list-home-list" data-toggle="list" href="#list-<?= $tag['id'] ?>" role="tab" aria-controls="home" data-siswaid="<?= $siswa['user_id'] ?>" data-tagid="<?= $tag['id'] ?>"><?= $siswa['first_name'] ?></a>
+                              <a class="list-group-item list-group-item-action list-siswa" id="list-home-list" data-toggle="list" href="#list-<?= $tag['id'] ?>" role="tab" aria-controls="home" data-siswaid="<?= $siswa['user_id'] ?>" data-tagid="<?= $tag['id'] ?>"><?= $siswa['first_name'].' '.$siswa['last_name'] ?></a>
                             <?php endforeach ?>
 
                           </div>

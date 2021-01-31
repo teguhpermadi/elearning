@@ -159,7 +159,6 @@
 				type: "post",
 				data: {
 					siswa_id: siswa_id,
-					tag_id: tag_id,
 					post_id: '<?= $post['id'] ?>'
 				},
 				url: "<?php echo base_url('post/get_filesiswa') ?>",
@@ -167,11 +166,55 @@
 				dataType: 'JSON',
 				success: function(data) {
 					// var d = $.parseJSON(data);
-					$('#list-'+tag_id).html(data);
+					$('#list-' + tag_id).html(data);
 					// console.log(data);
 				}
 
 			});
 		});
+
+		function saveNilai() {
+			var siswa_id = $('#siswa_id').val()
+			var post_id = $('#post_id').val()
+			var nilai = $('#nilai').val()
+			var keterangan = $('#keterangan').val()
+
+			$.ajax({
+				type: "post",
+				data: {
+					siswa_id: siswa_id,
+					post_id: post_id,
+					nilai: nilai,
+					keterangan: keterangan,
+				},
+				url: "<?php echo base_url('post/save_nilai') ?>",
+				cache: false,
+				dataType: 'JSON',
+				success: function(data) {
+					// var d = $.parseJSON(data);
+					// $('#list-'+tag_id).html(data);
+					// console.log(data);
+					toastr.success('Nilai tersimpan.')
+					toastr.options = {
+						"closeButton": false,
+						"debug": false,
+						"newestOnTop": false,
+						"progressBar": false,
+						"positionClass": "toast-top-right",
+						"preventDuplicates": false,
+						"onclick": null,
+						"showDuration": "2000",
+						"hideDuration": "1000",
+						"timeOut": "1000",
+						"extendedTimeOut": "1000",
+						"showEasing": "swing",
+						"hideEasing": "linear",
+						"showMethod": "fadeIn",
+						"hideMethod": "fadeOut"
+					}
+				}
+
+			});
+		}
 	</script>
 <?php endif ?>

@@ -22,15 +22,10 @@ class Migration_user_longtime extends CI_Migration
 				'type'       => 'VARCHAR',
 				'constraint' => '45'
             ),
-            'login_time' => array(
-				'type'       => 'VARCHAR',
-				'constraint' => '255'
+            'time_access' => array(
+				'type'       => 'DATETIME',
             ),
-            'logout_time' => array(
-				'type'       => 'VARCHAR',
-				'constraint' => '255'
-            ),
-            'status' => array(
+            'url' => array(
 				'type'       => 'VARCHAR',
 				'constraint' => '255'
             ),

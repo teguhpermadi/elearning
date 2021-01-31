@@ -88,27 +88,6 @@ class Auth extends CI_Controller
 
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
 				//if the login is successful
-
-				// user long time
-				$user_id = user_info()['id'];
-				$check = $this->db->get_where('user_longtime', ['user_id' => $user_id])->num_rows();
-
-				if ($check > 0) {
-					$user_id = user_info()['id'];
-					$this->db->where('user_id', $user_id);
-					$this->db->update('user_longtime', [
-						'ip_address' => $this->input->ip_address(),
-						'login_time' => time(),
-						'status' => 'online',
-					]);
-				} else {
-					$this->db->insert('user_longtime', [
-						'user_id' => user_info()['id'],
-						'ip_address' => $this->input->ip_address(),
-						'login_time' => time(),
-						'status' => 'online',
-					]);
-				}
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				redirect('/', 'refresh');
@@ -152,14 +131,6 @@ class Auth extends CI_Controller
 	public function logout()
 	{
 		$this->data['title'] = "Logout";
-
-		// user long time
-		$user_id = user_info()['id'];
-		$this->db->where('user_id', $user_id);
-		$this->db->update('user_longtime', [
-			'logout_time' => time(),
-			'status' => 'offline'
-		]);
 
 		// log the user out
 		$this->ion_auth->logout();

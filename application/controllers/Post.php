@@ -524,20 +524,24 @@ class Post extends CI_Controller
     function get_filesiswa()
     {
         $siswa_id = $this->input->post('siswa_id');
-        $tag_id = $this->input->post('tag_id');
         $post_id = $this->input->post('post_id');
 
         $data = '';
         $all_file = $this->Post_model->get_filesiswa($siswa_id, $post_id);
 
+        $check_nilai = $this->db->get_where('nilai', ['siswa_id' => $siswa_id, 'post_id' => $post_id])->row_array();
+
         // tampung nilai tugas siswa
         $data .= '
                 <div class="row">
-                <form action="" class="form-inline">
+                <form class="form-inline">
                     <div class="form-group mx-sm-3">
-                    <input type="number" id="nilai" name="nilai" class="form-control" placeholder="nilai" min="0" max="100" required>
+                    <input type="hidden" name="siswa_id" id="siswa_id" value="'.$siswa_id.'">
+                    <input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
+                    <input type="hidden" name="keterangan" id="keterangan" value="nilai tugas">
+                    <input type="number" id="nilai" name="nilai" class="form-control" placeholder="nilai" min="0" max="100" value="'.$check_nilai['nilai'].'" required>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="saveNilai()">Simpan</button>
                 </form>
                 </div>
         ';
@@ -558,5 +562,35 @@ class Post extends CI_Controller
 
         header('Content-Type: application/json');
         echo json_encode($data);
+    }
+
+    function save_nilai()
+    {
+        $siswa_id = $this->input->post('siswa_id');
+        $post_id = $this->input->post('post_id');
+        $nilai = $this->input->post('nilai');
+        $keterangan = $this->input->post('keterangan');
+
+        $params = [
+            'siswa_id' => $siswa_id,
+            'post_id' => $post_id,
+            'nilai' => $nilai,
+            'keterangan' => $keterangan,
+            'waktu_penilaian' => datetime_now()
+        ];
+
+        $check = $this->db->get_where('nilai', ['siswa_id' => $siswa_id, 'post_id' => $post_id])->row_array();
+
+        if($check){
+            // update nilainya
+            $id = $check['id'];
+            $this->db->where('id', $id);
+            $this->db->update('nilai', $params);
+        } else {
+            // tambahkan nilai baru
+            $this->db->insert('nilai', $params);
+        }
+
+        echo json_encode($params);
     }
 }

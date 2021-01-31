@@ -44,6 +44,11 @@
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="<?= base_url('node_modules/admin-lte/') ?>dist/js/demo.js"></script> -->
 
+<!-- SweetAlert2 -->
+<script src="<?= base_url('node_modules/admin-lte/') ?>plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="<?= base_url('node_modules/admin-lte/') ?>plugins/toastr/toastr.min.js"></script>
+
 <!-- DataTables -->
 <script src="<?= base_url('node_modules/admin-lte/') ?>plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('node_modules/admin-lte/') ?>plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -129,6 +134,7 @@
 
 <script>
   $(document).ready(function() {
+
     $('.datatable').DataTable({
       // "dom": 'flrtip',
       "dom": '<"top float-left" l><"top float-right" f><t><"bottom float-left" i><"bottom float-right" p>'

@@ -40,6 +40,11 @@
 
   <!-- Icons Stylesheet -->
   <link href="<?= base_url('assets/') ?>dflip/css/themify-icons.min.css" rel="stylesheet" type="text/css">
+
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="<?= base_url('node_modules/admin-lte/') ?>plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="<?= base_url('node_modules/admin-lte/') ?>plugins/toastr/toastr.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
