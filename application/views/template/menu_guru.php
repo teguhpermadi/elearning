@@ -70,27 +70,16 @@
 				</li>
 			</ul>
 		</li>
-		<!-- <li class="nav-item">
-			<a href="<?= base_url('bank_soal') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'bank_soal') {
-																		echo 'active';
-																	} ?>">
-				<i class="nav-icon fas fa-database"></i>
-				<p>
-					Bank Soal
-				</p>
-			</a>
-		</li>
+		
 		<li class="nav-item">
-			<a href="<?= base_url('rekap_nilai') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'rekap_nilai') {
-																			echo 'active';
-																		} ?>">
-				<i class="nav-icon fas fa-tasks"></i>
+			<a href="<?= base_url('nilai') ?>" class="nav-link <?= ($this->uri->segment(1) == 'nilai') ? 'active' : '' ?>">
+				<i class="nav-icon fas fa-file-alt"></i>
 				<p>
 					Rekap Nilai
 				</p>
 			</a>
 		</li>
-		<li class="nav-item">
+		<!-- <li class="nav-item">
 			<a href="<?= base_url('rekap_absensi') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'rekap_absensi') {
 																			echo 'active';
 																		} ?>">
