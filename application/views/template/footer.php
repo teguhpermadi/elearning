@@ -97,6 +97,7 @@
     var userId = firebase.database().ref('users/<?= user_info()['id'] ?>/nama_lengkap');
     var wa = firebase.database().ref('users/<?= user_info()['id'] ?>/wa');
     var role = firebase.database().ref('users/<?= user_info()['id'] ?>/role');
+
     connectedRef.on('value', function(snap) {
       if (snap.val() === true) {
         // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
@@ -121,12 +122,15 @@
         wa.set(
           '<?= user_info()['phone'] ?>'
         )
-        
+
         role.set(
           '<?= user_info()['role'] ?>'
         )
       }
     });
+
+
+
   }
 
   check()
@@ -143,6 +147,7 @@
 
   });
 </script>
+
 
 <!-- cek jika variabel js tidak ditemukan -->
 <?= (empty($js)) ? '' : $js ?>

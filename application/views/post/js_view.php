@@ -218,3 +218,22 @@
 		}
 	</script>
 <?php endif ?>
+
+<!-- absensi khusus siswa -->
+<?php if (user_info()['role'] == 'siswa') : ?>
+  <script>
+    var url = window.location.href
+    $.ajax({
+      type: "post",
+      data: {
+        url: url
+      },
+      url: "<?php echo base_url('absensi/absen') ?>",
+      dataType: 'json',
+      success: function(res) {
+        // alert('Selected file removed !');			
+      }
+
+    });
+  </script>
+<?php endif ?>

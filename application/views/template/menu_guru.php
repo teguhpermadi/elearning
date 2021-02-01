@@ -79,15 +79,13 @@
 				</p>
 			</a>
 		</li>
-		<!-- <li class="nav-item">
-			<a href="<?= base_url('rekap_absensi') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'rekap_absensi') {
-																			echo 'active';
-																		} ?>">
+		<li class="nav-item">
+			<a href="<?= base_url('absensi') ?>" class="nav-link <?= ($this->uri->segment(1) == 'absensi')? 'active' : ''?>">
 				<i class="nav-icon fas fa-user-check"></i>
 				<p>
 					Rekap Absensi
 				</p>
 			</a>
-		</li> -->
+		</li>
 	</ul>
 </nav>
