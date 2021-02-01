@@ -47,4 +47,21 @@ class Nilai_model extends CI_Model
         ->get()
         ->result_array();
     }
+
+    function get_all_nilai()
+    {
+        $user_id = user_info()['id'];
+        $this->db->select('posts.id as post_id, post_category.category_id, post_tag.tag_id, users.id as siswa_id, nilai.nilai, nilai.keterangan')
+            ->from('posts')
+            ->where('author_id', $user_id)
+            ->join('post_category', 'post_category.post_id = posts.id')
+            ->join('post_tag', 'post_tag.post_id = posts.id')
+            // ->join('kelas', 'kelas.id = post_tag.tag_id')
+            ->join('rombel', 'rombel.id_kelas = post_tag.tag_id')
+            ->join('users', 'users.id = rombel.id_siswa')
+            ->join('nilai', 'nilai.siswa_id = users.id', 'left')
+            ->order_by('siswa_id', 'asc')
+            ->order_by('post_id','asc')
+            ->get()->result_array();
+    }
 }

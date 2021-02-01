@@ -20,18 +20,19 @@
             <div class="card card-outline card-primary">
                 <div class="card-header">
                     <h3 class="card-title"><?= $class['nama_mapel'] ?> Kelas <?= $class['nama_kelas'] ?></h3>
+                    <a href="<?= base_url('nilai/cetak/').$class['kelas_id']?>"></a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
-                        <thead>
+                        <thead class="bg-primary">
                             <tr>
-                                <td>Nama Siswa</td>
+                                <th style="width: 20px;">Nama Siswa</th>
                                 <!-- dapatkan semua postingan terkait mapel ini dan kelas ini -->
                                 <?php
                                 $all_post = $this->Nilai_model->get_post_by_category_and_tag($class['mapel_id'], $class['kelas_id']);
                                 foreach ($all_post as $post) :
                                 ?>
-                                    <td><?= $post['post_title'] ?></td>
+                                    <th style="width: 15px;"><?= $post['post_title'] ?></th>
                                 <?php endforeach ?>
                             </tr>
                         </thead>
