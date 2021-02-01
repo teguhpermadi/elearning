@@ -10,6 +10,8 @@ class Nilai extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Nilai_model');
+        $this->load->model('Mapel_model');
+        $this->load->model('Kelas_model');
         $this->load->model('Rombel_model');
         check_login();
     }
@@ -26,23 +28,16 @@ class Nilai extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    function tes()
+    function cetak($url)
     {
-        $user_id = user_info()['id'];
-        $this->db->select('posts.id as post_id, post_category.category_id, post_tag.tag_id, users.id as siswa_id, nilai.nilai, nilai.keterangan')
-            ->from('posts')
-            ->where('author_id', $user_id)
-            ->join('post_category', 'post_category.post_id = posts.id')
-            ->join('post_tag', 'post_tag.post_id = posts.id')
-            // ->join('kelas', 'kelas.id = post_tag.tag_id')
-            ->join('rombel', 'rombel.id_kelas = post_tag.tag_id')
-            ->join('users', 'users.id = rombel.id_siswa')
-            ->join('nilai', 'nilai.siswa_id = users.id', 'right')
-            ->order_by('siswa_id', 'asc')
-            ->order_by('post_id','asc')
-            ->get()->result_array();
-        $tes = $this->db->last_query();
-        // echo json_encode($tes);
-        echo $tes;
+        $params = explode('-', $url);
+        $mapel_id = $params[0];
+        $kelas_id = $params[1];
+
+        $data['mapel'] = $this->Mapel_model->get_mapel($mapel_id);
+        $data['kelas'] = $this->Kelas_model->get_kelas($kelas_id);
+        
+        $this->load->view('nilai/cetak', $data);
+
     }
 }
