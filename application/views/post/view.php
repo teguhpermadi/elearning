@@ -23,6 +23,25 @@
   <!-- Main content -->
   <section class="content">
 
+    <!-- absensi khusus siswa -->
+    <?php if (user_info()['role'] == 'siswa') :
+      // cek jika user sudah absen
+      $check = $this->db->get_where('absensi', ['user_id' => user_info()['id'], 'post_id' => $post['id']])->num_rows();
+    ?>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <?php if ($check > 0) : ?>
+            <div class="alert alert-info" role="alert">
+              Anda sudah absen pada postingan ini.
+            </div>
+          <?php else : ?>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="absen" data-postid="<?= $post['id'] ?>">Absen</button>
+          <?php endif ?>
+        </div>
+      </div>
+    <?php endif ?>
+
+
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <a class="nav-link active" id="materi-tab" data-toggle="tab" href="#materi" role="tab" aria-controls="materi" aria-selected="true">materi</a>
@@ -44,6 +63,7 @@
         <div class="card mt-3">
           <div class="card-body">
             <?= $post['content'] ?>
+
             <!-- jika ada ujian yang disisipak di postingan ini -->
             <?php foreach ($this_ujian as $ujian) : ?>
               <div class="card card-outline card-info">
@@ -85,6 +105,8 @@
             <?php
             endforeach;
             ?>
+
+
           </div>
           <div class="card-footer">
             <div class="default_replyrow">
@@ -169,7 +191,7 @@
                             $all_siswa = $this->Rombel_model->get_siswa_by_kelas($tag['id']);
                             foreach ($all_siswa as $siswa) :
                             ?>
-                              <a class="list-group-item list-group-item-action list-siswa" id="list-home-list" data-toggle="list" href="#list-<?= $tag['id'] ?>" role="tab" aria-controls="home" data-siswaid="<?= $siswa['user_id'] ?>" data-tagid="<?= $tag['id'] ?>"><?= $siswa['first_name'].' '.$siswa['last_name'] ?></a>
+                              <a class="list-group-item list-group-item-action list-siswa" id="list-home-list" data-toggle="list" href="#list-<?= $tag['id'] ?>" role="tab" aria-controls="home" data-siswaid="<?= $siswa['user_id'] ?>" data-tagid="<?= $tag['id'] ?>"><?= $siswa['first_name'] . ' ' . $siswa['last_name'] ?></a>
                             <?php endforeach ?>
 
                           </div>

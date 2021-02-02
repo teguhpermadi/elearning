@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Migration_user_longtime extends CI_Migration
+class Migration_absensi extends CI_Migration
 {
 
     public function up()
@@ -25,17 +25,17 @@ class Migration_user_longtime extends CI_Migration
             'time_access' => array(
 				'type'       => 'DATETIME',
             ),
-            'url' => array(
-				'type'       => 'VARCHAR',
+            'post_id' => array(
+				'type'       => 'BIGINT',
 				'constraint' => '255'
             ),
         ));
         $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->create_table('user_longtime');
+        $this->dbforge->create_table('absensi');
     }
 
     public function down()
     {
-        $this->dbforge->drop_table('user_longtime');
+        $this->dbforge->drop_table('absensi');
     }
 }

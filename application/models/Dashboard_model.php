@@ -22,15 +22,6 @@ class Dashboard_model extends CI_Model
         $query = $this->db->query('SELECT * FROM mapel');
         return $query->num_rows();
     }
-
-    function cek_login()
-    {
-        return $this->db->select('*')
-            ->from('user_longtime')
-            ->join('users', 'users.id = user_longtime.user_id')
-            ->get()
-            ->result_array();
-    }
     
     function get_all_post()
     {

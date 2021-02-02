@@ -20,7 +20,7 @@
             <div class="card card-outline card-primary">
                 <div class="card-header">
                     <h3 class="card-title"><?= $class['nama_mapel'] ?> Kelas <?= $class['nama_kelas'] ?></h3>
-                    <a href="<?= base_url('nilai/cetak/') . $class['mapel_id'].'-'. $class['kelas_id']?>" class="btn btn-secondary float-right">Cetak</a>
+                    <a href="<?= base_url('nilai/cetak/') . $class['mapel_id'].'-'. $class['kelas_id']?>" class="btn btn-secondary float-right" target="_blank">Cetak</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">

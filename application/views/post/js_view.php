@@ -220,20 +220,41 @@
 <?php endif ?>
 
 <!-- absensi khusus siswa -->
-<?php if (user_info()['role'] == 'siswa') : ?>
-  <script>
-    var url = window.location.href
-    $.ajax({
-      type: "post",
-      data: {
-        url: url
-      },
-      url: "<?php echo base_url('absensi/absen') ?>",
-      dataType: 'json',
-      success: function(res) {
-        // alert('Selected file removed !');			
-      }
-
-    });
-  </script>
-<?php endif ?>
+<script>
+	$('#absen').on('click', function() {
+		var postid = $(this).data('postid')
+		$.ajax({
+			type: "post",
+			data: {
+				post_id: postid
+			},
+			url: "<?php echo base_url('absensi/absen') ?>",
+			dataType: 'json',
+			success: function(data) {
+				// console.log('ok')
+				$('#absen').remove()
+				toastr.success(data)
+				toastr.options = {
+					"closeButton": false,
+					"debug": false,
+					"newestOnTop": false,
+					"progressBar": false,
+					"positionClass": "toast-top-right",
+					"preventDuplicates": false,
+					"onclick": null,
+					"showDuration": "2000",
+					"hideDuration": "1000",
+					"timeOut": "1000",
+					"extendedTimeOut": "1000",
+					"showEasing": "swing",
+					"hideEasing": "linear",
+					"showMethod": "fadeIn",
+					"hideMethod": "fadeOut"
+				}
+			},
+			error: function(err) {
+				console.log(err)
+			}
+		})
+	});
+</script>
