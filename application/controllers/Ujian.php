@@ -332,6 +332,24 @@ class Ujian extends CI_Controller
             $this->db->insert('result_ujian', $data);
         }
         echo json_encode($data);
+
+         // capaian
+        // jika siswa mengisi absen maka poin akan diakumulasi dengan nilai yang diberikan guru
+        $capaian = [
+            'user_id' => $user_id,
+            'poin' => $nilai
+        ];
+
+        $check_capaian = $this->db->get_where('capaian', ['user_id' => $user_id])->row_array();
+        if ($check_capaian) {
+            // jika ada datanya
+            $this->db->set('poin', 'poin+' . $nilai, FALSE);
+            $this->db->where('id', $check['id']);
+            $this->db->update('capaian');
+        } else {
+            // jika tidak ada datanya
+            $this->db->insert('capaian', $capaian);
+        }
     }
 
     function result_ujian_siswa($ujian_id)

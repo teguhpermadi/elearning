@@ -12,6 +12,10 @@
       "dom": '<t><"bottom float-right" p>',
       "ordering": false
     });
+    $('.datatable-peringkat').DataTable({
+      "dom": '<t><"bottom float-right" p>',
+      "ordering": false
+    });
   });
 </script>
 <script>

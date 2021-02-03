@@ -536,10 +536,10 @@ class Post extends CI_Controller
                 <div class="row">
                 <form class="form-inline">
                     <div class="form-group mx-sm-3">
-                    <input type="hidden" name="siswa_id" id="siswa_id" value="'.$siswa_id.'">
-                    <input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
+                    <input type="hidden" name="siswa_id" id="siswa_id" value="' . $siswa_id . '">
+                    <input type="hidden" name="post_id" id="post_id" value="' . $post_id . '">
                     <input type="hidden" name="keterangan" id="keterangan" value="nilai tugas">
-                    <input type="number" id="nilai" name="nilai" class="form-control" placeholder="nilai" min="0" max="100" value="'.$check_nilai['nilai'].'" required>
+                    <input type="number" id="nilai" name="nilai" class="form-control" placeholder="nilai" min="0" max="100" value="' . $check_nilai['nilai'] . '" required>
                     </div>
                     <button type="button" class="btn btn-primary btn-sm" onclick="saveNilai()">Simpan</button>
                 </form>
@@ -581,7 +581,7 @@ class Post extends CI_Controller
 
         $check = $this->db->get_where('nilai', ['siswa_id' => $siswa_id, 'post_id' => $post_id])->row_array();
 
-        if($check){
+        if ($check) {
             // update nilainya
             $id = $check['id'];
             $this->db->where('id', $id);
@@ -592,5 +592,23 @@ class Post extends CI_Controller
         }
 
         echo json_encode($params);
+
+        // capaian
+        // jika siswa mengisi absen maka poin akan diakumulasi dengan nilai yang diberikan guru
+        $capaian = [
+            'user_id' => $siswa_id,
+            'poin' => $nilai
+        ];
+
+        $check = $this->db->get_where('capaian', ['user_id' => $siswa_id])->row_array();
+        if ($check) {
+            // jika ada datanya
+            $this->db->set('poin', 'poin+' . $nilai, FALSE);
+            $this->db->where('id', $check['id']);
+            $this->db->update('capaian');
+        } else {
+            // jika tidak ada datanya
+            $this->db->insert('capaian', $capaian);
+        }
     }
 }

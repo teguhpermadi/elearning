@@ -54,11 +54,21 @@ class Absensi extends CI_Controller
         // return true;
 
         // capaian
+        // jika siswa mengisi absen maka poin akan diakumulasi dengan 1
         $capaian = [
             'user_id' => user_info()['id'],
-            'skor' => 1
+            'poin' => 10
         ];
 
-        $this->db->insert('capaian', $capaian);
+        $check_capaian = $this->db->get_where('capaian', ['user_id' => user_info()['id']])->row_array();
+        if ($check_capaian) {
+            // jika ada datanya
+            $this->db->set('poin', 'poin+10', FALSE);
+            $this->db->where('id', $check_capaian['id']);
+            $this->db->update('capaian');
+        } else {
+            // jika tidak ada datanya
+            $this->db->insert('capaian', $capaian);
+        }
     }
 }

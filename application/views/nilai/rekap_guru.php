@@ -26,14 +26,15 @@
                     <table class="table table-striped">
                         <thead class="bg-warning">
                             <tr>
-                                <th style="width: 20px;">Nama Siswa</th>
+                                <th style="width: 15%;">Nama Siswa</th>
                                 <!-- dapatkan semua postingan terkait mapel ini dan kelas ini -->
                                 <?php
                                 $all_post = $this->Nilai_model->get_post_by_category_and_tag($class['mapel_id'], $class['kelas_id']);
                                 foreach ($all_post as $post) :
                                 ?>
-                                    <th style="width: 15px;"><a href="<?= base_url('post/view/').$post['post_id'] ?>" style="color: black;"><?= $post['post_title'] ?></a></th>
+                                    <th><a href="<?= base_url('post/view/').$post['post_id'] ?>" style="color: black;"><?= $post['post_title'] ?></a></th>
                                 <?php endforeach ?>
+                                <th>Rata-rata</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,13 +53,19 @@
                                         $all_nilai = $this->Nilai_model->get_nilai_all_siswa_by_post($siswa['user_id'], $post['post_id']);
                                         if (!empty($all_nilai)) {
                                             foreach ($all_nilai as $nilai) :
-                                                echo '<td>' . $nilai['nilai'] . '</td>';
+                                                echo '<td>'.$nilai['nilai'].'</td>';
                                             endforeach;
                                         } else {
                                             echo '<td>0</td>';
                                         }
                                     endforeach;
                                     ?>
+                                    <td>
+                                        <?php
+                                        $rerata = $this->Nilai_model->get_nilai_rerata_siswa($siswa['user_id']);
+                                        echo $rerata['rerata'];
+                                        ?>
+                                    </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>

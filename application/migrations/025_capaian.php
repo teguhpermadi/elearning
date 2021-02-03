@@ -18,7 +18,7 @@ class Migration_capaian extends CI_Migration
                 'type' => 'BIGINT',
                 'constraint' => '255',
             ),
-            'skor' => array(
+            'poin' => array(
                 'type' => 'INT',
                 'constraint' => '255',
             ),

@@ -18,12 +18,29 @@ class Dashboard extends CI_Controller
 		$data['count_mapel'] = $this->Dashboard_model->count_mapel();
 		$data['profil_sekolah'] = $this->Profil_sekolah_model->get_all_profil_sekolah();
 		$data['all_post'] = $this->Dashboard_model->get_all_post();
+		$data['capaian'] = $this->Dashboard_model->get_capaian(user_info()['id']);
+		$data['peringkat'] = $this->Dashboard_model->peringkat();
+		// echo json_encode($data['capaian']);
+		// die;
 		$data['js'] = $this->load->view('dashboard/js_index', $data, true);
 
+		$role = user_info()['role'];
 
-		$this->load->view('template/header');
-		$this->load->view('template/sidebar');
-		$this->load->view('dashboard/index', $data);
-		$this->load->view('template/footer');
+		switch ($role) {
+			case 'siswa':
+				$this->load->view('template/header');
+				$this->load->view('template/sidebar');
+				$this->load->view('dashboard/index_siswa', $data);
+				$this->load->view('template/footer');
+				break;
+			
+			default:
+				# code...
+				$this->load->view('template/header');
+				$this->load->view('template/sidebar');
+				$this->load->view('dashboard/index_guru', $data);
+				$this->load->view('template/footer');
+				break;
+		}
 	}
 }
