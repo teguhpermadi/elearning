@@ -40,12 +40,13 @@
                 <h3 class="card-title">
                   <?= $post['title'] ?>
                 </h3>
-                <span class="badge badge-info float-right">
-                  <?= time_elapsed_string($post['published_at'], null); ?> | 
-                  <?= $post['published_at'] ?>
-                </span>
+                <span class="badge badge-warning float-right"><?= $post['jenis'] ?></span>
               </div>
               <div class="card-body">
+                <span class="badge badge-info float-right">
+                  <?= time_elapsed_string($post['published_at'], null); ?> |
+                  <?= $post['published_at'] ?>
+                </span>
                 <?php
                 echo word_limiter($post['content'], 50);
                 ?>

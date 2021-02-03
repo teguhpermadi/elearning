@@ -13,7 +13,7 @@
 
 	<section class="content">
 		<!-- jika belum ada profil sekolah tampilkan tombol tambah profil -->
-		<?php if (!$profil_sekolah) { ?>
+		<?php if (!$profil_sekolah && user_info()['role'] == 'admin') { ?>
 			<div class="alert alert-danger" role="alert">
 				Profil sekolah mu tidak lengkap. <a href="<?= base_url('profil_sekolah/add'); ?>" class="alert-link">Tambahkan</a> untuk melengkapi data profil sekolah mu.
 			</div>

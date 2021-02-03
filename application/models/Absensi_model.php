@@ -30,4 +30,19 @@ class Absensi_model extends CI_Model
         ->get()
         ->result_array();
     }
+
+    function get_all_post()
+    {
+        $user_id = user_info()['id'];
+        $my_class = $this->db->get_where('rombel', ['id_siswa' => $user_id])->row_array();
+
+        return $this->db->select('posts.*, mapel.nama')
+        ->from('post_tag')
+        ->where('post_tag.tag_id', $my_class['id_kelas'])
+        ->join('posts', 'posts.id = post_tag.post_id', 'left')
+        ->join('post_category', 'post_category.post_id = posts.id')
+        ->join('mapel', 'mapel.id = post_category.category_id')
+        ->get()
+        ->result_array();
+    }
 }

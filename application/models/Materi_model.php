@@ -132,16 +132,31 @@ class Materi_model extends CI_Model
             array_push($data, $value['post_id']);
         }
 
-        return $this->db->select('posts.id, posts.title, posts.published_at, mapel.nama as nama_mapel')
-        ->from('post_tag')
-        ->where('post_tag.tag_id', $id_kelas)
-        ->join('posts', 'posts.id = post_tag.post_id', 'right')
-        ->where('posts.jenis', 'tugas')
-        ->where_not_in('posts.id', $data)
-        ->join('post_category', 'post_category.post_id = posts.id')
-        ->join('mapel', 'mapel.id = post_category.category_id')
-        ->get()
-        ->result_array();
+        if(!empty($data))
+        {
+            return $this->db->select('posts.id, posts.title, posts.published_at, mapel.nama as nama_mapel')
+            ->from('post_tag')
+            ->where('post_tag.tag_id', $id_kelas)
+            ->join('posts', 'posts.id = post_tag.post_id', 'right')
+            ->where('posts.jenis', 'tugas')
+            ->where_not_in('posts.id', $data)
+            ->join('post_category', 'post_category.post_id = posts.id')
+            ->join('mapel', 'mapel.id = post_category.category_id')
+            ->get()
+            ->result_array();
+        } else {
+            return $this->db->select('posts.id, posts.title, posts.published_at, mapel.nama as nama_mapel')
+            ->from('post_tag')
+            ->where('post_tag.tag_id', $id_kelas)
+            ->join('posts', 'posts.id = post_tag.post_id', 'right')
+            ->where('posts.jenis', 'tugas')
+            // ->where_not_in('posts.id', $data)
+            ->join('post_category', 'post_category.post_id = posts.id')
+            ->join('mapel', 'mapel.id = post_category.category_id')
+            ->get()
+            ->result_array();
+        }
+
     }
 
 }

@@ -18,6 +18,8 @@ class Absensi extends CI_Controller
         $data['all_class'] = $this->Nilai_model->get_my_class();
         $data['all_post'] = $this->Post_model->get_all_posts_by_user_id();
         $data['siswa_absen'] = $this->Absensi_model->siswa_absen();
+        $data['all_post_for_siswa'] = $this->Absensi_model->get_all_post();
+
         $role = user_info()['role'];
         switch ($role) {
             case 'guru':

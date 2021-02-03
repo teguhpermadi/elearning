@@ -29,6 +29,7 @@
           </thead>
           <tbody>
             <?php
+            if($tugas_belum) :
             foreach ($tugas_belum as $belum) :
               // echo json_encode($belum);
             ?>
@@ -37,12 +38,9 @@
                 <td><span class="badge badge-primary"><?= $belum['nama_mapel'] ?></span></td>
                 <td><?= $belum['published_at'] ?></td>
               </tr>
-            <?php endforeach ?>
+            <?php endforeach; endif; ?>
           </tbody>
         </table>
-      </div>
-      <div class="card-footer">
-        Footer
       </div>
     </div>
 
