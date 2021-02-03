@@ -17,10 +17,24 @@ class Absensi extends CI_Controller
     {
         $data['all_class'] = $this->Nilai_model->get_my_class();
         $data['all_post'] = $this->Post_model->get_all_posts_by_user_id();
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('absensi/index', $data);
-        $this->load->view('template/footer');
+        $data['siswa_absen'] = $this->Absensi_model->siswa_absen();
+        $role = user_info()['role'];
+        switch ($role) {
+            case 'guru':
+                # code...
+                $this->load->view('template/header');
+                $this->load->view('template/sidebar');
+                $this->load->view('absensi/rekap_guru', $data);
+                $this->load->view('template/footer');
+                break;
+            case 'siswa':
+                # code...
+                $this->load->view('template/header');
+                $this->load->view('template/sidebar');
+                $this->load->view('absensi/rekap_siswa', $data);
+                $this->load->view('template/footer');
+                break;
+        }
     }
 
     function absen()

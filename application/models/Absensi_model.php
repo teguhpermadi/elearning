@@ -18,5 +18,16 @@ class Absensi_model extends CI_Model
 
     function check_absen($user_id, $post_id)
     {
-        return $this->db->get_where('absensi', ['user_id' => $user_id, 'post_id' => $post_id])->row_array();    }
+        return $this->db->get_where('absensi', ['user_id' => $user_id, 'post_id' => $post_id])->row_array();    
+    }
+
+    function siswa_absen()
+    {
+        $user_id = user_info()['id'];
+        return $this->db->select('')
+        ->from('absensi')
+        ->where('absensi.user_id', $user_id)
+        ->get()
+        ->result_array();
+    }
 }
