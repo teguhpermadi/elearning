@@ -147,4 +147,44 @@ class Faker extends CI_Controller
         $this->db->insert_batch('ujian', $data);
         echo 'Faker ujian success';
     }
+
+    public function badge()
+    {
+        $data = [
+            [
+                'id' => 1,
+                'kode' => 'a',
+                'nama' => 'Disiplin',
+                'logo' => 'a_badge.png',
+            ],
+            [
+                'id' => 2,
+                'kode' => 'b',
+                'nama' => 'Tekun',
+                'logo' => 'b_badge.png',
+            ],
+            [
+                'id' => 3,
+                'kode' => 'c',
+                'nama' => 'Tangkas',
+                'logo' => 'c_badge.png',
+            ],
+            [
+                'id' => 4,
+                'kode' => 'd',
+                'nama' => 'Teladan',
+                'logo' => 'c_badge.png',
+            ],
+            [
+                'id' => 5,
+                'kode' => 'e',
+                'nama' => 'Berprestasi',
+                'logo' => 'c_badge.png',
+            ],
+        ];
+
+        $this->db->insert_batch('badge', $data);
+        echo 'Faker badge success';
+        
+    }
 }

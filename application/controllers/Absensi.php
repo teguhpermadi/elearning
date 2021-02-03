@@ -52,5 +52,13 @@ class Absensi extends CI_Controller
         $this->db->insert('absensi', $data);
         echo json_encode('Anda sudah absensi');
         // return true;
+
+        // capaian
+        $capaian = [
+            'user_id' => user_info()['id'],
+            'skor' => 1
+        ];
+
+        $this->db->insert('capaian', $capaian);
     }
 }
