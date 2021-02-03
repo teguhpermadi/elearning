@@ -118,4 +118,16 @@ class Materi extends CI_Controller
 		$this->db->delete('attachfile', array('token' => $token));
 		echo json_encode(array('deleted' => true));
 	}
+
+	function task()
+	{
+		$my_class = $this->Materi_model->get_kelas_by_rombel();
+		$data['tugas_sudah'] = $this->Materi_model->tugas_dikerjakan();
+		$data['tugas_belum'] = $this->Materi_model->tugas_belum_dikerjakan($my_class['id_kelas']);
+		// die;
+		$this->load->view('template/header');
+		$this->load->view('template/sidebar');
+		$this->load->view('materi/task', $data);
+		$this->load->view('template/footer');
+	}
 }

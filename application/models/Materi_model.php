@@ -85,4 +85,63 @@ class Materi_model extends CI_Model
         ->where('post_tag.tag_id', $id_kelas)
         ->get()->num_rows();
     }
+
+    function count_tugas_dikerjakan($author_id, $id_mapel, $id_kelas)
+    {
+        $user_id = user_info()['id'];
+        return $this->db->select('posts.id as post_id, attachfile.*')
+        ->from('posts')
+        ->join('post_category', 'post_category.post_id = posts.id')
+        ->join('post_tag', 'post_tag.post_id = posts.id')
+        ->where('posts.author_id', $author_id)
+        ->where('post_category.category_id', $id_mapel)
+        ->where('post_tag.tag_id', $id_kelas)
+        ->where('posts.published != 0')
+        ->join('attachfile', 'attachfile.post_id = posts.id')
+        ->where('attachfile.milik', 'siswa')
+        ->where('attachfile.author_id', $user_id)
+        ->group_by('attachfile.post_id')
+        ->get()->num_rows();
+    }
+
+    function tugas_dikerjakan()
+    {
+        $user_id = user_info()['id'];
+        return $this->db->select('posts.id, posts.title, posts.published_at, mapel.nama as nama_mapel')
+        ->from('attachfile')
+        ->where('attachfile.author_id', $user_id)
+        ->join('posts', 'posts.id = attachfile.post_id')
+        ->join('post_category', 'post_category.post_id = posts.id')
+        ->join('mapel', 'mapel.id = post_category.category_id')
+        ->group_by('attachfile.post_id')
+        ->get()
+        ->result_array();
+    }
+
+    function tugas_belum_dikerjakan($id_kelas)
+    {
+        $user_id = user_info()['id'];
+        $data = [];
+        $tugas_sudah = $this->db->select('attachfile.post_id')
+        ->from('attachfile')
+        ->where('attachfile.author_id', $user_id)
+        ->get()
+        ->result_array();
+
+        foreach ($tugas_sudah as $key => $value) {
+            array_push($data, $value['post_id']);
+        }
+
+        return $this->db->select('posts.id, posts.title, posts.published_at, mapel.nama as nama_mapel')
+        ->from('post_tag')
+        ->where('post_tag.tag_id', $id_kelas)
+        ->join('posts', 'posts.id = post_tag.post_id', 'right')
+        ->where('posts.jenis', 'tugas')
+        ->where_not_in('posts.id', $data)
+        ->join('post_category', 'post_category.post_id = posts.id')
+        ->join('mapel', 'mapel.id = post_category.category_id')
+        ->get()
+        ->result_array();
+    }
+
 }

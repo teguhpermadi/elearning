@@ -27,5 +27,13 @@
 				</p>
 			</a>
 		</li>
+		<li class="nav-item">
+			<a href="<?= base_url('materi/task') ?>" class="nav-link">
+				<i class="nav-icon fas fa-tasks"></i>
+				<p>
+					Tugas Saya
+				</p>
+			</a>
+		</li>
 	</ul>
 </nav>
