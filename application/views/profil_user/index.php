@@ -23,7 +23,7 @@
                             <div class="text-center">
                                 <?php
                                 if (user_info()['foto'] != null) {
-                                    $foto = base_url('uploads/').$user['foto'];
+                                    $foto = base_url('uploads/') . $user['foto'];
                                 } else {
                                     $foto = base_url('assets/images/avatar_default.png');
                                 }
@@ -31,7 +31,7 @@
                                 <img class="profile-user-img img-fluid img-circle" src="<?= $foto ?>" alt="User profile picture">
                             </div>
 
-                            <h3 class="profile-username text-center"><?= $user['first_name'] ?></h3>
+                            <h3 class="profile-username text-center"><?= $user['first_name'] . ' ' . $user['last_name'] ?></h3>
 
                             <p class="text-muted text-center"><?= $user_groups[0]->description ?></p>
 

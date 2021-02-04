@@ -25,7 +25,7 @@
           }
           ?>
           <img src="<?= $foto ?>" alt="User Avatar" class="img-size-50 img-circle mx-auto d-block mt-3">
-          <span class="dropdown-item dropdown-header"><?= user_info()['first_name'] ?></span>
+          <span class="dropdown-item dropdown-header"><?= user_info()['full_name'] ?></span>
           <div class="dropdown-divider"></div>
           <a href="<?= base_url('profil_user') ?>" class="dropdown-item">
             <i class="fas fa-users-cog mr-2"></i> Pengaturan Profil
