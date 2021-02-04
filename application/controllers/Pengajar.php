@@ -60,6 +60,7 @@ class Pengajar extends CI_Controller
 
             $this->load->model('Kelas_model');
             $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
+            $data['js'] = $this->load->view('pengajar/js_add', $data, true);
 
             $data['_view'] = 'pengajar/add';
             $this->load->view('template/header');
@@ -74,17 +75,17 @@ class Pengajar extends CI_Controller
      */
     function edit($id_guru)
     {
-        $data['script'] = "$('.select').multiSelect();";
-
+        
         $this->load->model('Mapel_model');
         $data['all_mapel'] = $this->Mapel_model->get_all_mapel();
-
+        
         $this->load->model('Kelas_model');
         $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
         $data['all_guru'] = $this->ion_auth->users('guru')->result_array();
         $data['data_mapel'] = $this->Pengajar_model->get_mapel_for_edit($id_guru);
         // $data['data_kelas'] = $this->Pengajar_model->get_kelas_by_mapel();
-
+        $data['js'] = $this->load->view('pengajar/js_add', $data, true);
+        
         // print_r($data['data_kelas']);
 
         $data['pengajar'] = [

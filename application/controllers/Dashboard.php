@@ -9,6 +9,9 @@ class Dashboard extends CI_Controller
 		check_login();
 		$this->load->model('Dashboard_model');
 		$this->load->model('Profil_sekolah_model');
+        $this->load->model('Nilai_model');
+        $this->load->model('Rombel_model');
+
 	}
 
 	public function index()
@@ -20,6 +23,8 @@ class Dashboard extends CI_Controller
 		$data['all_post'] = $this->Dashboard_model->get_all_post();
 		$data['capaian'] = $this->Dashboard_model->get_capaian(user_info()['id']);
 		$data['peringkat'] = $this->Dashboard_model->peringkat();
+        $data['all_class'] = $this->Nilai_model->get_my_class();
+
 		// echo json_encode($data['capaian']);
 		// die;
 		$data['js'] = $this->load->view('dashboard/js_index', $data, true);

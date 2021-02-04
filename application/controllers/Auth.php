@@ -58,11 +58,8 @@ class Auth extends CI_Controller
 			// 	$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			// }
 
-			$data['script'] = "
-				$('#tableAdmin').DataTable();
-				$('#tableGuru').DataTable();
-				$('#tableSiswa').DataTable();
-			";
+			$data['js'] = $this->load->view('auth/js_index', $this->data, true);
+			
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);

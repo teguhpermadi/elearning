@@ -147,7 +147,31 @@
                         Rekap Nilai
                     </div>
                     <div class="card-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem dolore delectus debitis aliquid veniam iste obcaecati eveniet suscipit ipsa, nesciunt maxime cupiditate sed reprehenderit quod fuga ipsum inventore incidunt nam.
+                        <table class="table table-striped datatable-nilai">
+                            <thead>
+                                <th>Nama Siswa</th>
+                                <th>Rata-rata</th>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($all_class as $class) :
+                                    $all_siswa = $this->Rombel_model->get_siswa_by_kelas($class['kelas_id']);
+
+                                    foreach ($all_siswa as $siswa) :
+                                ?>
+                                        <tr>
+                                            <td><?= $siswa['first_name'] . ' ' . $siswa['last_name'] ?></td>
+                                            <td>
+                                                <?php
+                                                $rerata = $this->Nilai_model->get_nilai_rerata($siswa['user_id'], $class['mapel_id']);
+                                                echo round($rerata['rerata'], 1);
+                                                ?>
+                                            </td>
+                                        </tr>
+                                <?php
+                                    endforeach;
+                                endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

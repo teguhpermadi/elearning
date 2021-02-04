@@ -16,6 +16,9 @@
       "dom": '<t><"bottom float-right" p>',
       "ordering": false
     });
+    $('.datatable-nilai').DataTable({
+      "dom": '<t><"bottom float-right" p>',
+    });
   });
 </script>
 <script>

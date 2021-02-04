@@ -174,10 +174,11 @@
 		});
 
 		function saveNilai(siswa_id) {
+			var post_id = $('#post_id').val()
 			var nilai = $('#nilai-'+siswa_id).val()
 			var keterangan = $('#keterangan').val()
 
-			console.log(nilai)
+			// console.log(nilai)
 
 			$.ajax({
 				type: "post",
@@ -212,6 +213,9 @@
 						"showMethod": "fadeIn",
 						"hideMethod": "fadeOut"
 					}
+				},
+				error: function(err){
+					console.log(err)
 				}
 
 			});
