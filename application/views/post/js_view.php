@@ -173,11 +173,11 @@
 			});
 		});
 
-		function saveNilai() {
-			var siswa_id = $('#siswa_id').val()
-			var post_id = $('#post_id').val()
-			var nilai = $('#nilai').val()
+		function saveNilai(siswa_id) {
+			var nilai = $('#nilai-'+siswa_id).val()
 			var keterangan = $('#keterangan').val()
+
+			console.log(nilai)
 
 			$.ajax({
 				type: "post",
@@ -193,7 +193,7 @@
 				success: function(data) {
 					// var d = $.parseJSON(data);
 					// $('#list-'+tag_id).html(data);
-					// console.log(data);
+					console.log(data);
 					toastr.success('Nilai tersimpan.')
 					toastr.options = {
 						"closeButton": false,

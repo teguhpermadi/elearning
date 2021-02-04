@@ -62,8 +62,8 @@
                                     ?>
                                     <td>
                                         <?php
-                                        $rerata = $this->Nilai_model->get_nilai_rerata_siswa($siswa['user_id']);
-                                        echo $rerata['rerata'];
+                                        $rerata = $this->Nilai_model->get_nilai_rerata($siswa['user_id'], $class['mapel_id']);
+                                        echo round($rerata['rerata'], 1);
                                         ?>
                                     </td>
                                 </tr>

@@ -48,10 +48,13 @@ class Nilai_model extends CI_Model
         ->result_array();
     }
 
-    function get_nilai_rerata_siswa($siswa_id)
+    function get_nilai_rerata($siswa_id, $category_id)
     {
-        return $this->db->select('avg(nilai.nilai) as rerata')
-        ->from('nilai')
+        return $this->db->select('nilai.*, avg(nilai.nilai) as rerata')
+        ->from('post_category')
+        ->where('post_category.category_id', $category_id)
+        ->join('posts', 'posts.id = post_category.post_id')
+        ->join('nilai', 'nilai.post_id = posts.id')
         ->where('nilai.siswa_id', $siswa_id)
         ->get()
         ->row_array();

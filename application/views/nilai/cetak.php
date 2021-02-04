@@ -22,14 +22,15 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 20px;">Nama Siswa</th>
+                        <th style="width: 15%;">Nama Siswa</th>
                         <!-- dapatkan semua postingan terkait mapel ini dan kelas ini -->
                         <?php
                         $all_post = $this->Nilai_model->get_post_by_category_and_tag($mapel['id'], $kelas['id']);
                         foreach ($all_post as $post) :
                         ?>
-                            <th style="width: 15px;"><?= $post['post_title'] ?></th>
+                            <th><a href="<?= base_url('post/view/') . $post['post_id'] ?>" style="color: black;"><?= $post['post_title'] ?></a></th>
                         <?php endforeach ?>
+                        <th>Rata-rata</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +56,12 @@
                                 }
                             endforeach;
                             ?>
+                            <td>
+                                <?php
+                                $rerata = $this->Nilai_model->get_nilai_rerata($siswa['user_id'], $mapel['id']);
+                                echo round($rerata['rerata'], 1);
+                                ?>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

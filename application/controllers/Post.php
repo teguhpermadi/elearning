@@ -539,9 +539,9 @@ class Post extends CI_Controller
                     <input type="hidden" name="siswa_id" id="siswa_id" value="' . $siswa_id . '">
                     <input type="hidden" name="post_id" id="post_id" value="' . $post_id . '">
                     <input type="hidden" name="keterangan" id="keterangan" value="nilai tugas">
-                    <input type="number" id="nilai" name="nilai" class="form-control" placeholder="nilai" min="0" max="100" value="' . $check_nilai['nilai'] . '" required>
+                    <input type="number" id="nilai-' . $siswa_id . '" name="nilai" class="form-control" placeholder="nilai" min="0" max="100" value="' . $check_nilai['nilai'] . '" required>
                     </div>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="saveNilai()">Simpan</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="saveNilai(' . $siswa_id . ')">Simpan</button>
                 </form>
                 </div>
         ';
