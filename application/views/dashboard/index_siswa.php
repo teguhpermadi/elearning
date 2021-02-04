@@ -231,7 +231,27 @@
                         Rekap Nilai
                     </div>
                     <div class="card-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem dolore delectus debitis aliquid veniam iste obcaecati eveniet suscipit ipsa, nesciunt maxime cupiditate sed reprehenderit quod fuga ipsum inventore incidunt nam.
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nama Mapel</th>
+                                    <th>Nilai rata-rata</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($all_mapel as $mapel) : ?>
+                                    <tr>
+                                        <td><?= $mapel['nama_mapel'] ?></td>
+                                        <td>
+                                            <?php
+                                            $rerata = $this->Nilai_model->get_nilai_rerata(user_info()['id'], $mapel['mapel_id']);
+                                            echo $rerata['rerata'];
+                                            ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

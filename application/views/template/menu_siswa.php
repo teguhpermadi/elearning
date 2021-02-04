@@ -36,7 +36,15 @@
 			</a>
 		</li>
 		<li class="nav-item">
-			<a href="<?= base_url('absensi') ?>" class="nav-link <?= ($this->uri->segment(1) == 'absensi')? 'active' : ''?>">
+			<a href="<?= base_url('nilai') ?>" class="nav-link <?= ($this->uri->segment(1) == 'nilai') ? 'active' : '' ?>">
+				<i class="nav-icon fas fa-file-alt"></i>
+				<p>
+					Rekap Nilai
+				</p>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a href="<?= base_url('absensi') ?>" class="nav-link <?= ($this->uri->segment(1) == 'absensi') ? 'active' : '' ?>">
 				<i class="nav-icon fas fa-user-check"></i>
 				<p>
 					Rekap Absensi

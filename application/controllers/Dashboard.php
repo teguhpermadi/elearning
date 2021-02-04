@@ -11,11 +11,13 @@ class Dashboard extends CI_Controller
 		$this->load->model('Profil_sekolah_model');
         $this->load->model('Nilai_model');
         $this->load->model('Rombel_model');
+        $this->load->model('Pengajar_model');
 
 	}
 
 	public function index()
 	{
+		// untuk guru
 		$data['count_guru'] = $this->Dashboard_model->count_guru();
 		$data['count_siswa'] = $this->Dashboard_model->count_siswa();
 		$data['count_mapel'] = $this->Dashboard_model->count_mapel();
@@ -25,8 +27,10 @@ class Dashboard extends CI_Controller
 		$data['peringkat'] = $this->Dashboard_model->peringkat();
         $data['all_class'] = $this->Nilai_model->get_my_class();
 
-		// echo json_encode($data['capaian']);
-		// die;
+		// untuk siswa
+		$my_class = $this->Rombel_model->get_my_rombel(user_info()['id']);
+        $data['all_mapel'] = $this->Pengajar_model->get_mapel_by_id_kelas($my_class['id']);
+
 		$data['js'] = $this->load->view('dashboard/js_index', $data, true);
 
 		$role = user_info()['role'];

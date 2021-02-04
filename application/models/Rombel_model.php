@@ -89,4 +89,14 @@ class Rombel_model extends CI_Model
         ->get()
         ->result_array();
     }
+
+    // dapatkan rombel ku
+    function get_my_rombel($id_siswa)
+    {
+        return $this->db->select('*')
+        ->from('rombel')
+        ->where('id_siswa', $id_siswa)
+        ->get()
+        ->row_array();
+    }
 }

@@ -13,19 +13,39 @@ class Nilai extends CI_Controller
         $this->load->model('Mapel_model');
         $this->load->model('Kelas_model');
         $this->load->model('Rombel_model');
+        $this->load->model('Pengajar_model');
         check_login();
     }
 
     // rekap nilai guru
     function index()
     {
+        // untuk guru
         $data['all_class'] = $this->Nilai_model->get_my_class();
         $data['all_nilai'] = $this->Nilai_model->get_all_nilai();
+        
+        // untuk siswa
+        $my_class = $this->Rombel_model->get_my_rombel(user_info()['id']);
+        $data['all_mapel'] = $this->Pengajar_model->get_mapel_by_id_kelas($my_class['id']);
 
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('nilai/rekap_guru', $data);
-        $this->load->view('template/footer');
+        $role = user_info()['role'];
+
+        switch ($role) {
+            case 'siswa':
+                $this->load->view('template/header');
+                $this->load->view('template/sidebar');
+                $this->load->view('nilai/rekap_siswa', $data);
+                $this->load->view('template/footer');
+                break;
+
+            default:
+                # code...
+                $this->load->view('template/header');
+                $this->load->view('template/sidebar');
+                $this->load->view('nilai/rekap_guru', $data);
+                $this->load->view('template/footer');
+                break;
+        }
     }
 
     function cetak($url)
@@ -36,8 +56,7 @@ class Nilai extends CI_Controller
 
         $data['mapel'] = $this->Mapel_model->get_mapel($mapel_id);
         $data['kelas'] = $this->Kelas_model->get_kelas($kelas_id);
-        
-        $this->load->view('nilai/cetak', $data);
 
+        $this->load->view('nilai/cetak', $data);
     }
 }

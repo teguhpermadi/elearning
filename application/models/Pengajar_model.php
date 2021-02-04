@@ -107,4 +107,16 @@ class Pengajar_model extends CI_Model
 
         // return $this->db->last_query();
     }
+
+    function get_mapel_by_id_kelas($id_kelas)
+    {
+        return $this->db->select('mapel.id as mapel_id, mapel.nama as nama_mapel, mapel.kode as kode_mapel, kelas.id as kelas_id, kelas.nama as nama_kelas, pengajar.id as id')
+        ->from('pengajar')
+        ->join('kelas', 'pengajar.id_kelas = kelas.id')
+        ->join('mapel', 'pengajar.id_mapel = mapel.id')
+        ->where('pengajar.id_kelas', $id_kelas)
+        ->order_by('nama_mapel', 'asc')
+        ->get()
+        ->result_array();
+    }
 }
