@@ -26,7 +26,7 @@ class Nilai extends CI_Controller
         
         // untuk siswa
         $my_class = $this->Rombel_model->get_my_rombel(user_info()['id']);
-        $data['all_mapel'] = $this->Pengajar_model->get_mapel_by_id_kelas($my_class['id']);
+        $data['all_mapel'] = $this->Pengajar_model->get_mapel_by_id_kelas($my_class['id_kelas']);
 
         $role = user_info()['role'];
 
@@ -38,7 +38,7 @@ class Nilai extends CI_Controller
                 $this->load->view('template/footer');
                 break;
 
-            default:
+            case 'guru':
                 # code...
                 $this->load->view('template/header');
                 $this->load->view('template/sidebar');

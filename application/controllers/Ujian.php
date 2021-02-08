@@ -375,4 +375,24 @@ class Ujian extends CI_Controller
         $this->load->view('ujian/monitoring', $data);
         $this->load->view('template/footer');
     }
+
+    // simpan siswa menitnya
+    function save_minute()
+    {
+        $this->cache->delete('sisa_menit');
+        $menit = $this->input->post('menit');
+        $this->cache->save('sisa_menit', $menit);
+    }
+
+    // dapatkan sisa menitnya
+    function get_sisa_menit()
+    {
+        $sisa_menit = $this->cache->get('sisa_menit');
+        echo json_encode($sisa_menit);
+    }
+
+    function tes()
+    {
+        echo json_encode($this->cache->cache_info());
+    }
 }

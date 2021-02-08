@@ -13,6 +13,11 @@
     </div>
     <!-- /.content-header -->
 
+    <!-- tampilkan loading gif -->
+    <div class="mx-auto loading" style="width: 200px;">
+        <img src="<?= base_url('assets/images/loading.gif') ?>" alt="">
+    </div>
+
     <!-- Main content -->
     <div class="content">
         <div class="container">
@@ -44,7 +49,9 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="badge badge-primary" id="countdownExample">
-                                    <h5><div class="values"></div></h5>
+                                    <h5>
+                                        <div class="values"></div>
+                                    </h5>
                                 </div>
                             </div>
                             <div class="card-body">

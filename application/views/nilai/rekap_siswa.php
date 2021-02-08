@@ -14,7 +14,7 @@
     <!-- Main content -->
     <section class="content">
 
-        <?php foreach ($all_mapel as $mapel) : ?>
+        <?php foreach ($all_mapel as $mapel) :?>
             <div class="card card-outline card-primary">
                 <div class="card-header">
                     <h3 class="card-title text-uppercase font-weight-bold"><?= $mapel['nama_mapel'] ?></h3>

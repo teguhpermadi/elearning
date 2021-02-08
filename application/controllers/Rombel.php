@@ -66,6 +66,7 @@ class Rombel extends CI_Controller
             $siswa = $this->Rombel_model->get_siswa();
             // print_r($siswa);
             $data['users'] = $siswa;
+            $data['js'] = $this->load->view('rombel/js_add', $data, true);
 
             $data['_view'] = 'rombel/add';
             $this->load->view('template/header');
@@ -85,6 +86,7 @@ class Rombel extends CI_Controller
         $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
         $data['rombel'] = $this->Rombel_model->get_siswa_by_rombel($id_kelas);
         $data['id_kelas'] = $id_kelas;
+        $data['js'] = $this->load->view('rombel/js_add', $data, true);
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
