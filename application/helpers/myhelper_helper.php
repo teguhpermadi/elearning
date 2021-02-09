@@ -84,6 +84,12 @@ function datetime_now()
     return date("Y-m-d\TH:i");
 }
 
+function datetime_now2()
+{
+    date_default_timezone_set('Asia/Jakarta');
+    return date("Y-m-d H:i");
+}
+
 function time_elapsed_string($datetime, $full = false)
 {
 

@@ -16,6 +16,8 @@
         // sembunyikan dulu
         $(".content").hide()
         get_sisa_menit()
+        startUjian()
+
     })
 </script>
 <script>
@@ -48,7 +50,7 @@
         // simpan sisa waktunya di firebase
         var database = firebase.database();
         var sisa_waktu = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/sisa_waktu');
-        sisa_waktu.set(menit+1)
+        sisa_waktu.set(menit + 1)
     }
 
     function get_sisa_menit() {
@@ -130,6 +132,18 @@
         })
     }
 
+    check_jawaban()
+
+    function check_jawaban() {
+        <?php foreach ($all_soal as $soal) :
+            $jawaban = $this->cache->get($soal['soal_id']);
+            if ($jawaban) :
+        ?>
+                $('#soal-' + <?= $soal['soal_id'] ?>).addClass('bg-primary')
+        <?php endif;
+        endforeach; ?>
+    }
+
     // ketika form diisi
     $('#jawabanSoal').change(function() {
         var jawab = $('#jawab').val() || $('input[name="jawab"]:checked').val();
@@ -180,17 +194,14 @@
         })
     })
 
-    startUjian()
 
     function startUjian() {
         var database = firebase.database();
         var id_siswa = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/id_siswa');
         var nama_siswa = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/nama_siswa');
-        var waktu_mulai = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/waktu_mulai');
         var status = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/status');
-        waktu_mulai.set('<?= datetime_now() ?>')
         nama_siswa.set('<?= user_info()['full_name'] ?>')
-        nama_id_siswasiswa.set('<?= user_info()['id'] ?>')
+        id_siswa.set('<?= user_info()['id'] ?>')
         status.set('Sedang Mengerjakan')
     }
 
@@ -206,7 +217,7 @@
         var waktu_selesai = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/waktu_mulai');
         var status = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/status');
         var nilai = firebase.database().ref('ujian/<?= $ujian['id'] ?>/<?= user_info()['id'] ?>/nilai');
-        waktu_selesai.set('<?= datetime_now() ?>')
+        waktu_selesai.set('<?= datetime_now2() ?>')
         status.set('Selesai Mengerjakan')
         nilai.set(data.nilai)
     }

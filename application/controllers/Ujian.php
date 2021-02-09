@@ -246,7 +246,7 @@ class Ujian extends CI_Controller
         $data['ujian'] = $this->Ujian_model->get_ujian($id);
         $data['all_soal'] = $this->Ujian_model->get_soal_ujian($id);
         // acak dulu soalnya
-        shuffle($data['all_soal']);
+        // shuffle($data['all_soal']);
         $data['soal_pertama'] = $data['all_soal'][0];
         $data['js'] = $this->load->view('ujian/js_doujian', $data, true);
         // cache waktu mulai
@@ -374,21 +374,6 @@ class Ujian extends CI_Controller
         $this->load->view('template/sidebar');
         $this->load->view('ujian/monitoring', $data);
         $this->load->view('template/footer');
-    }
-
-    // simpan siswa menitnya
-    function save_minute()
-    {
-        $this->cache->delete('sisa_menit');
-        $menit = $this->input->post('menit');
-        $this->cache->save('sisa_menit', $menit);
-    }
-
-    // dapatkan sisa menitnya
-    function get_sisa_menit()
-    {
-        $sisa_menit = $this->cache->get('sisa_menit');
-        echo json_encode($sisa_menit);
     }
 
     function tes()

@@ -33,7 +33,7 @@
                 $('#tbody-monitor').html(html)
 
                 var ujianProgres = `${data[prop]['ujian_progres']}`
-                var progres = ujianProgres / totalSoal * 100
+                var progres = Math.ceil(ujianProgres / totalSoal * 100)
                 console.log(progres)
                 $('#progress-bar-' + data[prop]['id_siswa']).html(progres + ' %')
                 $('#progress-bar-' + data[prop]['id_siswa']).width(progres + '%');
